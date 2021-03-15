@@ -2,3 +2,6 @@ name = "RepresentativeLVNetworks"
 uuid = "eae880fa-0a1c-414a-9d83-903875671fcc"
 authors = ["Geth, Frederik (Energy, Newcastle) <Frederik.Geth@csiro.au>"]
 version = "0.1.0"
+
+[deps]
+OpenDSSDirect = "a8b11937-1041-50f2-9818-136bb7a8fb06"
