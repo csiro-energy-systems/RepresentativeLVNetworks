@@ -19,37 +19,47 @@ function dss!(filename)
 end
 
 function solution()
-    (V_bus_fr, line_fr_name), (V_bus_to, line_to_name) = bus_line_info()
-    return V_bus_fr, V_bus_to
+    sol = Dict()
+    sol["bus"] = bus_voltages()
+    return sol
 end
 
-function bus_line_info()
-    # voltage at reference bus and finding line_fr_name
-    bus_fr_name = "b1"
-    line_fr_name = [] # line_fr_name = ["Line.line1"]
+function bus_voltages()
+    voltage = Dict()
     for bus_name in _ODSS.Circuit.AllBusNames()
         _ODSS.Circuit.SetActiveBus(bus_name)
-        if _ODSS.Bus.Name() == bus_fr_name
-            line_fr_name = _ODSS.Bus.LineList()
-        end
-    end
-    _ODSS.Circuit.SetActiveBus(bus_fr_name)
-    V_bus_fr = _ODSS.Bus.PuVoltage()
-    
-    # voltage at load bus and finding line_to_name
-    V_bus_to = []
-    bus_to_name = []
-    line_to_name = []
-    for bus_name in _ODSS.Circuit.AllBusNames()
-        _ODSS.Circuit.SetActiveBus(bus_name)
-        if ~isempty(_ODSS.Bus.LoadList())
-            bus_to_name = bus_name
-            V_bus_to = _ODSS.Bus.PuVoltage()
-            line_to_name = _ODSS.Bus.LineList()
-        end
-    end
 
-    return (V_bus_fr, line_fr_name), (V_bus_to, line_to_name)
+        Umagang = _ODSS.Bus.VMagAngle()
+        l = length(Umagang)
+        Umag = Umagang[1:2:l]
+        Uang = Umagang[2:2:l]*pi/180 #radians
+        U = Umag .* exp.(im*Uang)
+        voltage[bus_name] = Dict()
+        voltage[bus_name]["v"] = U
+        voltage[bus_name]["vm"] = abs.(U)
+        voltage[bus_name]["va"] = angle.(U)
+        voltage[bus_name]["v012"] = v012 = safe_calc_v012(U)
+        voltage[bus_name]["vuf%"] = 100* abs(v012[3])/abs(v012[2])
+    end
+    return voltage
+end
+
+
+function safe_calc_v012(U)
+    if length(U)>=3
+        return calc_v012(U[1:3])
+    else
+        return NaN
+    end
+end
+
+function calc_v012(Uabc)
+    α = exp(im*2*pi/3)
+    A = [   1 1 1;
+            1 α^2 α;
+            1 α α^2;
+        ]
+    U012 = A*Uabc[1:3]
 end
 
 
