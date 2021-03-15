@@ -1,0 +1,4 @@
+name = "RepresentativeLVNetworks"
+uuid = "eae880fa-0a1c-414a-9d83-903875671fcc"
+authors = ["Geth, Frederik (Energy, Newcastle) <Frederik.Geth@csiro.au>"]
+version = "0.1.0"
