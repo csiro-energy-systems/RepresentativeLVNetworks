@@ -1,0 +1,59 @@
+Error returned from OpenDSSDirect simulation. Error 183 Reported From OpenDSS Intrinsic Function: 
+TLineObj.CalcYPrim
+
+Error Description: 
+Matrix Inversion Error for Line "line19"
+
+Probable Cause: 
+Invalid impedance specified. Replaced with tiny conductance.
+Error 183 Reported From OpenDSS Intrinsic Function: 
+TLineObj.CalcYPrim
+
+Error Description: 
+Matrix Inversion Error for Line "line20"
+
+Probable Cause: 
+Invalid impedance specified. Replaced with tiny conductance.
+Error 183 Reported From OpenDSS Intrinsic Function: 
+TLineObj.CalcYPrim
+
+Error Description: 
+Matrix Inversion Error for Line "line23"
+
+Probable Cause: 
+Invalid impedance specified. Replaced with tiny conductance.
+Error 183 Reported From OpenDSS Intrinsic Function: 
+TLineObj.CalcYPrim
+
+Error Description: 
+Matrix Inversion Error for Line "line25"
+
+Probable Cause: 
+Invalid impedance specified. Replaced with tiny conductance.
+Error 183 Reported From OpenDSS Intrinsic Function: 
+TLineObj.CalcYPrim
+
+Error Description: 
+Matrix Inversion Error for Line "line28"
+
+Probable Cause: 
+Invalid impedance specified. Replaced with tiny conductance.
+Error 183 Reported From OpenDSS Intrinsic Function: 
+TLineObj.CalcYPrim
+
+Error Description: 
+Matrix Inversion Error for Line "line29"
+
+Probable Cause: 
+Invalid impedance specified. Replaced with tiny conductance.
+Y matrix build aborted due to error in primitive Y calculations.
+Error 303 Reported From OpenDSS Intrinsic Function: 
+ProcessCommand
+Exception Raised While Processing DSS Command:
+Calcvoltagebases 
+
+Error Description: 
+Access violation
+
+Probable Cause: 
+Error in command string or circuit data.
