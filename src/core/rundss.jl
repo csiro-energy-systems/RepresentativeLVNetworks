@@ -39,7 +39,11 @@ function bus_voltages()
         voltage[bus_name]["vm"] = abs.(U)
         voltage[bus_name]["va"] = angle.(U)
         voltage[bus_name]["v012"] = v012 = safe_calc_v012(U)
-        voltage[bus_name]["vuf%"] = 100* abs(v012[3])/abs(v012[2])
+        if length(U)>=3
+            voltage[bus_name]["vuf%"] = 100* abs(v012[3])/abs(v012[2])
+        else
+            voltage[bus_name]["vuf%"] = NaN
+        end
         voltage[bus_name]["nterminals"] = l/2
         
     end
@@ -106,4 +110,22 @@ function topology()
         linenumber = _ODSS.Lines.Next()
     end
     return topology
+end
+
+
+function check_voltages(sols)
+    for (j, data) in sols
+        println("case $j")
+        n_voltageproblems = 0
+        for (i,bus) in data["bus"]
+            if all(bus["vm"].>0)
+                # all good
+            else
+                n_voltageproblems+=1
+            end
+        end
+        n_buses = length(data["bus"])
+        println("    amount of buses: $n_buses")
+        println("    amount of buses with 0 voltage: $n_voltageproblems")
+    end
 end

@@ -1,6 +1,6 @@
 Clear
 
-New Circuit.Full_Network  bus1=trafo_75617346_75617346 pu=1.0 basekV=11.0
+New Circuit.Full_Network  bus1=sourcebus_11000 pu=1.0 basekV=11.0
 
 Redirect LineCodes.dss
 Redirect Lines.dss
