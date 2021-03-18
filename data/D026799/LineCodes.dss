@@ -1,4 +1,4 @@
-New Linecode.25AL_ABC_3 units=km nphases=3 Faultrate=0.1 Cmatrix=(2799.9999999999995 -600.0 -600.0 | -600.0 2799.9999999999995 -600.0 | -600.0 -600.0 2799.9999999999995 ) R1=1.49 R0=1.49 X1=0.102 X0=0.102 C1=0.0 C0=0.0 BaseFreq=50 normamps=400.0 emergamps=600.0
-New Linecode.66_HDCU_(19/2.11)_3 units=km nphases=3 Faultrate=0.1 Cmatrix=(2799.9999999999995 -600.0 -600.0 | -600.0 2799.9999999999995 -600.0 | -600.0 -600.0 2799.9999999999995 ) R1=0.302 R0=0.302 X1=0.359 X0=0.359 C1=0.0 C0=0.0 BaseFreq=50 normamps=400.0 emergamps=600.0
-New Linecode.Twin_95AL_ABC_3 units=km nphases=3 Faultrate=0.1 Cmatrix=(2799.9999999999995 -600.0 -600.0 | -600.0 2799.9999999999995 -600.0 | -600.0 -600.0 2799.9999999999995 ) R1=0.199 R0=0.199 X1=0.043 X0=0.043 C1=0.0 C0=0.0 BaseFreq=50 normamps=400.0 emergamps=600.0
-New Linecode.unknown_linecode_3 units=km nphases=3 Faultrate=0.1 Cmatrix=(2799.9999999999995 -600.0 -600.0 | -600.0 2799.9999999999995 -600.0 | -600.0 -600.0 2799.9999999999995 ) R1=0.0 R0=0.0 X1=0.0 X0=0.0 C1=0.0 C0=0.0 BaseFreq=50 normamps=400.0 emergamps=600.0
+New Linecode.25AL_ABC_3 units=km nphases=3  R1=1.49 R0=1.49 X1=0.102 X0=0.102 C1=0.0 C0=0.0   
+New Linecode.66_HDCU_(19/2.11)_3 units=km nphases=3  R1=0.302 R0=0.302 X1=0.359 X0=0.359 C1=0.0 C0=0.0   
+New Linecode.Twin_95AL_ABC_3 units=km nphases=3  R1=0.199 R0=0.199 X1=0.043 X0=0.043 C1=0.0 C0=0.0   
+New Linecode.unknown_linecode_3 units=km nphases=3  R1=0.011 R0=0.011 X1=0.011 X0=0.011 C1=0.0 C0=0.0   

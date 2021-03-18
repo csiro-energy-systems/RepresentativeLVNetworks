@@ -1,0 +1,7 @@
+New Line.line0 Units=km Length=0.04279 bus1=n445064.1.2.3 bus2=n445065.1.2.3 switch=n enabled=y phases=3 Linecode=LV_240AL_XLPE_3
+New Line.line1 Units=km Length=0.001 bus1=n445065.1.2.3 bus2=n445066.1.2.3 switch=n enabled=y phases=3 Linecode=66_HDCU_(19/2.11)_3
+New Line.line2 Units=km Length=0.041350000000000005 bus1=n445066.1.2.3 bus2=n445068.1.2.3 switch=n enabled=y phases=3 Linecode=66_HDCU_(19/2.11)_3
+New Line.line3 Units=km Length=0.02072 bus1=n445066.1.2.3 bus2=n445067.1.2.3 switch=n enabled=y phases=3 Linecode=66_HDCU_(19/2.11)_3
+New Line.line4 Units=km Length=0.001 bus1=n445067.1.2.3 bus2=n732629.1.2.3 switch=n enabled=y phases=3 Linecode=66_HDCU_(19/2.11)_3
+New Line.line5 Units=km Length=0.044700000000000004 bus1=n445068.1.2.3 bus2=n445069.1.2.3 switch=n enabled=y phases=3 Linecode=66_HDCU_(19/2.11)_3
+New Line.line6 Units=km Length=0.001 bus1=n445069.1.2.3 bus2=n732630.1.2.3 switch=n enabled=y phases=3 Linecode=66_HDCU_(19/2.11)_3

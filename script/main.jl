@@ -10,9 +10,9 @@ case = Dict()
 case[1] = "D014470"
 case[2] = "D016907"
 case[3] = "D023544" #segfault
-# case[4] = "D026799" #segfault
-# case[5] = "D032602" #segfault
-# case[6] = "D037763" #segfault
+case[4] = "D026799" #segfault
+case[5] = "D032602" #segfault
+case[6] = "D037763" #segfault
 case[7] = "D045978"
 case[8] = "sourcebus_11000.trafo_75615289_75615289"
 case[9] = "sourcebus_11000.trafo_75617346_75617346"
@@ -27,7 +27,7 @@ case[14] = "sourcebus_22000.trafo_75620917_75620917"
 sols = Dict()
 for (i, casename) in case
     file = "data/"*casename*"/Master.dss"
-    cd("/Users/get050/Documents/Repositories/github/RepresentativeLVNetworks")
+    cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
     sols[casename] = RepresentativeLVNetworks.run_dss!(file)
 end
 RepresentativeLVNetworks.check_voltages(sols)

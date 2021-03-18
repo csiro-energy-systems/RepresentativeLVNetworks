@@ -1,7 +1,7 @@
 Clear
 
 New Circuit.Full_Network  bus1=n119941 pu=1.0 basekV=0.433 R1=0.000000045472762 X1=0.00000018189105 R0=0.000000059405843 X0=0.00000017821753
-
+ phases=3 phases=3
 Redirect LineCodes.dss
 Redirect Lines.dss
 Redirect Loads.dss

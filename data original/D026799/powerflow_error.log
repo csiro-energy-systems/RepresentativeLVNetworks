@@ -1,0 +1,10 @@
+(303, 'Error 303 Reported From OpenDSS Intrinsic Function: 
+ProcessCommand
+Exception Raised While Processing DSS Command:
+Calcvoltagebases 
+
+Error Description: 
+Access violation
+
+Probable Cause: 
+Error in command string or circuit data.')

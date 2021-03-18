@@ -1,7 +1,7 @@
 Clear
 
 New Circuit.Full_Network  bus1=sourcebus_22000 pu=1.0 basekV=22.0
-
+ phases=3 phases=3
 Redirect LineCodes.dss
 Redirect Lines.dss
 Redirect Transformers.dss

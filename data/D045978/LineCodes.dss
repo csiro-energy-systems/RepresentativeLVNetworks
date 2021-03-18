@@ -1,2 +1,2 @@
-New Linecode.66_HDCU_(19/2.11)_3 units=km nphases=3 Faultrate=0.1 Cmatrix=(2799.9999999999995 -600.0 -600.0 | -600.0 2799.9999999999995 -600.0 | -600.0 -600.0 2799.9999999999995 ) R1=0.302 R0=0.302 X1=0.359 X0=0.359 C1=0.0 C0=0.0 BaseFreq=50 normamps=400.0 emergamps=600.0
-New Linecode.LV_240AL_XLPE_3 units=km nphases=3 Faultrate=0.1 Cmatrix=(2799.9999999999995 -600.0 -600.0 | -600.0 2799.9999999999995 -600.0 | -600.0 -600.0 2799.9999999999995 ) R1=0.279 R0=0.265 X1=0.062 X0=0.062 C1=0.0 C0=0.0 BaseFreq=50 normamps=400.0 emergamps=600.0
+New Linecode.66_HDCU_(19/2.11)_3 units=km nphases=3  R1=0.302 R0=0.302 X1=0.359 X0=0.359 C1=0.0 C0=0.0   
+New Linecode.LV_240AL_XLPE_3 units=km nphases=3  R1=0.279 R0=0.265 X1=0.062 X0=0.062 C1=0.0 C0=0.0   
