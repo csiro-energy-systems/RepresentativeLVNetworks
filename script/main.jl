@@ -21,13 +21,13 @@ case[11] = "sourcebus_22000.trafo_75612178_75612178"
 case[12] = "sourcebus_22000.trafo_75612672_75612672"
 case[13] = "sourcebus_22000.trafo_75616874_75616874"
 case[14] = "sourcebus_22000.trafo_75620917_75620917"
-##
+#
 # i = 7
 # casename = case[i]
 sols = Dict()
 for (i, casename) in case
     file = "data/"*casename*"/Master.dss"
-    cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
+    cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks")
     sols[casename] = RepresentativeLVNetworks.run_dss!(file)
 end
 RepresentativeLVNetworks.check_voltages(sols)

@@ -117,15 +117,31 @@ function check_voltages(sols)
     for (j, data) in sols
         println("case $j")
         n_voltageproblems = 0
+        n_voltageproblems2 = 0
+        n_voltageproblems3 = 0
         for (i,bus) in data["bus"]
+           
             if all(bus["vm"].>0)
                 # all good
             else
+                @show bus["vm"]
                 n_voltageproblems+=1
+            end
+
+            if all(bus["vm"].>1.1*230)
+                @show bus["vm"]
+                n_voltageproblems2+=1
+            end
+
+            if all(bus["vm"].<0.9*230)
+                @show bus["vm"]
+                n_voltageproblems3+=1
             end
         end
         n_buses = length(data["bus"])
         println("    amount of buses: $n_buses")
         println("    amount of buses with 0 voltage: $n_voltageproblems")
+        println("    amount of buses with under voltage: $n_voltageproblems2")
+        println("    amount of buses with over voltage: $n_voltageproblems3")
     end
 end
