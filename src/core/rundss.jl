@@ -65,7 +65,8 @@ function calc_v012(Uabc)
             1 α^2 α;
             1 α α^2;
         ]
-    U012 = A*Uabc[1:3]
+    U012 = inv(A)*Uabc[1:3]
+    return U012
 end
 
 
@@ -119,6 +120,7 @@ function check_voltages(sols)
         n_voltageproblems = 0
         n_voltageproblems2 = 0
         n_voltageproblems3 = 0
+        n_voltageproblems4 = 0
         for (i,bus) in data["bus"]
            
             if all(bus["vm"].>0)
@@ -137,11 +139,18 @@ function check_voltages(sols)
                 @show bus["vm"]
                 n_voltageproblems3+=1
             end
+
+
+            if !isnan(bus["vuf%"]) && bus["vuf%"] >=2
+                @show bus["vuf%"]
+                n_voltageproblems4+=1
+            end
         end
         n_buses = length(data["bus"])
         println("    amount of buses: $n_buses")
         println("    amount of buses with 0 voltage: $n_voltageproblems")
-        println("    amount of buses with under voltage: $n_voltageproblems2")
-        println("    amount of buses with over voltage: $n_voltageproblems3")
+        println("    amount of buses with over voltage: $n_voltageproblems2")
+        println("    amount of buses with under voltage: $n_voltageproblems3")
+        println("    amount of buses with excessive VUF%: $n_voltageproblems4") 
     end
 end
