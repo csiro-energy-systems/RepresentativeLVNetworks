@@ -10,6 +10,7 @@ fileres = "/Users/get050/Documents/data/Representative_Australian_Electricity_Fe
 # using XLSX 
 # x = XLSX.readxlsx(fileres)
 
+using StatsPlots
 
 data = CSV.File(fileres)
 timesteps = 48
@@ -39,29 +40,65 @@ using Plots
 casename = "D014470"
 file = "data/"*casename*"/Master.dss"
 
-
+SCALING = 10
 
 results = Dict()
 for (i,t) in enumerate(time) 
     data = PowerModelsDistribution.parse_file(file)
     for (l,load) in data["load"]
-        load["pd_nom"].*=p_summer[i]
-        load["qd_nom"].*=p_summer[i]
+        
+        load["pd_nom"].*=p_summer[i]*SCALING
+        load["qd_nom"].*=p_summer[i]*SCALING
     end
 
-    results[t] = solve_mc_pf(data, ACPPowerModel, solver)
+    results[i] = solve_mc_pf(data, ACPPowerModel, solver)
+    results[i]["time"] = t
 end
+##
 
+data = PowerModelsDistribution.parse_file(file)
+busmap = Dict(i=>n for (n,(i,bus)) in enumerate(data["bus"]))
+busmaprev = Dict(n=>i for (i,n) in busmap)
+
+##
 function extract_voltages(results, data)
     n_bus = length(data["bus"])
-    v = zeros(length(results), n_bus)
+    va = zeros(length(results), n_bus)
+    vb = zeros(length(results), n_bus)
+    vc = zeros(length(results), n_bus)
     for (t, timestep) in results
-        for (i, bus) in timestep["solution"]["bus"]["1"]
-            v[t] = bus["vm"]
+        for (i, bus) in timestep["solution"]["bus"]
+            n = busmap[i]
+            va[t,n] = bus["vm"][1]
+            vb[t,n] = bus["vm"][2]
+            vc[t,n] = bus["vm"][3]
         end
     end
+    return (va, vb, vc)
 end
 
-vms = extract_metric(result["solution"], data)
+(va,vb,vc) = extract_voltages(results, data)
+
+##
+p1 = boxplot(va, legend = false)
+title!("Phase a")
+# xlabel!("bus number")
+ylabel!("Voltage (kV)")
+plot!([0, 16], 0.230*[1.1, 1.1], linestyle = :dot, linecolor=:red)
+plot!([0, 16], 0.230*[0.94, 0.94], linestyle = :dot, linecolor=:red)
+p2 = boxplot(vb, legend = false)
+title!("Phase b")
+# xlabel!("bus number")
+ylabel!("Voltage (kV)")
+plot!([0, 16], 0.230*[1.1, 1.1], linestyle = :dot, linecolor=:red)
+plot!([0, 16], 0.230*[0.94, 0.94], linestyle = :dot, linecolor=:red)
+p3 = boxplot(vc, legend = false)
+title!("Phase c")
+xlabel!("Bus number (-)")
+ylabel!("Voltage L-N (kV)")
+plot!([0, 16], 0.230*[1.1, 1.1], linestyle = :dot, linecolor=:red)
+plot!([0, 16], 0.230*[0.94, 0.94], linestyle = :dot, linecolor=:red)
 
 
+p = plot(p1, p2, p3, layout = (3, 1), legend = false, size=(500,1000))
+savefig(p, casename*".pdf")
