@@ -237,3 +237,17 @@ for (_, casename) in case
     savefig(p, casename*"power.pdf")
 end
 ##
+
+
+using ArgParse 
+function parse_commandline() 
+    s = ArgParseSettings() 
+    @add_arg_table s begin 
+        "--opt1" 
+        "--opt2" 
+        "--opt3" 
+        "--opt4" 
+    end 
+    return parse_args(s) 
+end 
+parsed_args = parse_commandline()
