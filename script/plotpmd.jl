@@ -1,6 +1,8 @@
 cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks/script/")
 using Pkg
 Pkg.activate("./")
+using Pluto
+Pluto.run()
 ##
 using Plots
 using Ipopt
@@ -16,10 +18,10 @@ cid = 12
 case = Dict()
 case[1] = "D014470"
 case[2] = "D016907"
-case[3] = "D023544" #segfault
-case[4] = "D026799" #segfault
-case[5] = "D032602" #segfault
-case[6] = "D037763" #segfault
+case[3] = "D023544" 
+case[4] = "D026799" 
+case[5] = "D032602" 
+case[6] = "D037763" 
 case[7] = "D045978"
 case[8] = "sourcebus_11000.trafo_75615289_75615289"
 case[9] = "sourcebus_11000.trafo_75617346_75617346"
@@ -49,3 +51,16 @@ p1 = plot_VUF_along_feeder(eng, solution)
 savefig(p1, casename*"_vuf.pdf")
 p2 = plot_voltage_along_feeder(eng, solution)
 savefig(p2, casename*"_phase.pdf")
+
+##
+using Plots
+using StatsPlots
+using RDatasets
+school = RDatasets.dataset("mlmRev", "Hsb82")
+x = string.(school.Sector)
+y = school.MAch
+g = string.(school.Sx)
+println(x[1:3])
+println(y[1:3])
+println(g[1:3])
+groupedboxplot(x, y, group=g, percentiles=[5, 50, 95])
