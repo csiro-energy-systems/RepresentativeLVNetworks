@@ -1,0 +1,80 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Ausgrid - Ausgrid - D009819</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 95%;
+            height: 95%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#ffff00", "feeder_name": "n092513_src", "id": "n092513", "is_substation": false, "is_substation_connection": false, "label": "Node: n092513", "name": "n092513", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 15, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=n092513\u003c/b\u003e\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003eid = n092513\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = n092513\u003cbr\u003ename = n092513\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#ff0000", "connecting_element": "n092513", "emergency_power": 1000000000000.0, "id": "Vsource.source", "is_sourcebus": true, "label": "PowerSource: Vsource.source", "name": "Vsource.source", "nominal_voltage": 433.0, "per_unit": 1.0, "phase_angle": 0.0, "rated_power": 1000000.0, "shape": "dot", "size": 10, "title": "\u003cb\u003eType=PowerSource\u003cbr\u003e Name=Vsource.source\u003c/b\u003e\u003cbr\u003econnecting_element = n092513\u003cbr\u003eemergency_power = 1000000000000.0\u003cbr\u003eid = Vsource.source\u003cbr\u003eis_sourcebus = True\u003cbr\u003elabel = Vsource.source\u003cbr\u003ename = Vsource.source\u003cbr\u003enominal_voltage = 433.0\u003cbr\u003eper_unit = 1.0\u003cbr\u003ephase_angle = 0.0\u003cbr\u003erated_power = 1000000.0\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003e"}, {"color": "#9467bd", "feeder_name": "n092513_src", "id": "n092514", "is_substation": false, "is_substation_connection": false, "label": "Node: n092514", "name": "n092514", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 10, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=n092514\u003c/b\u003e\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003eid = n092514\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = n092514\u003cbr\u003ename = n092514\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#9467bd", "feeder_name": "n092513_src", "id": "n092516", "is_substation": false, "is_substation_connection": false, "label": "Node: n092516", "name": "n092516", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 10, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=n092516\u003c/b\u003e\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003eid = n092516\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = n092516\u003cbr\u003ename = n092516\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#9467bd", "feeder_name": "n092513_src", "id": "n092515", "is_substation": false, "is_substation_connection": false, "label": "Node: n092515", "name": "n092515", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 10, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=n092515\u003c/b\u003e\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003eid = n092515\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = n092515\u003cbr\u003ename = n092515\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#9467bd", "feeder_name": "n092513_src", "id": "n590529", "is_substation": false, "is_substation_connection": false, "label": "Node: n590529", "name": "n590529", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 10, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=n590529\u003c/b\u003e\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003eid = n590529\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = n590529\u003cbr\u003ename = n590529\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#98df8a", "connecting_element": "n092515", "connection_type": "Y", "feeder_name": "n092513_src", "id": "load_load1", "is_center_tap": false, "is_substation": false, "label": "Load: load_load1", "name": "load_load1", "nominal_voltage": 433.0, "num_users": 1.0, "positions": [], "shape": "dot", "size": 10, "timeseries": [], "title": "\u003cb\u003eType=Load\u003cbr\u003e Name=load_load1\u003c/b\u003e\u003cbr\u003econnecting_element = n092515\u003cbr\u003econnection_type = Y\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003eid = load_load1\u003cbr\u003eis_center_tap = False\u003cbr\u003eis_substation = False\u003cbr\u003elabel = load_load1\u003cbr\u003ename = load_load1\u003cbr\u003enominal_voltage = 433.0\u003cbr\u003enum_users = 1.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003etimeseries = []\u003cbr\u003evmax = 1.3\u003cbr\u003evmin = 0.7\u003cbr\u003e", "vmax": 1.3, "vmin": 0.7}]);
+        edges = new vis.DataSet([{"color": "#ffe600", "from": "n092513", "label": "NoneType: \n", "title": "\u003cb\u003eName=None\u003c/b\u003e\u003cbr\u003efrom = n092513\u003cbr\u003eto = Vsource.source\u003cbr\u003eweight = 1\u003cbr\u003e", "to": "Vsource.source", "weight": 1}, {"B0": 0.0, "B1": 0.0, "C0": 0.0, "C1": 0.0, "R0": 1.49, "R1": 1.49, "X0": 0.102, "X1": 0.102, "color": "#000080", "equipment": "Line", "equipment_name": "line0", "faultrate": 0.1, "feeder_name": "n092513_src", "from": "n092513", "from_element": "n092513", "impedance_matrix": [], "is_substation": 0, "label": "Line: line0\nR1 = 1.490\nX1 = 0.102\nline_type = overhead\nnameclass = 25AL_ABC_3\nnominal_voltage = 400.000\n", "length": 1.06, "line_type": "overhead", "name": "line0", "nameclass": "25AL_ABC_3", "nominal_voltage": 400.0, "positions": [], "title": "\u003cb\u003eName=line0\u003c/b\u003e\u003cbr\u003eB0 = 0.0\u003cbr\u003eB1 = 0.0\u003cbr\u003eC0 = 0.0\u003cbr\u003eC1 = 0.0\u003cbr\u003eR0 = 1.49\u003cbr\u003eR1 = 1.49\u003cbr\u003eX0 = 0.102\u003cbr\u003eX1 = 0.102\u003cbr\u003eequipment = Line\u003cbr\u003eequipment_name = line0\u003cbr\u003efaultrate = 0.1\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003efrom = n092513\u003cbr\u003efrom_element = n092513\u003cbr\u003eimpedance_matrix = []\u003cbr\u003eis_substation = 0\u003cbr\u003elength = 1.06\u003cbr\u003eline_type = overhead\u003cbr\u003ename = line0\u003cbr\u003enameclass = 25AL_ABC_3\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eto = n092514\u003cbr\u003eto_element = n092514\u003cbr\u003eweight = 1.06\u003cbr\u003e", "to": "n092514", "to_element": "n092514", "weight": 1.06, "width": 8}, {"B0": 0.0, "B1": 0.0, "C0": 0.0, "C1": 0.0, "R0": 1.49, "R1": 1.49, "X0": 0.102, "X1": 0.102, "color": "#000080", "equipment": "Line", "equipment_name": "line2", "faultrate": 0.1, "feeder_name": "n092513_src", "from": "n092516", "from_element": "n092515", "impedance_matrix": [], "is_substation": 0, "label": "Line: line2\nR1 = 1.490\nX1 = 0.102\nline_type = overhead\nnameclass = 25AL_ABC_3\nnominal_voltage = 400.000\n", "length": 33.62, "line_type": "overhead", "name": "line2", "nameclass": "25AL_ABC_3", "nominal_voltage": 400.0, "positions": [], "title": "\u003cb\u003eName=line2\u003c/b\u003e\u003cbr\u003eB0 = 0.0\u003cbr\u003eB1 = 0.0\u003cbr\u003eC0 = 0.0\u003cbr\u003eC1 = 0.0\u003cbr\u003eR0 = 1.49\u003cbr\u003eR1 = 1.49\u003cbr\u003eX0 = 0.102\u003cbr\u003eX1 = 0.102\u003cbr\u003eequipment = Line\u003cbr\u003eequipment_name = line2\u003cbr\u003efaultrate = 0.1\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003efrom = n092516\u003cbr\u003efrom_element = n092515\u003cbr\u003eimpedance_matrix = []\u003cbr\u003eis_substation = 0\u003cbr\u003elength = 33.62\u003cbr\u003eline_type = overhead\u003cbr\u003ename = line2\u003cbr\u003enameclass = 25AL_ABC_3\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eto = n092515\u003cbr\u003eto_element = n092516\u003cbr\u003eweight = 33.62\u003cbr\u003e", "to": "n092515", "to_element": "n092516", "weight": 33.62, "width": 8}, {"B0": 0.0, "B1": 0.0, "C0": 0.0, "C1": 0.0, "R0": 1.49, "R1": 1.49, "X0": 0.102, "X1": 0.102, "color": "#000080", "equipment": "Line", "equipment_name": "line3", "faultrate": 0.1, "feeder_name": "n092513_src", "from": "n092516", "from_element": "n092516", "impedance_matrix": [], "is_substation": 0, "label": "Line: line3\nR1 = 1.490\nX1 = 0.102\nline_type = overhead\nnameclass = 25AL_ABC_3\nnominal_voltage = 400.000\n", "length": 0.11, "line_type": "overhead", "name": "line3", "nameclass": "25AL_ABC_3", "nominal_voltage": 400.0, "positions": [], "title": "\u003cb\u003eName=line3\u003c/b\u003e\u003cbr\u003eB0 = 0.0\u003cbr\u003eB1 = 0.0\u003cbr\u003eC0 = 0.0\u003cbr\u003eC1 = 0.0\u003cbr\u003eR0 = 1.49\u003cbr\u003eR1 = 1.49\u003cbr\u003eX0 = 0.102\u003cbr\u003eX1 = 0.102\u003cbr\u003eequipment = Line\u003cbr\u003eequipment_name = line3\u003cbr\u003efaultrate = 0.1\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003efrom = n092516\u003cbr\u003efrom_element = n092516\u003cbr\u003eimpedance_matrix = []\u003cbr\u003eis_substation = 0\u003cbr\u003elength = 0.11\u003cbr\u003eline_type = overhead\u003cbr\u003ename = line3\u003cbr\u003enameclass = 25AL_ABC_3\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eto = n590529\u003cbr\u003eto_element = n590529\u003cbr\u003eweight = 1\u003cbr\u003e", "to": "n590529", "to_element": "n590529", "weight": 1, "width": 8}, {"B0": 0.0, "B1": 0.0, "C0": 0.0, "C1": 0.0, "R0": 1.49, "R1": 1.49, "X0": 0.102, "X1": 0.102, "color": "#000080", "equipment": "Line", "equipment_name": "line1", "faultrate": 0.1, "feeder_name": "n092513_src", "from": "n092515", "from_element": "n092514", "impedance_matrix": [], "is_substation": 0, "label": "Line: line1\nR1 = 1.490\nX1 = 0.102\nline_type = overhead\nnameclass = 25AL_ABC_3\nnominal_voltage = 400.000\n", "length": 21.69, "line_type": "overhead", "name": "line1", "nameclass": "25AL_ABC_3", "nominal_voltage": 400.0, "positions": [], "title": "\u003cb\u003eName=line1\u003c/b\u003e\u003cbr\u003eB0 = 0.0\u003cbr\u003eB1 = 0.0\u003cbr\u003eC0 = 0.0\u003cbr\u003eC1 = 0.0\u003cbr\u003eR0 = 1.49\u003cbr\u003eR1 = 1.49\u003cbr\u003eX0 = 0.102\u003cbr\u003eX1 = 0.102\u003cbr\u003eequipment = Line\u003cbr\u003eequipment_name = line1\u003cbr\u003efaultrate = 0.1\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003efrom = n092515\u003cbr\u003efrom_element = n092514\u003cbr\u003eimpedance_matrix = []\u003cbr\u003eis_substation = 0\u003cbr\u003elength = 21.69\u003cbr\u003eline_type = overhead\u003cbr\u003ename = line1\u003cbr\u003enameclass = 25AL_ABC_3\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eto = n092514\u003cbr\u003eto_element = n092515\u003cbr\u003eweight = 21.69\u003cbr\u003e", "to": "n092514", "to_element": "n092515", "weight": 21.69, "width": 8}, {"color": "#00d4ff", "connecting_element": "n092515", "connection_type": "Y", "feeder_name": "n092513_src", "from": "n092515", "is_center_tap": false, "is_substation": false, "label": "Load: \nnominal_voltage = 433.000\n", "name": "load_load1", "nominal_voltage": 433.0, "num_users": 1.0, "positions": [], "timeseries": [], "title": "\u003cb\u003eName=load_load1\u003c/b\u003e\u003cbr\u003econnecting_element = n092515\u003cbr\u003econnection_type = Y\u003cbr\u003efeeder_name = n092513_src\u003cbr\u003efrom = n092515\u003cbr\u003eis_center_tap = False\u003cbr\u003eis_substation = False\u003cbr\u003ename = load_load1\u003cbr\u003enominal_voltage = 433.0\u003cbr\u003enum_users = 1.0\u003cbr\u003epositions = []\u003cbr\u003etimeseries = []\u003cbr\u003eto = load_load1\u003cbr\u003evmax = 1.3\u003cbr\u003evmin = 0.7\u003cbr\u003eweight = 1\u003cbr\u003e", "to": "load_load1", "vmax": 1.3, "vmin": 0.7, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"configure": {"enabled": true, "filter": ["physics"]}, "nodes": {"borderWidth": 2, "borderWidthSelected": 4, "font": {"size": 7, "face": "tahoma"}}, "edges": {"color": {"inherit": true}, "font": {"size": 4, "face": "tahoma"}, "hoverWidth": 2, "shadow": {"enabled": true}, "smooth": {"type": "continuous", "forceDirection": "none"}, "width": 3}, "physics": {"forceAtlas2Based": {"gravitationalConstant": -52, "centralGravity": 0.005, "springLength": 20, "springConstant": 0.095, "damping": 1, "avoidOverlap": 0.35}, "maxVelocity": 150, "minVelocity": 0.75, "solver": "forceAtlas2Based"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
