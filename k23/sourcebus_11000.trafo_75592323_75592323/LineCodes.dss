@@ -1,11 +1,11 @@
-New Linecode.1P_Code10 units=km nphases=1 R1=1.978 R0=1e-05 X1=0.3956 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.1P_Code3 units=km nphases=1 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.1P_Code4 units=km nphases=1 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.2P_Code8 units=km nphases=2 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_Code0 units=km nphases=3 R1=0.1 R0=1e-05 X1=0.061 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_Code1 units=km nphases=3 R1=0.15 R0=1e-05 X1=0.61 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_Code5 units=km nphases=3 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_Code6 units=km nphases=3 R1=1.29 R0=1e-05 X1=0.258 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_OH_Code2 units=km nphases=3 R1=0.2614 R0=1e-05 X1=0.3489 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_OH_Code7 units=km nphases=3 R1=0.4428 R0=1e-05 X1=0.3782 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_OH_Code9 units=km nphases=3 R1=0.5875 R0=1e-05 X1=0.3745 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
+New Linecode.1P_Code10 units=km nphases=1 R1=1.978 R0=(1 1.978 *) X1=0.3956 X0=(1 0.3956 *)  BaseFreq=50
+New Linecode.1P_Code3 units=km nphases=1 R1=1.247 R0=(1 1.247 *) X1=0.2494 X0=(1 0.2494 *)  BaseFreq=50
+New Linecode.1P_Code4 units=km nphases=1 R1=0.7839 R0=(1 0.7839 *) X1=0.0915 X0=(1 0.0915 *)  BaseFreq=50
+New Linecode.2P_Code8 units=km nphases=2 R1=1.247 R0=(4 1.247 *) X1=0.2494 X0=(4 0.2494 *)  BaseFreq=50
+New Linecode.3P_Code0 units=km nphases=3 R1=0.1 R0=(4 0.1 *) X1=0.061 X0=(4 0.061 *)  BaseFreq=50
+New Linecode.3P_Code1 units=km nphases=3 R1=0.15 R0=(4 0.15 *) X1=0.61 X0=(4 0.61 *)  BaseFreq=50
+New Linecode.3P_Code5 units=km nphases=3 R1=1.247 R0=(4 1.247 *) X1=0.2494 X0=(4 0.2494 *) BaseFreq=50
+New Linecode.3P_Code6 units=km nphases=3 R1=1.29 R0=(4 1.29 *) X1=0.258 X0=(4 0.258 *)  BaseFreq=50
+New Linecode.3P_OH_Code2 units=km nphases=3 R1=0.2614 R0=(4 0.2614 *) X1=0.3489 X0=(4 0.3489 *) BaseFreq=50
+New Linecode.3P_OH_Code7 units=km nphases=3 R1=0.4428 R0=(4 0.4428 *) X1=0.3782 X0=(4 0.3782 *) BaseFreq=50
+New Linecode.3P_OH_Code9 units=km nphases=3 R1=0.5875 R0=(4 0.5875 *) X1=0.3745 X0=(4 0.3745 *) BaseFreq=50
