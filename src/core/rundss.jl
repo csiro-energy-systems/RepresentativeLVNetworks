@@ -1,20 +1,74 @@
-function run_dss!(filename)
-    dss!(filename)
-    return solution()
+# function run_dss!(filename)
+#     mode = "Daily"
+#     dss!(filename, mode)
+#     return solution()
+# end
+
+function phase_to_bus_string(bus, phases)
+    bus_string = bus
+    if length(phases) > 0
+        for i in phases
+        bus_string = bus_string*"."*string(i)
+        end
+    end
+    return bus_string
 end
 
 
-function dss!(filename)
-    _ODSS.dss("""
-        Clear
-        compile $filename
-        Solve
+function remove_solve_command(filename)
+    dss_string = open(f->read(f, String), filename)
+    ids = findfirst("solve", lowercase(dss_string))
+    before_solve = dss_string[1:ids[1]-1]
+    after_solve = length(dss_string)>ids[end] ? dss_string[ids[end]+1:end] : ""
+    return before_solve, after_solve
+end
 
+
+function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), useactual=true, pvsystems=[], storage=[], data_path=pwd()*"/../csv_results")
+    before_solve, after_solve = remove_solve_command(filename)
+    
+    _ODSS.dss("""  Clear  """)
+    _ODSS.dss(before_solve)
+
+    # add_loadshapes!(pwd()*"/../LoadShape2.csv")
+    load_dict = load_matrix_to_dict(loadshapesP, loadshapesQ)
+    add_loadshapes!(load_dict; useactual=useactual)
+
+    add_irradiance()
+    pvsystem_bus_dict = Dict()
+    for pvsystem_constructor in pvsystems
+        pv_dict = pvsystem_constructor()
+        merge!(pvsystem_bus_dict, pv_dict)
+    end
+
+    add_storage_dispatch()
+    storage_bus_dict = Dict()
+    for storage_constructor in storage
+        storage_dict = storage_constructor()
+        merge!(storage_bus_dict, storage_dict)
+    end
+
+    add_line_monitors!()
+    add_load_monitors!()
+
+    _ODSS.dss("""
+        Set Mode = $mode
+        Solve
         Set Toler=0.00000001
         // Dump Line.*  debug
         // Show Voltages LN Nodes
     """)
+    _ODSS.dss(after_solve)
+
+    _ODSS.dss(""" Set Datapath = $data_path """)
+    export_line_monitors!()
+    export_load_monitors!()
+    export_pvsystem_monitors!()
+    export_storage_monitors!("monitor_".*keys(storage_bus_dict))
+    
+    return pvsystem_bus_dict, storage_bus_dict
 end
+
 
 function solution()
     sol = Dict()
@@ -23,6 +77,7 @@ function solution()
     sol["topology"] = topology()
     return sol
 end
+
 
 function bus_voltages()
     voltage = Dict()
