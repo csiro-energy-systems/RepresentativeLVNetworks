@@ -51,7 +51,7 @@ RepresentativeLVNetworks.run_dss!(file)
 
 sols = Dict()
 for (i, casename) in case
-    file = "k23/"*casename*"/Master.dss"
+    file = "data/"*casename*"/Master.dss"
     cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks")
     @show casename
     sols[casename] = RepresentativeLVNetworks.run_dss!(file)

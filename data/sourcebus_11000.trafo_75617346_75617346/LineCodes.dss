@@ -1,5 +1,5 @@
-New Linecode.1P_Code2 units=km nphases=1 R1=1.247 R0=4.988 X1=0.2494 X0=0.9976 
-New Linecode.1P_Code3 units=km nphases=1 R1=0.7839 R0=3.1356 X1=0.0915 X0=0.366
-New Linecode.1P_Code4 units=km nphases=1 R1=1.29 R0=5.16 X1=0.258 X0=1.040 
-New Linecode.1P_OH_Code1 units=km nphases=1 R1=0.2614 R0=1.0456 X1=0.3489 X0=1.3956
-New Linecode.3P_OH_Code0 units=km nphases=3 R1=0.2614 R0=1.0456 X1=0.3489 X0=1.3956
+New Linecode.1P_Code2 units=km nphases=1 R1=1.247 R0=1.247 X1=0.2494 X0=0.2494 BaseFreq=50
+New Linecode.1P_Code3 units=km nphases=1 R1=0.7839 R0=0.7839  X1=0.0915 X0=0.0915 BaseFreq=50
+New Linecode.1P_Code4 units=km nphases=1 R1=1.29 R0=1.29 X1=0.258 X0=0.258 BaseFreq=50
+New Linecode.1P_OH_Code1 units=km nphases=1 R1=0.2614 R0=0.2614 X1=0.3489 X0=0.3489 BaseFreq=50
+New Linecode.3P_OH_Code0 units=km nphases=3 R1=0.2614 R0=(4 0. *) X1=0.3489 X0=(4 0.3489 *) BaseFreq=50

@@ -1,8 +1,0 @@
-New Line.line_75612283_3103460_3100704 Units=km Length=0.03759999847412109 bus1=3100704.2 bus2=3103460.2 switch=n enabled=y phases=1 Linecode=1P_Code2
-New Line.line_75612300_3100704_3100721 Units=km Length=0.038900001525878906 bus1=3100721.2 bus2=3100704.2 switch=n enabled=y phases=1 Linecode=1P_Code0
-New Line.line_75613848_3100721_3101942 Units=km Length=0.04129999923706055 bus1=3101942.2 bus2=3100721.2 switch=n enabled=y phases=1 Linecode=1P_Code0
-New Line.line_75614133_3104403_3100704 Units=km Length=0.026799999237060546 bus1=3100704.2 bus2=3104403.2 switch=n enabled=y phases=1 Linecode=1P_Code2
-New Line.line_75614231_3104455_3102185 Units=km Length=0.08380000305175782 bus1=3102185.1.2.3 bus2=3104455.1.2.3 switch=n enabled=y phases=3 Linecode=3P_Code1
-New Line.line_75615489_3104455_3101942 Units=km Length=0.06880000305175782 bus1=3101942.1.2.3 bus2=3104455.1.2.3 switch=n enabled=y phases=3 Linecode=3P_Code1
-New Line.line_75623762_3106494_3103460 Units=km Length=0.017040648361219733 bus1=3103460.2 bus2=3106494.2 switch=n enabled=y phases=1 Linecode=1P_Code3
-New Line.line_75623967_3106699_3102185 Units=km Length=0.0349694563047856 bus1=3102185.2 bus2=3106699.2 switch=n enabled=y phases=1 Linecode=1P_Code3

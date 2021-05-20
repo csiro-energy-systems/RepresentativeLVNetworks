@@ -1,4 +1,0 @@
-New Linecode.66_HDCU_(19/2.11)_3 units=km nphases=3  R1=0.302 R0=0.302 X1=0.359 X0=0.359 C1=0.0 C0=0.0   
-New Linecode.LV_240AL_XLPE_3 units=km nphases=3  R1=0.279 R0=0.265 X1=0.062 X0=0.062 C1=0.0 C0=0.0   
-New Linecode.Twin_95AL_ABC_3 units=km nphases=3  R1=0.199 R0=0.199 X1=0.043 X0=0.043 C1=0.0 C0=0.0   
-New Linecode.unknown_linecode_3 units=km nphases=3  R1=0.011 R0=0.011 X1=0.011 X0=0.011 C1=0.0 C0=0.0   

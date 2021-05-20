@@ -1,8 +1,0 @@
-New Line.line0 Units=km Length=0.001 bus1=n380567.1.2.3 bus2=n380568.1.2.3 switch=n enabled=y phases=3 Linecode=unknown_linecode_3
-New Line.line1 Units=km Length=0.05607 bus1=n380568.1.2.3 bus2=n380569.1.2.3 switch=n enabled=y phases=3 Linecode=415V_300AL3_PVC_3
-New Line.line2 Units=km Length=0.001 bus1=n380569.1.2.3 bus2=n380570.1.2.3 switch=n enabled=y phases=3 Linecode=7/4.4_Al_3
-New Line.line3 Units=km Length=0.03408 bus1=n380570.1.2.3 bus2=n358874.1.2.3 switch=n enabled=y phases=3 Linecode=7/4.4_Al_3
-New Line.line4 Units=km Length=0.001 bus1=n358874.1.2.3 bus2=n691905.1.2.3 switch=n enabled=y phases=3 Linecode=7/4.4_Al_3
-New Line.line5 Units=km Length=0.001 bus1=n380568.1.2.3 bus2=n700745.1.2.3 switch=n enabled=y phases=3 Linecode=unknown_linecode_3
-New Line.line6 Units=km Length=0.03716 bus1=n380570.1.2.3 bus2=n380565.1.2.3 switch=n enabled=y phases=3 Linecode=7/4.4_Al_3
-New Line.line7 Units=km Length=0.001 bus1=n380565.1.2.3 bus2=n700744.1.2.3 switch=n enabled=y phases=3 Linecode=7/4.4_Al_3
