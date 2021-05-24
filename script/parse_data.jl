@@ -42,6 +42,7 @@ end
 
 
 ##
+using Plots
 p = plot(size=(600,600))
 for (c,customer) in a
     plot!(tt,customer["p"], legend=false)
