@@ -83,48 +83,51 @@ function get_solution_bus_voltage()
     bus_dict = Dict()
     for i in _ODSS.EachMember(_ODSS.Lines)
         line_name = _ODSS.Lines.Name()
-        bus_name = split(_ODSS.Lines.Bus1(), ".")[1]
-        
-        monitor_name = "monitor_line_"*line_name
-        _ODSS.Monitors.Name(monitor_name)
-
+        (bus_name, bus_phases) = get_bus_name_phases(_ODSS.Lines.Bus1())
+        monitor_fbus_name = "monitor_lineT1_"*line_name
+        _ODSS.Monitors.Name(monitor_fbus_name)
         monitor_file = _ODSS.Monitors.FileName()
-        # monitor_element = _ODSS.Monitors.Element()
         monitors_csv = CSV.read(monitor_file, DataFrames.DataFrame)
+        
+        _ODSS.Circuit.SetActiveBus(string(bus_name))
+        phase_mapping = Dict(1=>"a", 2=>"b", 3=>"c")
+        if !haskey(bus_dict, bus_name)
+            bus_dict[bus_name] = Dict()
+            bus_dict[bus_name]["distance"] = _ODSS.Bus.Distance()
+            bus_dict[bus_name]["monitor_file"] = monitor_file
+            bus_dict[bus_name]["hour"] = monitors_csv[!,"hour"]
+            bus_dict[bus_name]["time_sec"] = monitors_csv[!," t(sec)"]
+        end
+        for (p,phase) in enumerate(bus_phases)
+            bus_dict[bus_name]["vm"*phase_mapping[phase]] = monitors_csv[!," V$p"]
+            bus_dict[bus_name]["va"*phase_mapping[phase]] = monitors_csv[!," VAngle$p"]
+        end
 
-        # _ODSS.Lines.Name(String(split(monitor_element,".")[2]))
+
         
+        _ODSS.Lines.Name(line_name)
+        (bus_name, bus_phases) = get_bus_name_phases(_ODSS.Lines.Bus2())
+        monitor_tbus_name = "monitor_lineT2_"*line_name
+        _ODSS.Monitors.Name(monitor_tbus_name)
+        monitor_file = _ODSS.Monitors.FileName()
+        monitors_csv = CSV.read(monitor_file, DataFrames.DataFrame)
         
-        bus_dict[bus_name] = Dict()
-        bus_dict[bus_name]["monitor_file"] = monitor_file
-        bus_dict[bus_name]["hour"] = monitors_csv[!,"hour"]
-        bus_dict[bus_name]["time_sec"] = monitors_csv[!," t(sec)"]
-        if " V1" in DataFrames.names(monitors_csv)
-            bus_dict[bus_name]["vma"] = monitors_csv[!," V1"]
+        _ODSS.Circuit.SetActiveBus(string(bus_name))
+        phase_mapping = Dict(1=>"a", 2=>"b", 3=>"c")
+        if !haskey(bus_dict, bus_name)
+            bus_dict[bus_name] = Dict()
+            bus_dict[bus_name]["distance"] = _ODSS.Bus.Distance()
+            bus_dict[bus_name]["monitor_file"] = monitor_file
+            bus_dict[bus_name]["hour"] = monitors_csv[!,"hour"]
+            bus_dict[bus_name]["time_sec"] = monitors_csv[!," t(sec)"]
         end
-        if " V2" in DataFrames.names(monitors_csv)
-            bus_dict[bus_name]["vmb"] = monitors_csv[!," V2"]
+        for (p,phase) in enumerate(bus_phases)
+            bus_dict[bus_name]["vm"*phase_mapping[phase]] = monitors_csv[!," V$p"]
+            bus_dict[bus_name]["va"*phase_mapping[phase]] = monitors_csv[!," VAngle$p"]
         end
-        if " V3" in DataFrames.names(monitors_csv)
-            bus_dict[bus_name]["vmc"] = monitors_csv[!," V3"]
-        end
-        # if " V4" in DataFrames.names(monitors_csv)
-        #     bus_dict[bus_name]["vmn"] = monitors_csv[!," V4"]
-        # end
-        if " VAngle1" in DataFrames.names(monitors_csv)
-            bus_dict[bus_name]["vaa"] = monitors_csv[!," VAngle1"]
-        end
-        if " VAngle2" in DataFrames.names(monitors_csv)
-            bus_dict[bus_name]["vab"] = monitors_csv[!," VAngle2"]
-        end
-        if " VAngle3" in DataFrames.names(monitors_csv)
-            bus_dict[bus_name]["vac"] = monitors_csv[!," VAngle3"]
-        end
-        # if " VAngle4" in DataFrames.names(monitors_csv)
-        #     bus_dict[bus_name]["van"] = monitors_csv[!," VAngle4"]
-        # end
 
     end
+
     return bus_dict
 end
 
@@ -139,24 +142,15 @@ function get_solution_bus_voltage_snap()
         bus_dict[bus_name] = Dict()
         bus_dict[bus_name]["hour"] = 0
         bus_dict[bus_name]["time_sec"] = 0.0
+        bus_dict[bus_name]["distance"] = _ODSS.Bus.Distance()
 
-        bus_dict[bus_name]["vma"] = [_ODSS.Bus.VMagAngle()[1]]
-        bus_dict[bus_name]["vaa"] = [_ODSS.Bus.VMagAngle()[2]]
-
-        if length(_ODSS.Bus.VMagAngle()) > 2
-            bus_dict[bus_name]["vmb"] = [_ODSS.Bus.VMagAngle()[3]]
-            bus_dict[bus_name]["vab"] = [_ODSS.Bus.VMagAngle()[4]]
-        end
-        if length(_ODSS.Bus.VMagAngle()) > 4
-            bus_dict[bus_name]["vmc"] = [_ODSS.Bus.VMagAngle()[5]]
-            bus_dict[bus_name]["vac"] = [_ODSS.Bus.VMagAngle()[6]]
-        end
-        if length(_ODSS.Bus.VMagAngle()) > 6
-            bus_dict[bus_name]["vmn"] = [_ODSS.Bus.VMagAngle()[7]]
-            bus_dict[bus_name]["van"] = [_ODSS.Bus.VMagAngle()[8]]
+        phase_mapping = Dict(1=>"a", 2=>"b", 3=>"c")
+        bus_phases = _ODSS.Bus.Nodes()
+        for (i,phase) in enumerate(bus_phases)
+            bus_dict[bus_name]["vm"*phase_mapping[phase]] = [_ODSS.Bus.VMagAngle()[2*i-1]]
+            bus_dict[bus_name]["va"*phase_mapping[phase]] = [_ODSS.Bus.VMagAngle()[2*i]]
         end
     end
-
 
     return bus_dict
 end

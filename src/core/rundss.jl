@@ -24,7 +24,7 @@ function remove_solve_command(filename)
 end
 
 
-function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), useactual=true, pvsystems=[], storage=[], data_path=pwd()*"/../csv_results")
+function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), useactual=true, pvsystems=[], irradiance=rand(24), storage=[], data_path=pwd()*"/../csv_results")
     before_solve, after_solve = remove_solve_command(filename)
     
     _ODSS.dss("""  Clear  """)
@@ -34,7 +34,7 @@ function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), us
     load_dict = load_matrix_to_dict(loadshapesP, loadshapesQ)
     add_loadshapes!(load_dict; useactual=useactual)
 
-    add_irradiance()
+    add_irradiance(irradiance)
     pvsystem_bus_dict = Dict()
     for pvsystem_constructor in pvsystems
         pv_dict = pvsystem_constructor()
@@ -51,14 +51,21 @@ function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), us
     add_line_monitors!()
     add_load_monitors!()
 
+    pde_name = find_Vsource_pdelement()
+    _ODSS.dss("""  New Monitor.substation Element=$pde_name   """)
+    _ODSS.dss("""  New Energymeter.substation Element=$pde_name   """)
+
     _ODSS.dss("""
         Set Mode = $mode
         Solve
+        Export Monitor substation
         Set Toler=0.00000001
         // Dump Line.*  debug
         // Show Voltages LN Nodes
     """)
     _ODSS.dss(after_solve)
+
+    @assert _ODSS.Solution.Converged() "OpenDSS fails to converge"
 
     _ODSS.dss(""" Set Datapath = $data_path """)
     export_line_monitors!()

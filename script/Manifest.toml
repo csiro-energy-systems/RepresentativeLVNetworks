@@ -1065,7 +1065,7 @@ uuid = "189a3867-3050-52da-a836-e630ba90ab69"
 version = "0.2.0"
 
 [[RepresentativeLVNetworks]]
-deps = ["ArgParse", "CSV", "DataFrames", "Ipopt", "MadNLP", "OpenDSSDirect", "Plots", "PlutoUI", "PowerModelsDistribution", "StatsPlots", "UUIDs", "XLSX"]
+deps = ["ArgParse", "CSV", "DataFrames", "Ipopt", "JSON", "MadNLP", "Measures", "OpenDSSDirect", "Plots", "Pluto", "PlutoUI", "PowerModelsDistribution", "StatsPlots", "UUIDs", "XLSX"]
 path = "/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks/"
 uuid = "eae880fa-0a1c-414a-9d83-903875671fcc"
 version = "0.1.0"
@@ -1314,7 +1314,7 @@ uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
 version = "2.9.11+0"
 
 [[XSLT_jll]]
-deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Pkg", "XML2_jll"]
+deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Pkg", "XML2_jll"]
 git-tree-sha1 = "2b3eac39df218762d2d005702d601cd44c997497"
 uuid = "aed1982a-8fda-507f-9586-7b0439959a61"
 version = "1.1.33+4"

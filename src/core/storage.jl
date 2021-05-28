@@ -5,7 +5,7 @@ function add_storage_dispatch(;storage_file=pwd()*"/../storage_dispatch.csv")
 end
 
 
-function add_storage(buses; phases=[1,2,3], kV=0.4, kVA=5, conn="Wye", PF=1, kWrated=5, kWHrated=5, stored=50, Vminpu=0.7, Vmaxpu=1.3)
+function add_storage(buses; phases=[1,2,3], kV=0.4, kVA=5, conn="Wye", PF=1, kWrated=5, kWhrated=5, stored=50, Vminpu=0.7, Vmaxpu=1.3)
     nphases = length(phases)
     function storage_constructor()
         storage_bus_dict = Dict()
@@ -18,7 +18,7 @@ function add_storage(buses; phases=[1,2,3], kV=0.4, kVA=5, conn="Wye", PF=1, kWr
             storage_bus_dict[storage_names]["phases"] = phases
             storage_bus_dict[storage_names]["uuid"] = storage_uuid
             _ODSS.dss("""
-                New Storage.$storage_names Bus1=$bus_phase phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF kWrated=$kWrated kWHrated=$kWHrated %stored=$stored Vminpu=$Vminpu Vmaxpu=$Vmaxpu dispmode=follow  daily=storageShape
+                New Storage.$storage_names Bus1=$bus_phase phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF kWrated=$kWrated kWhrated=$kWhrated %stored=$stored Vminpu=$Vminpu Vmaxpu=$Vmaxpu dispmode=follow  daily=storageShape
                 New Monitor.monitor_$storage_names element=Storage.$storage_names
             """)
         end

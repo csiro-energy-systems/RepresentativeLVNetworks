@@ -1,15 +1,18 @@
-function add_irradiance(;irradiance_file=pwd()*"/../irradiance.csv")
+function add_irradiance(irradiance)
+    irradiance_data = array_to_dss_string(irradiance)
     _ODSS.dss("""
-        New Loadshape.MyIrrad npts=24 interval=1 mult=(File=$irradiance_file)
+        New Loadshape.MyIrrad npts=24 interval=1.0 mult=$irradiance_data
     """)
 end
 
-function add_pvsystem(buses; phases=[1,2,3], kV=0.4, kVA=5, conn="Wye", PF=1, Pmpp=5)
+
+function add_pvsystem(buses; phases=[1,2,3], kV=0.4, kVA=3, conn="Wye", PF=1, Pmpp=2)
     nphases = length(phases)
     function pvsystem_constructor()
         pvsystem_bus_dict = Dict()
         for bus in buses
-            bus_phase = phase_to_bus_string(bus, phases)
+            @assert _ODSS.Circuit.SetActiveBus(bus) != -1 "PV bus name is not in the list of buses"
+            bus_name = phase_to_bus_string(bus, phases)
             pv_uuid = string(UUIDs.uuid1())
             pvsystem_name = "pvsystem_"*bus*"_"*pv_uuid
             pvsystem_bus_dict[pvsystem_name] = Dict()
@@ -17,9 +20,10 @@ function add_pvsystem(buses; phases=[1,2,3], kV=0.4, kVA=5, conn="Wye", PF=1, Pm
             pvsystem_bus_dict[pvsystem_name]["phases"] = phases
             pvsystem_bus_dict[pvsystem_name]["uuid"] = pv_uuid
             _ODSS.dss("""
-                New PVSystem.$pvsystem_name Bus1=$bus_phase phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF Pmpp=$Pmpp Daily=MyIrrad
+                New PVSystem.$pvsystem_name Bus1=$bus_name phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF Pmpp=$Pmpp
                 New Monitor.monitor_$pvsystem_name element=PVSystem.$pvsystem_name
             """)
+            _ODSS.PVsystems.Daily("MyIrrad")
         end
         return pvsystem_bus_dict
     end

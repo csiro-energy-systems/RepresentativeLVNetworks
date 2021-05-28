@@ -1,4 +1,4 @@
-cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks")
+cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
 using Pkg
 Pkg.activate("./")
 
@@ -34,9 +34,9 @@ case[22] = "sourcebus_22000.trafo_75628143_75628143"
 case[23] = "sourcebus_22000.trafo_75628932_75628932"
 
 i = 9
-file = "k23/"*case[i]*"/Master.dss"
+file = "data/"*case[i]*"/Master.dss"
 ##
-cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks")
+cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
 RepresentativeLVNetworks.run_dss!(file)
 ##
 
@@ -52,7 +52,7 @@ RepresentativeLVNetworks.run_dss!(file)
 sols = Dict()
 for (i, casename) in case
     file = "data/"*casename*"/Master.dss"
-    cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks")
+    cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
     @show casename
     sols[casename] = RepresentativeLVNetworks.run_dss!(file)
 end
