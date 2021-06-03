@@ -1,0 +1,1 @@
+New Transformer.trafo_75618801_75618801 phases=2 windings=2 %loadloss=0.16999999999999998 wdg=1 conn=delta Kv=22.0 kva=10.0 bus=sourcebus_22000.1.2 wdg=2 conn=wye Kv=0.41500000000000004 kva=10.0 bus=3102641.1.2 XHL=484.0

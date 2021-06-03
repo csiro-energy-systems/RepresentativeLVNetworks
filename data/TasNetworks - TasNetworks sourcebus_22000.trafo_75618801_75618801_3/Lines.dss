@@ -1,0 +1,3 @@
+New Line.line_75615972_3104895_3102641 Units=km Length=0.0904000015258789 bus1=3102641.2 bus2=3104895.2 switch=n enabled=y phases=1 Linecode=1P_OH_Code0
+New Line.line_75625817_3106658_3104895 Units=km Length=0.03726613034977554 bus1=3104895.2 bus2=3106658.2 switch=n enabled=y phases=1 Linecode=1P_Code1
+New Line.line_75626057_3106898_3104895 Units=km Length=0.03726613034977554 bus1=3104895.2 bus2=3106898.2 switch=n enabled=y phases=1 Linecode=1P_Code1

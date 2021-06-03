@@ -1,0 +1,3 @@
+New Line.line0 Units=km Length=0.03154 bus1=n350054.1.2.3 bus2=n350055.1.2.3 switch=n enabled=y phases=3 Linecode=unknown_linecode_3
+New Line.line1 Units=km Length=0.001 bus1=n350055.1.2.3 bus2=n687956.1.2.3 switch=n enabled=y phases=3 Linecode=unknown_linecode_3
+New Line.line2 Units=km Length=0.03676 bus1=n350055.1.2.3 bus2=n687957.1.2.3 switch=n enabled=y phases=3 Linecode=unknown_linecode_3
