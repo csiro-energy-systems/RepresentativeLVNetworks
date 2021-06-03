@@ -1,7 +1,0 @@
-New Linecode.19/3.75_AAC_-_PLUTO_3 units=km nphases=3 R1=0.137 R0=(4 0.137 *) X1=0.316 X0=(4 0.316 *) C1=0.0 C0=0.0 BaseFreq=50 
-New Linecode.25AL_ABC_3 units=km nphases=3  R1=1.49 R0=(4 1.49 *) X1=0.102 X0=(4 0.102 *) C1=0.0 C0=0.0 BaseFreq=50 
-New Linecode.66_HDCU_(19/2.11)_3 units=km nphases=3 R1=0.302 R0=(4 0.302 *) X1=0.359 X0=(4 0.359 *) C1=0.0 C0=0.0 BaseFreq=50 
-New Linecode.7/.064_CU_3 units=km nphases=3 R1=0.812 R0=(4 0.864 *) X1=0.263 X0=(4 0.28 *) C1=0.0 C0=0.0 BaseFreq=50 
-New Linecode.7/.173_AAC_3 units=km nphases=3  R1=0.296 R0=(4 0.296 *) X1=0.341 X0=(4 0.341 *) C1=0.0 C0=0.0 BaseFreq=50 
-New Linecode.7/4.5_AAC_-_MERCURY_3 units=km nphases=3 R1=0.258 R0=(4 0.258 *) X1=0.34 X0=(4 0.34 *) C1=0.0 C0=0.0 BaseFreq=50 
-New Linecode.unknown_linecode_3 units=km nphases=3 R1=0.01 R0=(4 0.04 *) X1=0.01 X0=(4 0.04 *) C1=0.0 C0=0.0 BaseFreq=50

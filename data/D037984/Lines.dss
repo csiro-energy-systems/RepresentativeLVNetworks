@@ -1,5 +1,0 @@
-New Line.line0 Units=km Length=0.001 bus1=n382633.1.2.3 bus2=n382634.1.2.3 switch=n enabled=y phases=3 Linecode=unknown_linecode_3
-New Line.line1 Units=km Length=0.031760000000000004 bus1=n382634.1.2.3 bus2=n382635.1.2.3 switch=n enabled=y phases=3 Linecode=185_SQ_MM_CU_3
-New Line.line2 Units=km Length=0.04266 bus1=n382635.1.2.3 bus2=n701826.1.2.3 switch=n enabled=y phases=3 Linecode=185_SQ_MM_CU_3
-New Line.line3 Units=km Length=0.00937 bus1=n382634.1.2.3 bus2=n701824.1.2.3 switch=n enabled=y phases=3 Linecode=185_SQ_MM_CU_3
-New Line.line4 Units=km Length=0.00202 bus1=n382635.1.2.3 bus2=n701827.1.2.3 switch=n enabled=y phases=3 Linecode=unknown_linecode_3

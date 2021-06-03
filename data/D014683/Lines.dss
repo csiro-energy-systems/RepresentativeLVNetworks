@@ -1,8 +1,0 @@
-New Line.line0 Units=km Length=0.07205 bus1=n121613.1.2.3 bus2=n121614.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3
-New Line.line1 Units=km Length=0.0305 bus1=n121614.1.2.3 bus2=n121615.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3
-New Line.line2 Units=km Length=0.02709 bus1=n121615.1.2.3 bus2=n121616.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3
-New Line.line3 Units=km Length=0.02709 bus1=n121616.1.2.3 bus2=n121617.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3
-New Line.line4 Units=km Length=0.02705 bus1=n121617.1.2.3 bus2=n121618.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3
-New Line.line5 Units=km Length=0.03768 bus1=n121618.1.2.3 bus2=n600496.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3
-New Line.line6 Units=km Length=0.02733 bus1=n121614.1.2.3 bus2=n121619.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3
-New Line.line7 Units=km Length=0.02696 bus1=n121619.1.2.3 bus2=n600497.1.2.3 switch=n enabled=y phases=3 Linecode=415V_185CU4_P_L_*_3

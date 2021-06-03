@@ -1,6 +1,0 @@
-New Linecode.1P_Code2 units=km nphases=1 R1=0.7839 R0=0.7839 X1=0.0915 X0=0.0915 BaseFreq=50
-New Linecode.2P_Code0 units=km nphases=2 R1=0.1 R0=0.4 X1=0.061 X0=0.244 BaseFreq=50
-New Linecode.2P_Code3 units=km nphases=2 R1=0.164 R0=(4 0.164 *) X1=0.062 X0=(4 0.062 *) BaseFreq=50
-New Linecode.2P_Code4 units=km nphases=2 R1=1.29 R0=(4 1.29 *) X1=0.258 X0=(4 0.258 *)  BaseFreq=50
-New Linecode.2P_Code5 units=km nphases=2 R1=0.7839 R0=(4 0.7839 *) X1=0.0915 X0=(4 0.0915 *) BaseFreq=50
-New Linecode.3P_Code1 units=km nphases=3 R1=0.164 R0=(4 0.164 *) X1=0.062 X0=(4 0.062 *)  BaseFreq=50
