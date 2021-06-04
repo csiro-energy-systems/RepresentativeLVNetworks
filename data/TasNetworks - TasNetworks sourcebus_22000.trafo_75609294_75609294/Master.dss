@@ -5,7 +5,6 @@ New Circuit.Full_Network  bus1=sourcebus_22000 pu=1.0 basekV=22.0
 Redirect LineCodes.dss
 Redirect Lines.dss
 Redirect Transformers.dss
-Redirect Regulators.dss
 Redirect Loads.dss
 
 Set Voltagebases=[0.4, 0.41500000000000004, 22.0]

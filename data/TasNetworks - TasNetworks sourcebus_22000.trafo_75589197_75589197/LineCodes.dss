@@ -1,10 +1,10 @@
-New Linecode.1P_Code1 units=km nphases=1 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.1P_Code4 units=km nphases=1 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.2P_Code6 units=km nphases=2 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_Code0 units=km nphases=3 R1=0.32 R0=1e-05 X1=0.063 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_Code5 units=km nphases=3 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_Code7 units=km nphases=3 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_OH_Code2 units=km nphases=3 R1=0.4517 R0=1e-05 X1=0.3666 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_OH_Code3 units=km nphases=3 R1=0.5875 R0=1e-05 X1=0.3745 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_OH_Code8 units=km nphases=3 R1=0.3751 R0=1e-05 X1=0.3601 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
-New Linecode.3P_OH_Code9 units=km nphases=3 R1=1.2306 R0=1e-05 X1=0.413 X0=1e-05 C1=0.0001 C0=0.0001 BaseFreq=50
+New Linecode.1P_Code1 units=km nphases=1 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05  
+New Linecode.1P_Code4 units=km nphases=1 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05  
+New Linecode.2P_Code6 units=km nphases=2 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05  
+New Linecode.3P_Code0 units=km nphases=3 R1=0.32 R0=1e-05 X1=0.063 X0=1e-05  
+New Linecode.3P_Code5 units=km nphases=3 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05  
+New Linecode.3P_Code7 units=km nphases=3 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05  
+New Linecode.3P_OH_Code2 units=km nphases=3 R1=0.4517 R0=1e-05 X1=0.3666 X0=1e-05  
+New Linecode.3P_OH_Code3 units=km nphases=3 R1=0.5875 R0=1e-05 X1=0.3745 X0=1e-05  
+New Linecode.3P_OH_Code8 units=km nphases=3 R1=0.3751 R0=1e-05 X1=0.3601 X0=1e-05  
+New Linecode.3P_OH_Code9 units=km nphases=3 R1=1.2306 R0=1e-05 X1=0.413 X0=1e-05  
