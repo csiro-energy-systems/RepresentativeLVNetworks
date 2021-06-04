@@ -1,0 +1,10 @@
+New Linecode.1P_Code2 units=km nphases=1 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05  
+New Linecode.1P_Code9 units=km nphases=1 R1=1.978 R0=1e-05 X1=0.3956 X0=1e-05 
+New Linecode.2P_Code1 units=km nphases=2 R1=0.164 R0=1e-05 X1=0.062 X0=1e-05  
+New Linecode.2P_Code3 units=km nphases=2 R1=0.31 R0=1e-05 X1=0.061 X0=1e-05 
+New Linecode.2P_Code4 units=km nphases=2 R1=0.69 R0=1e-05 X1=0.0915 X0=1e-05 
+New Linecode.2P_Code5 units=km nphases=2 R1=0.1 R0=1e-05 X1=0.061 X0=1e-05 
+New Linecode.2P_Code6 units=km nphases=2 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05 
+New Linecode.2P_Code7 units=km nphases=2 R1=0.32 R0=1e-05 X1=0.063 X0=1e-05
+New Linecode.2P_Code8 units=km nphases=2 R1=1.978 R0=1e-05 X1=0.3956 X0=1e-05 
+New Linecode.3P_Code0 units=km nphases=3 R1=0.164 R0=1e-05 X1=0.062 X0=1e-05 

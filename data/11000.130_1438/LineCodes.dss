@@ -1,0 +1,4 @@
+New Linecode.3P_Code2 units=km nphases=3 R1=0.868 R0=1.7619 X1=0.155493860611 X0=0.4766 BaseFreq=50
+New Linecode.3P_Code3 units=km nphases=3 R1=0.32 R0=0.8306 X1=0.133627315065 X0=0.1906 BaseFreq=50
+New Linecode.3P_OH_Code0 units=km nphases=3 R1=0.233 R0=0.233 X1=0.345092 X0=0.4 BaseFreq=50
+New Linecode.3P_OH_Code1 units=km nphases=3 R1=0.389 R0=0.6498 X1=0.3532 X0=1.1158  BaseFreq=50

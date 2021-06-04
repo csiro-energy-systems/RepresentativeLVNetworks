@@ -1,6 +1,6 @@
 Clear
 
-New Circuit.Full_Network  bus1=n198233 pu=1.0 basekV=0.433 
+New Circuit.Full_Network  bus1=33 pu=1.0 basekV=0.433 
 
 Redirect LineCodes.dss
 Redirect Lines.dss

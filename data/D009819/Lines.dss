@@ -1,4 +1,4 @@
-New Line.line0 Units=km Length=0.0010600000000000002 bus1=n092513.1.2.3 bus2=n092514.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3
-New Line.line1 Units=km Length=0.02169 bus1=n092514.1.2.3 bus2=n092515.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3
-New Line.line2 Units=km Length=0.03362 bus1=n092515.1.2.3 bus2=n092516.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3
-New Line.line3 Units=km Length=0.001 bus1=n092516.1.2.3 bus2=n590529.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3
+New Line.line0 Units=km Length=0.0010600000000000002 bus1=3.1.2.3 bus2=4.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3
+New Line.line1 Units=km Length=0.02169 bus1=4.1.2.3 bus2=5.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3
+New Line.line2 Units=km Length=0.03362 bus1=5.1.2.3 bus2=6.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3
+New Line.line3 Units=km Length=0.001 bus1=6.1.2.3 bus2=9.1.2.3 switch=n enabled=y phases=3 Linecode=25AL_ABC_3

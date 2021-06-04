@@ -1,0 +1,4 @@
+New Linecode.1P_Code0 units=km nphases=1 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05  
+New Linecode.1P_Code1 units=km nphases=1 R1=1.29 R0=1e-05 X1=0.258 X0=1e-05  
+New Linecode.1P_Code3 units=km nphases=1 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05  
+New Linecode.3P_OH_Code2 units=km nphases=3 R1=0.3751 R0=1e-05 X1=0.3601 X0=1e-05  
