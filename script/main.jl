@@ -1,4 +1,4 @@
-cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
+cd("C:/Users/Frederik Geth/Documents/GitHub/RepresentativeLVNetworks/data")
 using Pkg
 Pkg.activate("./")
 
@@ -9,34 +9,36 @@ using OpenDSSDirect
 # filepaths = readdir(folder)
 case = Dict()
 
-case[1] = "D003278" 
-case[2] = "D009819"
-case[3] = "D014683"
-case[4] = "D023303" 
-case[5] = "D037984" 
-case[6] = "D047205"
-case[7] = "D049759" 
-case[8] = "D052609" 
-case[9] = "D058461" 
-case[10] = "sourcebus_11000.118_744"
-case[11] = "sourcebus_11000.130_1438"
-case[12] = "sourcebus_11000.trafo_75585177_75585177"
-case[13] = "sourcebus_11000.trafo_75588995_75588995"
-case[14] = "sourcebus_11000.trafo_75589759_75589759"
-case[15] = "sourcebus_11000.trafo_75592323_75592323"
-case[16] = "sourcebus_11000.trafo_75604448_75604448"
-case[17] = "sourcebus_11000.trafo_75615289_75615289"
-case[18] = "sourcebus_11000.trafo_75617346_75617346"
-case[19] = "sourcebus_22000.trafo_75612682_75612682"
-case[20] = "sourcebus_22000.trafo_75618991_75618991"
-case[21] = "sourcebus_22000.trafo_75621868_75621868"
-case[22] = "sourcebus_22000.trafo_75628143_75628143"
-case[23] = "sourcebus_22000.trafo_75628932_75628932"
+case[1] = "11000.118_744"
+case[2] = "11000.130_1438"
+case[3] = "11000.trafo_75586070_75586070_2"
+case[4] = "11000.trafo_75586990_75586990"
+case[5] = "11000.trafo_75594672_75594672"
+case[6] = "11000.trafo_75605182_75605182"
+case[7] = "11000.trafo_75617346_75617346"
+case[8] = "11000.trafo_75619308_75619308_1"
+case[9] = "22000.50-3185-substation_site133534_856"
+case[10] = "22000.trafo_75589197_75589197"
+case[11] = "22000.trafo_75609294_75609294"
+case[12] = "22000.trafo_75616217_75616217"
+case[13] = "22000.trafo_75618801_75618801_3"
+case[14] = "22000.trafo_75628065_75628065"
+case[15] = "D002900"
+case[16] = "D009819"
+case[17] = "D014470"
+case[18] = "D022565"
+case[19] = "D031431"
+case[20] = "D035190"
+case[21] = "D049573"
+case[22] = "D052609"
+case[23] = "D058461"
+
+
 
 i = 9
 file = "data/"*case[i]*"/Master.dss"
 ##
-cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
+cd("C:/Users/Frederik Geth/Documents/GitHub/RepresentativeLVNetworks/data")
 RepresentativeLVNetworks.run_dss!(file)
 ##
 
@@ -52,7 +54,7 @@ RepresentativeLVNetworks.run_dss!(file)
 sols = Dict()
 for (i, casename) in case
     file = "data/"*casename*"/Master.dss"
-    cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
+    cd("C:/Users/Frederik Geth/Documents/GitHub/RepresentativeLVNetworks/data")
     @show casename
     sols[casename] = RepresentativeLVNetworks.run_dss!(file)
 end

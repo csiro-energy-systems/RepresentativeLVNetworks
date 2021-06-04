@@ -1,0 +1,4 @@
+[deps]
+MadNLP = "2621e9c9-9eb4-46b1-8089-e8c72242dfb6"
+OpenDSSDirect = "a8b11937-1041-50f2-9818-136bb7a8fb06"
+RepresentativeLVNetworks = "eae880fa-0a1c-414a-9d83-903875671fcc"

@@ -1,2 +1,2 @@
-New Linecode.240AL_3 units=km nphases=3 R1=0.096 R0=0.096 X1=0.073 X0=0.074 C1=0.0 C0=0.0 
-New Linecode.415V_185CU4_P_L_*_3 units=km nphases=3 R1=0.907 R0=0.822 X1=0.082 X0=0.081 C1=0.0 C0=0.0 
+New Linecode.240AL_3 units=km nphases=3 R1=0.096 R0=0.096 X1=0.073 X0=0.074 
+New Linecode.415V_185CU4_P_L_*_3 units=km nphases=3 R1=0.907 R0=0.822 X1=0.082 X0=0.081 
