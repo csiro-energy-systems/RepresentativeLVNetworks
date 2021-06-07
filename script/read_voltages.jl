@@ -1,5 +1,8 @@
-using Pkg
+# using Pkg
 # cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks/script/")
+# Pkg.activate("./script")
+cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks")
+using Pkg
 Pkg.activate("./script")
 
 # using Plots
@@ -12,7 +15,7 @@ const _RepNets = RepresentativeLVNetworks
 # using PowerModelsDistribution
 # const PMD = PowerModelsDistribution
 
-cid = 18
+cid = 1
 
 #
 
@@ -40,6 +43,8 @@ case[20] = "T"
 case[21] = "U"
 case[22] = "V"
 case[23] = "W"
+
+
 casename = case[cid]
 
 ##
@@ -95,3 +100,4 @@ load_dict = _RepNets.get_solution_load()
 # _RepNets.plot_voltage_snap(buses_dict, lines_df, t=4)
 # _RepNets.plot_voltage_boxplot(buses_dict)
 _RepNets.plot_substation_power()
+_RepNets.find_Vsource_pdelement()

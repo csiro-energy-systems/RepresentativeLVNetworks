@@ -207,8 +207,9 @@ function plot_substation_power()
     _ODSS.Monitors.Name(monitor_fbus_name)
     monitor_file = _ODSS.Monitors.FileName()
     monitors_csv = CSV.read(monitor_file, DataFrames.DataFrame)
+    @show monitors_csv
 
-    phase_mapping = Dict(1=>"a", 2=>"b", 3=>"c")
+    # phase_mapping = Dict(1=>"a", 2=>"b", 3=>"c")
     plt_P = plot()
     title!("Power flow through substation bus")
     ylabel!("Active power (kW)")
@@ -216,16 +217,13 @@ function plot_substation_power()
     ylabel!("Reactive power (kvar)")
     xlabel!("Time (hour)")
     for (p, phase) in enumerate(fbus_phases)
-        cm = monitors_csv[!," I$p"]
-        vm = monitors_csv[!," V$p"]
-        ca = monitors_csv[!," IAngle$p"]
-        va = monitors_csv[!," VAngle$p"]
-        S = vm.*exp.(im*va) .* conj(cm.*exp.(im*ca))
-        P = real(S)
-        Q = imag(S)
-        @show size(cm), size(P)
-        plot!(plt_P, P/1000, label="phase $phase")
-        plot!(plt_Q, Q/1000, label=false)
+        sm = monitors_csv[!," S$p (kVA)"]
+        sa = monitors_csv[!," Ang$p"]
+        S = sm.*exp.(im*sa./180*pi) 
+        P = real.(S)
+        Q = imag.(S)
+        plot!(plt_P, P, label="phase $phase")
+        plot!(plt_Q, Q, label=false)
     end
     plt = plot(plt_P, plt_Q, layout=(2,1))
 
