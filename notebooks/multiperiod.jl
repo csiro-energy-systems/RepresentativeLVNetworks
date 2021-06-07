@@ -72,11 +72,6 @@ begin
 	load_names = loads_df_snap[!,:Name]
 end
 
-# ╔═╡ 4478bd4d-b1a3-4be2-866c-71725cc4fcd6
-md"""
-## load data
-"""
-
 # ╔═╡ 057a7171-d8bb-4dfa-a02e-6f3faf039d97
 md"""
 load magnitude multiplier (0,10) $(@bind load_magnitude_slider PlutoUI.Slider(0:0.2:10; default=1, show_value=true))
@@ -134,6 +129,11 @@ md"""
 Extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes
 
 Extract load, bus and pvsystem data to dictionaries
+"""
+
+# ╔═╡ 4478bd4d-b1a3-4be2-866c-71725cc4fcd6
+md"""
+## load data
 """
 
 # ╔═╡ 44bfe433-3187-4f6a-9848-19f748945d12
@@ -197,13 +197,13 @@ end
 # ╟─b3a3a1e6-bc30-11eb-0277-7958bfc44407
 # ╟─6f43db92-3968-4bb0-9198-d7c7f208d0f5
 # ╟─ab3df566-1373-42d3-9eab-34757f28c359
-# ╟─4478bd4d-b1a3-4be2-866c-71725cc4fcd6
 # ╟─057a7171-d8bb-4dfa-a02e-6f3faf039d97
 # ╟─236e9fa0-0d49-4f04-b10c-001cf6a52e9e
 # ╟─c83565e3-ae93-4ab3-a920-475f12523cc8
 # ╟─db64d15c-c56f-4ffd-ac2e-97d420665814
-# ╟─ff6b886b-e361-454c-9821-0f1d127ccfb9
-# ╠═0665c264-4cb3-425e-984b-7d85c519e916
+# ╠═ff6b886b-e361-454c-9821-0f1d127ccfb9
+# ╟─0665c264-4cb3-425e-984b-7d85c519e916
+# ╟─4478bd4d-b1a3-4be2-866c-71725cc4fcd6
 # ╟─44bfe433-3187-4f6a-9848-19f748945d12
 # ╟─27748f89-7b63-474a-a638-f123fac0f0bf
 # ╟─87b855a7-9e5e-4ee3-a6fa-c7c8fd8a6ffc
@@ -211,5 +211,5 @@ end
 # ╟─16c2d430-c00c-4bf6-9cea-ca41fad86803
 # ╟─7e58a1cf-ac2e-4392-81ef-98b538c61fd4
 # ╟─34c51902-0d90-47a7-894e-205b880316ea
-# ╟─f5894a60-fa43-4df0-80c5-4dd744c9bc9b
+# ╠═f5894a60-fa43-4df0-80c5-4dd744c9bc9b
 # ╟─69816446-8938-40fc-8ef5-2b6f9eb56403

@@ -52,7 +52,7 @@ function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), us
     add_load_monitors!()
 
     pde_name = find_Vsource_pdelement()
-    _ODSS.dss("""  New Monitor.substation Element=$pde_name   """)
+    _ODSS.dss("""  New Monitor.substation Element=$pde_name mode=1  """)
     _ODSS.dss("""  New Energymeter.substation Element=$pde_name   """)
 
     _ODSS.dss("""
@@ -65,7 +65,7 @@ function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), us
     """)
     _ODSS.dss(after_solve)
 
-    @assert _ODSS.Solution.Converged() "OpenDSS fails to converge"
+    @assert _ODSS.Solution.Converged() "OpenDSS failed to converge"
 
     _ODSS.dss(""" Set Datapath = $data_path """)
     export_line_monitors!()
