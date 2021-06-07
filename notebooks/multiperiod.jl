@@ -55,7 +55,7 @@ end
 # ╔═╡ 6f43db92-3968-4bb0-9198-d7c7f208d0f5
 md"""
 ## Select the network file
-$(@bind i PlutoUI.Select(case_tuples))
+Network: $(@bind i PlutoUI.Select(case_tuples))
 """
 
 # ╔═╡ ab3df566-1373-42d3-9eab-34757f28c359
@@ -159,17 +159,38 @@ time step (1,24) $(@bind time_step PlutoUI.Slider(1:24; default=1, show_value=tr
 
 # ╔═╡ cc9bfff3-fc7a-480f-976f-1baebba730cb
 begin
-	_RepNets.plot_voltage_snap(buses_dict, lines_df; t=time_step)
+	p1 = _RepNets.plot_voltage_snap(buses_dict, lines_df; t=time_step)
+end
+
+# ╔═╡ 16c2d430-c00c-4bf6-9cea-ca41fad86803
+begin
+	figpath = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_multiperiod_voltage_drop_time_$time_step.pdf")
+	savefig(p1, figpath)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ 7e58a1cf-ac2e-4392-81ef-98b538c61fd4
 begin
-	_RepNets.plot_voltage_boxplot(buses_dict)
+	p2 = _RepNets.plot_voltage_boxplot(buses_dict)
+end
+
+# ╔═╡ 34c51902-0d90-47a7-894e-205b880316ea
+begin
+	figpath2 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_multiperiod_voltage_bus_phase.pdf")
+	savefig(p2, figpath2)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ f5894a60-fa43-4df0-80c5-4dd744c9bc9b
 begin
-	_RepNets.plot_substation_power()
+	p3 = _RepNets.plot_substation_power()
+end
+
+# ╔═╡ 69816446-8938-40fc-8ef5-2b6f9eb56403
+begin
+	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"multiperiod_substation_power.pdf")
+	savefig(p3,figpath3)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ Cell order:
@@ -187,5 +208,8 @@ end
 # ╟─27748f89-7b63-474a-a638-f123fac0f0bf
 # ╟─87b855a7-9e5e-4ee3-a6fa-c7c8fd8a6ffc
 # ╟─cc9bfff3-fc7a-480f-976f-1baebba730cb
+# ╟─16c2d430-c00c-4bf6-9cea-ca41fad86803
 # ╟─7e58a1cf-ac2e-4392-81ef-98b538c61fd4
+# ╟─34c51902-0d90-47a7-894e-205b880316ea
 # ╟─f5894a60-fa43-4df0-80c5-4dd744c9bc9b
+# ╟─69816446-8938-40fc-8ef5-2b6f9eb56403
