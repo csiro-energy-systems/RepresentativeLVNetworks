@@ -1,0 +1,14 @@
+Clear
+
+New Circuit.K  bus1=3 pu=1.0 basekV=0.433 
+
+Redirect LineCodes.dss
+Redirect Lines.dss
+Redirect Loads.dss
+
+Set Voltagebases=[0.433]
+
+Calcvoltagebases
+
+
+Solve

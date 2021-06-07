@@ -1,0 +1,15 @@
+Clear
+
+New Circuit.G  bus1=sourcebus_11000 pu=1.0 basekV=11.0
+
+Redirect LineCodes.dss
+Redirect Lines.dss
+Redirect Transformers.dss
+Redirect Loads.dss
+
+Set Voltagebases=[0.433, 11.0]
+
+Calcvoltagebases
+
+
+Solve
