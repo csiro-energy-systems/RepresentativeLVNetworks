@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -24,29 +24,29 @@ begin
 
 	case = Dict()
 
-	case[1] = "D003278" 
-	case[2] = "D009819"
-	case[3] = "D014683"
-	case[4] = "D023303" 
-	case[5] = "D037984" 
-	case[6] = "D047205"
-	case[7] = "D049759" 
-	case[8] = "D052609" 
-	case[9] = "D058461" 
-	case[10] = "sourcebus_11000.118_744"
-	case[11] = "sourcebus_11000.130_1438"
-	case[12] = "sourcebus_11000.trafo_75585177_75585177"
-	case[13] = "sourcebus_11000.trafo_75588995_75588995"
-	case[14] = "sourcebus_11000.trafo_75589759_75589759"
-	case[15] = "sourcebus_11000.trafo_75592323_75592323"
-	case[16] = "sourcebus_11000.trafo_75604448_75604448"
-	case[17] = "sourcebus_11000.trafo_75615289_75615289"
-	case[18] = "sourcebus_11000.trafo_75617346_75617346"
-	case[19] = "sourcebus_22000.trafo_75612682_75612682"
-	case[20] = "sourcebus_22000.trafo_75618991_75618991"
-	case[21] = "sourcebus_22000.trafo_75621868_75621868"
-	case[22] = "sourcebus_22000.trafo_75628143_75628143"
-	case[23] = "sourcebus_22000.trafo_75628932_75628932"
+	case[1] = "A" 
+	case[2] = "B" 
+	case[3] = "C" 
+	case[4] = "D"
+	case[5] = "E"
+	case[6] = "F"
+	case[7] = "G"
+	case[8] = "H" 
+	case[9] = "I" 
+	case[10] = "J"
+	case[11] = "K"
+	case[12] = "L"
+	case[13] = "M"
+	case[14] = "N"
+	case[15] = "O"
+	case[16] = "P"
+	case[17] = "Q"
+	case[18] = "R"
+	case[19] = "S"
+	case[20] = "T"
+	case[21] = "U"
+	case[22] = "V"
+	case[23] = "W"
 	
 	case_tuples = [(string(key) => value) for (key, value) in sort(collect(case), by=x->x[1])];
 	
@@ -131,9 +131,9 @@ end
 # ╔═╡ 0665c264-4cb3-425e-984b-7d85c519e916
 md"""
 ## inspect results
-bus voltages,
+Extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes
 
-discuss data frames + column names plot some simple things
+Extract load, bus and pvsystem data to dictionaries
 """
 
 # ╔═╡ 44bfe433-3187-4f6a-9848-19f748945d12
@@ -173,16 +173,16 @@ begin
 end
 
 # ╔═╡ Cell order:
-# ╠═b3a3a1e6-bc30-11eb-0277-7958bfc44407
-# ╠═6f43db92-3968-4bb0-9198-d7c7f208d0f5
-# ╠═ab3df566-1373-42d3-9eab-34757f28c359
+# ╟─b3a3a1e6-bc30-11eb-0277-7958bfc44407
+# ╟─6f43db92-3968-4bb0-9198-d7c7f208d0f5
+# ╟─ab3df566-1373-42d3-9eab-34757f28c359
 # ╟─4478bd4d-b1a3-4be2-866c-71725cc4fcd6
 # ╟─057a7171-d8bb-4dfa-a02e-6f3faf039d97
 # ╟─236e9fa0-0d49-4f04-b10c-001cf6a52e9e
 # ╟─c83565e3-ae93-4ab3-a920-475f12523cc8
 # ╟─db64d15c-c56f-4ffd-ac2e-97d420665814
 # ╟─ff6b886b-e361-454c-9821-0f1d127ccfb9
-# ╟─0665c264-4cb3-425e-984b-7d85c519e916
+# ╠═0665c264-4cb3-425e-984b-7d85c519e916
 # ╟─44bfe433-3187-4f6a-9848-19f748945d12
 # ╟─27748f89-7b63-474a-a638-f123fac0f0bf
 # ╟─87b855a7-9e5e-4ee3-a6fa-c7c8fd8a6ffc

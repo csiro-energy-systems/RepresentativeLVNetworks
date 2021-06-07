@@ -11,6 +11,4 @@ Set Voltagebases=[0.41500000000000004, 22.0]
 
 Calcvoltagebases
 
-Buscoords Buscoords.dss
-
 Solve

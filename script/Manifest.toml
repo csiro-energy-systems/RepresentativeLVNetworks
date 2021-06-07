@@ -1065,8 +1065,8 @@ uuid = "189a3867-3050-52da-a836-e630ba90ab69"
 version = "0.2.0"
 
 [[RepresentativeLVNetworks]]
-deps = ["ArgParse", "CSV", "DataFrames", "Ipopt", "JSON", "MadNLP", "Measures", "OpenDSSDirect", "Plots", "Pluto", "PlutoUI", "PowerModelsDistribution", "StatsPlots", "UUIDs", "XLSX"]
-path = "/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks/"
+deps = ["ArgParse", "CSV", "DataFrames", "Ipopt", "JSON", "Measures", "OpenDSSDirect", "Plots", "Pluto", "PlutoUI", "PowerModelsDistribution", "StatsPlots", "UUIDs", "XLSX"]
+path = "/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks"
 uuid = "eae880fa-0a1c-414a-9d83-903875671fcc"
 version = "0.1.0"
 

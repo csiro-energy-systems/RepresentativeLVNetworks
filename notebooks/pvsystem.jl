@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.14.7
 
 using Markdown
 using InteractiveUtils
@@ -25,29 +25,29 @@ begin
 
 	case = Dict()
 
-	case[1] = "D003278" 
-	case[2] = "D009819"
-	case[3] = "D014683"
-	case[4] = "D023303" 
-	case[5] = "D037984" 
-	case[6] = "D047205"
-	case[7] = "D049759" 
-	case[8] = "D052609" 
-	case[9] = "D058461" 
-	case[10] = "sourcebus_11000.118_744"
-	case[11] = "sourcebus_11000.130_1438"
-	case[12] = "sourcebus_11000.trafo_75585177_75585177"
-	case[13] = "sourcebus_11000.trafo_75588995_75588995"
-	case[14] = "sourcebus_11000.trafo_75589759_75589759"
-	case[15] = "sourcebus_11000.trafo_75592323_75592323"
-	case[16] = "sourcebus_11000.trafo_75604448_75604448"
-	case[17] = "sourcebus_11000.trafo_75615289_75615289"
-	case[18] = "sourcebus_11000.trafo_75617346_75617346"
-	case[19] = "sourcebus_22000.trafo_75612682_75612682"
-	case[20] = "sourcebus_22000.trafo_75618991_75618991"
-	case[21] = "sourcebus_22000.trafo_75621868_75621868"
-	case[22] = "sourcebus_22000.trafo_75628143_75628143"
-	case[23] = "sourcebus_22000.trafo_75628932_75628932"
+	case[1] = "A" 
+	case[2] = "B" 
+	case[3] = "C" 
+	case[4] = "D"
+	case[5] = "E"
+	case[6] = "F"
+	case[7] = "G"
+	case[8] = "H" 
+	case[9] = "I" 
+	case[10] = "J"
+	case[11] = "K"
+	case[12] = "L"
+	case[13] = "M"
+	case[14] = "N"
+	case[15] = "O"
+	case[16] = "P"
+	case[17] = "Q"
+	case[18] = "R"
+	case[19] = "S"
+	case[20] = "T"
+	case[21] = "U"
+	case[22] = "V"
+	case[23] = "W"
 	
 		case_tuples = [(string(key) => value) for (key, value) in sort(collect(case), by=x->x[1])];
 
@@ -188,9 +188,9 @@ end
 # ╔═╡ 6f56a6de-f608-46f1-9be1-b264fcffff5e
 md"""
 ## inspect results
-bus voltages,
+Extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes
 
-discuss data frames + column names plot some simple things
+Extract load, bus and pvsystem data to dictionaries
 """
 
 # ╔═╡ 273753d2-ee13-4cf0-aa53-fcd02df6dd93
@@ -217,8 +217,6 @@ time step (1,24) $(@bind time_step PlutoUI.Slider(1:24; default=1, show_value=tr
 
 # ╔═╡ eeed8faa-047e-49c9-a242-6ac8bcc18530
 begin 
-	# _RepNets.plot_voltage_along_feeder_snap(buses_dict, lines_df; t=time_step)
-	# _RepNets.plot_voltage_histogram_snap(buses_dict; t=time_step)
 	_RepNets.plot_voltage_snap(buses_dict, lines_df; t=time_step)
 end
 
@@ -233,7 +231,7 @@ begin
 end
 
 # ╔═╡ Cell order:
-# ╠═9326d206-bc46-11eb-202d-1716f033df55
+# ╟─9326d206-bc46-11eb-202d-1716f033df55
 # ╠═51cf36b1-1a0c-4514-8e74-3887718e8c4d
 # ╠═e52daa14-1f3c-4572-924e-5d08c4972d1b
 # ╟─c40d64d4-e27e-461c-ac0c-5c0784f3b8dc
@@ -251,7 +249,7 @@ end
 # ╠═4da21b95-f2d7-431f-933e-b650c7e7d23d
 # ╟─6adcda53-28d2-4323-909b-d17612c0f772
 # ╠═4bc59303-506c-431a-9de1-f6a76df46fdb
-# ╟─6f56a6de-f608-46f1-9be1-b264fcffff5e
+# ╠═6f56a6de-f608-46f1-9be1-b264fcffff5e
 # ╠═273753d2-ee13-4cf0-aa53-fcd02df6dd93
 # ╟─459c2272-146c-4bb5-8d0c-9187637fb486
 # ╟─bbf6ab7d-66d3-4011-b033-31562d9a1d88

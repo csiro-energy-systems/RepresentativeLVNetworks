@@ -3,4 +3,4 @@ New Linecode.25AL_ABC_3 units=km nphases=3  R1=1.49 R0=(4 1.49 *) X1=0.102 X0=(4
 New Linecode.38_HD_CU_3 units=km nphases=3  R1=0.433 R0=(4 0.433 *) X1=0.378 X0=(4 0.378 *) C1=0.0 C0=0.0 
 New Linecode.66_HDCU_(19/2.11)_3 units=km nphases=3 R1=0.302 R0=(4 0.302 *) X1=0.359 X0=(4 0.359 *) C1=0.0 C0=0.0 
 New Linecode.7/4.5_AAC_-_MERCURY_3 units=km nphases=3  R1=0.258 R0=(4 0.258 *) X1=0.34 X0=(4 0.34 *) C1=0.0 C0=0.0 
-New Linecode.unknown_linecode_3 units=km nphases=3  R1=0.0 R0=0.0 X1=0.0 X0=0.0 C1=0.0 C0=0.0 
+New Linecode.unknown_linecode_3 units=km nphases=3  R1=0.01 R0=0.04 X1=0.01 X0=0.04 C1=0.0 C0=0.0 

@@ -51,9 +51,20 @@ xlabel!("Time (h)")
 ylabel!("Power (kW)")
 display(p)
 savefig(p, "all_curves.pdf")
+##
+using JSON
+
+file_timeseries= "smartgridsmartcities.csv"
+_ = open(file_timeseries, "w") do io
+    JSON.print(io, a)
+end
+
+b = JSON.parsefile(file_timeseries)
+
+
 
 ##
-totals = zeros(48)
+stotals = zeros(48)
 for (c,customer) in a
     totals .+= customer["p"]
 end
@@ -252,3 +263,16 @@ function parse_commandline()
     return parse_args(s) 
 end 
 parsed_args = parse_commandline()
+
+
+using Plots
+using StatsPlots
+using RDatasets
+school = RDatasets.dataset("mlmRev", "Hsb82")
+x = string.(school.Sector)
+y = school.MAch
+g = string.(school.Sx)
+println(x[1:3])
+println(y[1:3])
+println(g[1:3])
+groupedboxplot(x, y, group=g)
