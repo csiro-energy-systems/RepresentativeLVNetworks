@@ -24,7 +24,7 @@ function remove_solve_command(filename)
 end
 
 
-function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), useactual=true, pvsystems=[], irradiance=rand(24), storage=[], data_path=pwd()*"/../csv_results")
+function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), useactual=true, pvsystems=[], irradiance=rand(24), storage=[], cvr_load=[], data_path=pwd()*"/../csv_results")
     before_solve, after_solve = remove_solve_command(filename)
     
     _ODSS.dss("""  Clear  """)
@@ -33,7 +33,11 @@ function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), us
     # add_loadshapes!(pwd()*"/../LoadShape2.csv")
     load_dict = load_matrix_to_dict(loadshapesP, loadshapesQ)
     add_loadshapes!(load_dict; useactual=useactual)
-
+    
+    for cvr_load_constructor in cvr_load
+        cvr_load_constructor()
+    end
+    
     add_irradiance(irradiance)
     pvsystem_bus_dict = Dict()
     for pvsystem_constructor in pvsystems

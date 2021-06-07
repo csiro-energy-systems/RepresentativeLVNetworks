@@ -34,12 +34,15 @@ end
 
 
 function change_cvr_loads!(load_names; cvrwatts=0.4, cvrvars=2.0)
-    for load_name in load_names
-        _ODSS.Loads.Name(load_name)
-        _ODSS.Loads.CVRwatts(cvrwatts)
-        _ODSS.Loads.CVRvars(cvrvars)
-        _ODSS.Loads.Model(4)
+    function cvr_load_constructor()
+        for load_name in load_names
+            _ODSS.Loads.Name(load_name)
+            _ODSS.Loads.CVRwatts(cvrwatts)
+            _ODSS.Loads.CVRvars(cvrvars)
+            _ODSS.Loads.Model(4)
+        end
     end
+    return cvr_load_constructor
 end
 
 
