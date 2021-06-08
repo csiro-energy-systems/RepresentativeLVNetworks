@@ -226,6 +226,5 @@ function plot_substation_power()
         plot!(plt_Q, Q, label=false)
     end
     plt = plot(plt_P, plt_Q, layout=(2,1))
-
     return plt
 end

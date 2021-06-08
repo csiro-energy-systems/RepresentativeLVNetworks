@@ -54,8 +54,9 @@ end
 
 # ╔═╡ 2476fd06-9c37-41b0-bf62-b75c3cc88c97
 md"""
-## Select the network file
-$(@bind i PlutoUI.Select(case_tuples))
+## Select the network file and press the button
+Network: $(@bind i PlutoUI.Select(case_tuples))
+$(@bind go Button("Generate Figures!"))
 """
 
 # ╔═╡ 570f1884-11e3-439f-bb1b-1b4e54dea16f
@@ -197,6 +198,7 @@ discuss data frames + column names plot some simple things
 
 # ╔═╡ 97ff0b8b-d5e1-4490-a813-109425e41e15
 begin
+	go
 	transformers_df = _RepNets.transformers_to_dataframe()
 	generators_df = _RepNets.generators_to_dataframe()
 	capacitors_df = _RepNets.capacitors_to_dataframe()
@@ -219,17 +221,44 @@ time step (1,24) $(@bind time_step PlutoUI.Slider(1:24; default=1, show_value=tr
 
 # ╔═╡ 34ebc99a-b203-474e-b08f-89a92a0c921e
 begin 
-	_RepNets.plot_voltage_snap(buses_dict, lines_df; t=time_step)
+	go
+	p1 = _RepNets.plot_voltage_snap(buses_dict, lines_df; t=time_step)
+end
+
+# ╔═╡ 0d5d8eb0-b4ee-4320-b384-b2711ec777bf
+begin
+	go
+	figpath = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_storage_voltage_drop_time_$time_step.pdf")
+	savefig(p1, figpath)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ e46de90b-89f6-48f6-b8fd-66a2eb208363
 begin
-	_RepNets.plot_voltage_boxplot(buses_dict)
+	go
+	p2 = _RepNets.plot_voltage_boxplot(buses_dict)
+end
+
+# ╔═╡ a8bbc39a-7232-42f2-bf0d-8e47c0cec96e
+begin
+	go
+	figpath2 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_storage_voltage_bus_phase.pdf")
+	savefig(p2, figpath2)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ a2da2024-dab8-4056-89e8-f16f2d7658b6
 begin
-	_RepNets.plot_substation_power()
+	go
+	p3 = _RepNets.plot_substation_power()
+end
+
+# ╔═╡ 0dfafadc-9566-4f31-a6df-8625875d02eb
+begin
+	go
+	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"storage_substation_power.pdf")
+	savefig(p3,figpath3)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ Cell order:
@@ -239,7 +268,7 @@ end
 # ╟─be06145a-39ab-4cef-8fd8-82500be24112
 # ╟─5f47b8f6-2823-4b37-8f48-ed3c96fffa15
 # ╟─08c2977a-dd3a-4de9-b1cd-31122ee48d04
-# ╠═5a504138-8ccc-420a-b5ca-97cfcb0a1e29
+# ╟─5a504138-8ccc-420a-b5ca-97cfcb0a1e29
 # ╟─500aadb2-2812-4187-9af4-2c21839d4d3e
 # ╟─bc65c15d-39a7-42f1-82b0-5f082f9d840f
 # ╟─90c6666a-3a2d-4fdc-ad93-2ec9db4e60b8
@@ -249,13 +278,16 @@ end
 # ╟─f5af133d-7a38-4c06-8297-db14f896b80f
 # ╟─8517b0eb-b543-48bc-a9e8-6735652ad542
 # ╟─b48fd0a1-185c-47b8-ab2e-224970a77be7
-# ╠═acb64e04-1d61-4685-8802-4e4c96773cb9
+# ╟─acb64e04-1d61-4685-8802-4e4c96773cb9
 # ╟─8b17beb3-4727-431d-b986-8cdb9aa9e281
 # ╠═8ffb81df-cace-43e3-a79d-e1478dfca1df
 # ╟─8d995dd5-1ea3-4cd1-adf3-42cd121340a7
 # ╠═97ff0b8b-d5e1-4490-a813-109425e41e15
 # ╟─9a424d3e-8442-49de-b98d-646c27af30eb
 # ╟─734cac0a-9f2f-465a-ad75-1be32766fe92
-# ╠═34ebc99a-b203-474e-b08f-89a92a0c921e
+# ╟─34ebc99a-b203-474e-b08f-89a92a0c921e
+# ╟─0d5d8eb0-b4ee-4320-b384-b2711ec777bf
 # ╠═e46de90b-89f6-48f6-b8fd-66a2eb208363
+# ╠═a8bbc39a-7232-42f2-bf0d-8e47c0cec96e
 # ╠═a2da2024-dab8-4056-89e8-f16f2d7658b6
+# ╠═0dfafadc-9566-4f31-a6df-8625875d02eb
