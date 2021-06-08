@@ -191,9 +191,7 @@ end
 # ╔═╡ 8d995dd5-1ea3-4cd1-adf3-42cd121340a7
 md"""
 ## inspect results
-bus voltages,
-
-discuss data frames + column names plot some simple things
+We can inspect variables and parameters for the network components
 """
 
 # ╔═╡ 97ff0b8b-d5e1-4490-a813-109425e41e15
@@ -244,7 +242,7 @@ begin
 	go
 	figpath2 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_storage_voltage_bus_phase.pdf")
 	savefig(p2, figpath2)
-	@show "figure saved: $figpath"
+	@show "figure saved: $figpath2"
 end
 
 # ╔═╡ a2da2024-dab8-4056-89e8-f16f2d7658b6
@@ -258,13 +256,13 @@ begin
 	go
 	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"storage_substation_power.pdf")
 	savefig(p3,figpath3)
-	@show "figure saved: $figpath"
+	@show "figure saved: $figpath3"
 end
 
 # ╔═╡ Cell order:
-# ╠═46131770-bc48-11eb-0920-bdf898c3c759
+# ╟─46131770-bc48-11eb-0920-bdf898c3c759
 # ╟─2476fd06-9c37-41b0-bf62-b75c3cc88c97
-# ╠═570f1884-11e3-439f-bb1b-1b4e54dea16f
+# ╟─570f1884-11e3-439f-bb1b-1b4e54dea16f
 # ╟─be06145a-39ab-4cef-8fd8-82500be24112
 # ╟─5f47b8f6-2823-4b37-8f48-ed3c96fffa15
 # ╟─08c2977a-dd3a-4de9-b1cd-31122ee48d04
@@ -280,14 +278,14 @@ end
 # ╟─b48fd0a1-185c-47b8-ab2e-224970a77be7
 # ╟─acb64e04-1d61-4685-8802-4e4c96773cb9
 # ╟─8b17beb3-4727-431d-b986-8cdb9aa9e281
-# ╠═8ffb81df-cace-43e3-a79d-e1478dfca1df
+# ╟─8ffb81df-cace-43e3-a79d-e1478dfca1df
 # ╟─8d995dd5-1ea3-4cd1-adf3-42cd121340a7
 # ╠═97ff0b8b-d5e1-4490-a813-109425e41e15
 # ╟─9a424d3e-8442-49de-b98d-646c27af30eb
 # ╟─734cac0a-9f2f-465a-ad75-1be32766fe92
 # ╟─34ebc99a-b203-474e-b08f-89a92a0c921e
 # ╟─0d5d8eb0-b4ee-4320-b384-b2711ec777bf
-# ╠═e46de90b-89f6-48f6-b8fd-66a2eb208363
-# ╠═a8bbc39a-7232-42f2-bf0d-8e47c0cec96e
-# ╠═a2da2024-dab8-4056-89e8-f16f2d7658b6
-# ╠═0dfafadc-9566-4f31-a6df-8625875d02eb
+# ╟─e46de90b-89f6-48f6-b8fd-66a2eb208363
+# ╟─a8bbc39a-7232-42f2-bf0d-8e47c0cec96e
+# ╟─a2da2024-dab8-4056-89e8-f16f2d7658b6
+# ╟─0dfafadc-9566-4f31-a6df-8625875d02eb

@@ -219,7 +219,7 @@ begin
 	go
 	figpath2 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_voltage_bus_phase.pdf")
 	savefig(p2, figpath2)
-	@show "figure saved: $figpath"
+	@show "figure saved: $figpath2"
 end
 
 # ╔═╡ 555d55cb-c5fe-4f56-991f-abf58cad0d3e
@@ -233,7 +233,7 @@ begin
 	go
 	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_substation_power.pdf")
 	savefig(p3,figpath3)
-	@show "figure saved: $figpath"
+	@show "figure saved: $figpath3"
 end
 
 # ╔═╡ Cell order:
@@ -259,5 +259,5 @@ end
 # ╟─dd2cb4a4-2d42-4429-b934-3e40402e1568
 # ╟─55737303-9100-471a-9ba4-d63d48935675
 # ╟─836d1582-5845-43f1-87cc-c0f1cee9a6d8
-# ╠═555d55cb-c5fe-4f56-991f-abf58cad0d3e
+# ╟─555d55cb-c5fe-4f56-991f-abf58cad0d3e
 # ╟─db0cd563-ed72-4196-adca-27bb639fdd73

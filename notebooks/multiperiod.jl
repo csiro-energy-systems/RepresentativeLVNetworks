@@ -107,12 +107,13 @@ end
 # ╔═╡ db64d15c-c56f-4ffd-ac2e-97d420665814
 md"""
 ## solve multiperiod problem
-This is the multiperiod problem for the representative network.
+This builds the multiperiod (sequential time) power flow simulation for the representative network.
 
 The network does not include pv and storage systems.
 
+We first run the model in the snapshot mode to extract load and bus names. 
 
-We first run the model in the snapshot mode to extract load and bus names. Then the loadshapes are assigned to the multiperiod mode.
+We attach the time series (load shapes) for all loads in the network
 """
 
 # ╔═╡ ff6b886b-e361-454c-9821-0f1d127ccfb9
@@ -127,14 +128,7 @@ end
 # ╔═╡ 0665c264-4cb3-425e-984b-7d85c519e916
 md"""
 ## inspect results
-Extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes
-
-Extract load, bus and pvsystem data to dictionaries
-"""
-
-# ╔═╡ 4478bd4d-b1a3-4be2-866c-71725cc4fcd6
-md"""
-## load data
+We extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes. We furthermore extract load, bus and pvsystem data to dictionaries.
 """
 
 # ╔═╡ 44bfe433-3187-4f6a-9848-19f748945d12
@@ -184,7 +178,7 @@ begin
 	go
 	figpath2 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_multiperiod_voltage_bus_phase.pdf")
 	savefig(p2, figpath2)
-	@show "figure saved: $figpath"
+	@show "figure saved: $figpath2"
 end
 
 # ╔═╡ f5894a60-fa43-4df0-80c5-4dd744c9bc9b
@@ -196,9 +190,9 @@ end
 # ╔═╡ 69816446-8938-40fc-8ef5-2b6f9eb56403
 begin
 	go
-	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"multiperiod_substation_power.pdf")
+	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_multiperiod_substation_power.pdf")
 	savefig(p3,figpath3)
-	@show "figure saved: $figpath"
+	@show "figure saved: $figpath3"
 end
 
 # ╔═╡ Cell order:
@@ -209,10 +203,9 @@ end
 # ╟─236e9fa0-0d49-4f04-b10c-001cf6a52e9e
 # ╟─c83565e3-ae93-4ab3-a920-475f12523cc8
 # ╟─db64d15c-c56f-4ffd-ac2e-97d420665814
-# ╠═ff6b886b-e361-454c-9821-0f1d127ccfb9
+# ╟─ff6b886b-e361-454c-9821-0f1d127ccfb9
 # ╟─0665c264-4cb3-425e-984b-7d85c519e916
-# ╟─4478bd4d-b1a3-4be2-866c-71725cc4fcd6
-# ╟─44bfe433-3187-4f6a-9848-19f748945d12
+# ╠═44bfe433-3187-4f6a-9848-19f748945d12
 # ╟─27748f89-7b63-474a-a638-f123fac0f0bf
 # ╟─87b855a7-9e5e-4ee3-a6fa-c7c8fd8a6ffc
 # ╟─cc9bfff3-fc7a-480f-976f-1baebba730cb
@@ -220,4 +213,4 @@ end
 # ╟─7e58a1cf-ac2e-4392-81ef-98b538c61fd4
 # ╟─34c51902-0d90-47a7-894e-205b880316ea
 # ╟─f5894a60-fa43-4df0-80c5-4dd744c9bc9b
-# ╠═69816446-8938-40fc-8ef5-2b6f9eb56403
+# ╟─69816446-8938-40fc-8ef5-2b6f9eb56403
