@@ -1,6 +1,6 @@
 Clear
 
-New Circuit.B  bus1=n555251 pu=1.0 basekV=0.433 
+New Circuit.B  bus1=51 pu=1.0 basekV=0.433 
 
 Redirect LineCodes.dss
 Redirect Lines.dss
