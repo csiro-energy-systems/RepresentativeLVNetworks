@@ -55,8 +55,9 @@ end
 
 # ╔═╡ 9a50652c-a9f7-4165-8548-80c861b53863
 md"""
-## Select the network file
-$(@bind i PlutoUI.Select(case_tuples))
+## Select the network file and press the button
+Network: $(@bind i PlutoUI.Select(case_tuples))
+$(@bind go Button("Generate Figures!"))
 """
 
 # ╔═╡ 614c3e75-9651-4bfd-ba1c-fd4f1a6ec3c6
@@ -86,14 +87,6 @@ load magnitude multiplier (0,10) $(@bind load_magnitude_slider PlutoUI.Slider(0:
 # ╔═╡ b2949fff-54d4-45c6-93a5-9e2373862c66
 md"""
 load angle (-pi,pi) $(@bind load_angle_slider PlutoUI.Slider(-3.1:0.1:3.1; default=0.4, show_value=true))
-"""
-
-# ╔═╡ 8ae1bd08-3ed9-47d0-9676-0cb956744711
-md"Number of cvr loads (0, $(length(load_names))) $(@bind n_cvrload PlutoUI.Slider(0:1:length(load_names); default=1, show_value=true))"
-
-# ╔═╡ 308e8088-dab5-4cb2-b010-4da58558afa1
-md"""
-random selection of cvr loads? $(@bind random_cvr_loads CheckBox(default=false))
 """
 
 # ╔═╡ fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
@@ -139,13 +132,7 @@ md"""
 
 # ╔═╡ 2095c811-7da4-4496-a895-c8743ae9d099
 begin
-	n_loads = length(load_names)
-	
-	if random_cvr_loads
-		cvr_load_buses = load_names[randperm(n_loads)][1:n_cvrload]
-	else
-		cvr_load_buses = load_names[1:n_cvrload]
-	end
+	go
 	
 	if PQlink
 		q_cvr = p_cvr_exponent
@@ -153,8 +140,7 @@ begin
 		q_cvr = q_cvr_exponent
 	end
 	
-	cvr_load = [_RepNets.change_cvr_loads!(cvr_load_buses; cvrwatts=p_cvr_exponent, cvrvars=q_cvr_exponent)]
-	
+	cvr_load = [_RepNets.change_cvr_loads!(load_names; cvrwatts=p_cvr_exponent, cvrvars=q_cvr)]
 end
 
 # ╔═╡ 689a9150-c445-4586-9305-4f6c2a9c1b9e
@@ -188,6 +174,7 @@ Extract load, bus and pvsystem data to dictionaries
 
 # ╔═╡ 66970eca-d709-4b1f-9243-171fe776fa33
 begin
+	go
 	transformers_df = _RepNets.transformers_to_dataframe()
 	generators_df = _RepNets.generators_to_dataframe()
 	capacitors_df = _RepNets.capacitors_to_dataframe()
@@ -209,17 +196,44 @@ time step (1,24) $(@bind time_step PlutoUI.Slider(1:24; default=1, show_value=tr
 
 # ╔═╡ 0432e80e-54fe-40e6-8469-87a5f0d8c116
 begin
-	_RepNets.plot_voltage_snap(buses_dict, lines_df; t=time_step)
+	go
+	p1 = _RepNets.plot_voltage_snap(buses_dict, lines_df; t=time_step)
+end
+
+# ╔═╡ dd2cb4a4-2d42-4429-b934-3e40402e1568
+begin
+	go
+	figpath = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_voltage_drop_time_$time_step.pdf")
+	savefig(p1, figpath)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ 55737303-9100-471a-9ba4-d63d48935675
 begin
-	_RepNets.plot_voltage_boxplot(buses_dict)
+	go
+	p2 = _RepNets.plot_voltage_boxplot(buses_dict)
+end
+
+# ╔═╡ 836d1582-5845-43f1-87cc-c0f1cee9a6d8
+begin
+	go
+	figpath2 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_voltage_bus_phase.pdf")
+	savefig(p2, figpath2)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ 555d55cb-c5fe-4f56-991f-abf58cad0d3e
 begin
-	_RepNets.plot_substation_power()
+	go
+	p3 = _RepNets.plot_substation_power()
+end
+
+# ╔═╡ db0cd563-ed72-4196-adca-27bb639fdd73
+begin
+	go
+	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_substation_power.pdf")
+	savefig(p3,figpath3)
+	@show "figure saved: $figpath"
 end
 
 # ╔═╡ Cell order:
@@ -229,8 +243,6 @@ end
 # ╟─5cf99fe1-4859-463e-bbf8-03236a8e237a
 # ╟─db40a422-b0c3-456c-9f1c-e3af9695598e
 # ╟─b2949fff-54d4-45c6-93a5-9e2373862c66
-# ╟─8ae1bd08-3ed9-47d0-9676-0cb956744711
-# ╟─308e8088-dab5-4cb2-b010-4da58558afa1
 # ╟─fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
 # ╟─c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
 # ╟─8e158284-0c24-4689-8930-bc8d51a01753
@@ -240,9 +252,12 @@ end
 # ╟─689a9150-c445-4586-9305-4f6c2a9c1b9e
 # ╟─c2466922-5325-40d1-962d-4124fa00c9de
 # ╟─c8af4c62-d2a1-4f1b-a8d3-e1b57a2f9a80
-# ╟─66970eca-d709-4b1f-9243-171fe776fa33
+# ╠═66970eca-d709-4b1f-9243-171fe776fa33
 # ╟─b23d9099-6f49-437c-bcba-0e4610031fa1
 # ╟─5d2407c1-98ad-4500-bfcd-c75660dc6e8a
 # ╟─0432e80e-54fe-40e6-8469-87a5f0d8c116
+# ╟─dd2cb4a4-2d42-4429-b934-3e40402e1568
 # ╟─55737303-9100-471a-9ba4-d63d48935675
-# ╟─555d55cb-c5fe-4f56-991f-abf58cad0d3e
+# ╟─836d1582-5845-43f1-87cc-c0f1cee9a6d8
+# ╠═555d55cb-c5fe-4f56-991f-abf58cad0d3e
+# ╟─db0cd563-ed72-4196-adca-27bb639fdd73

@@ -1,7 +1,7 @@
-New Linecode.1P_Code2 units=km nphases=1 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 
-New Linecode.1P_Code3 units=km nphases=1 R1=0.7839 R0=1e-05 X1=0.0915 X0=1e-05 
-New Linecode.1P_Code6 units=km nphases=1 R1=1.29 R0=1e-05 X1=0.258 X0=1e-05 
-New Linecode.3P_Code1 units=km nphases=3 R1=1.247 R0=1e-05 X1=0.2494 X0=1e-05 
-New Linecode.3P_Code5 units=km nphases=3 R1=1.29 R0=1e-05 X1=0.258 X0=1e-05
-New Linecode.3P_OH_Code0 units=km nphases=3 R1=0.2614 R0=1e-05 X1=0.3489 X0=1e-05 
-New Linecode.3P_OH_Code4 units=km nphases=3 R1=0.27 R0=1e-05 X1=0.3619 X0=1e-05 
+New Linecode.1P_Code2 units=km nphases=1 R1=1.247 R0=1.247  X1=0.2494 X0=0.2494 
+New Linecode.1P_Code3 units=km nphases=1 R1=0.7839 R0=0.7839  X1=0.0915 X0=0.0915
+New Linecode.1P_Code6 units=km nphases=1 R1=1.29 R0=1.29 X1=0.258 X0=0.258 
+New Linecode.3P_Code1 units=km nphases=3 R1=1.247 R0=(4 1.247 *) X1=0.2494 X0=(4 0.2494 *)
+New Linecode.3P_Code5 units=km nphases=3 R1=1.29 R0=(4 1.29 *) X1=0.258 X0=(4 0.258 *)
+New Linecode.3P_OH_Code0 units=km nphases=3 R1=0.2614 R0=(4 0.2614 *) X1=0.3489 X0=(4 0.3489 *)
+New Linecode.3P_OH_Code4 units=km nphases=3 R1=0.27 R0=(4 0.27 *) X1=0.3619 X0=(4 0.3619 *) 
