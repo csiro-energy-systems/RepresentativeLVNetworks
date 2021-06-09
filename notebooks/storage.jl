@@ -21,6 +21,7 @@ begin
 	using OpenDSSDirect
 	using JSON
 	using Plots
+	using Random
 
 	case = Dict()
 

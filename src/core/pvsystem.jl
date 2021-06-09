@@ -6,8 +6,9 @@ function add_irradiance(irradiance)
 end
 
 
-function add_pvsystem(buses; phases=[1,2,3], kV=0.4, kVA=3, conn="Wye", PF=1, Pmpp=2)
+function add_pvsystem(buses; phases=[1,2,3], kV=0.4, kVA=3, conn="Wye", PF=1, Pmpp=2, voltvar_control=false)
     nphases = length(phases)
+    
     function pvsystem_constructor()
         pvsystem_bus_dict = Dict()
         for bus in buses
@@ -22,13 +23,19 @@ function add_pvsystem(buses; phases=[1,2,3], kV=0.4, kVA=3, conn="Wye", PF=1, Pm
             _ODSS.dss("""
                 New PVSystem.$pvsystem_name Bus1=$bus_name phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF Pmpp=$Pmpp
                 New Monitor.monitor_$pvsystem_name element=PVSystem.$pvsystem_name
-            """)
+                """)
             _ODSS.PVsystems.Daily("MyIrrad")
+            if voltvar_control
+                _ODSS.dss("""
+                New InvControl.$pvsystem_name mode=VOLTVAR  vvc_curve1=VoltVarCurve  voltage_curvex_ref=rated
+                """)
+            end
         end
         return pvsystem_bus_dict
     end
     return pvsystem_constructor
 end
+
 
 
 function export_pvsystem_monitors!()

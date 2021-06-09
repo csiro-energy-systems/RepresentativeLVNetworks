@@ -139,6 +139,12 @@ md"""
 connection (delta,wye) $(@bind conn PlutoUI.Select(["first"=>"wye", "second"=>"delta"]))
 """
 
+# ╔═╡ 58f8f9c3-9478-4a0d-bfb6-9dc90390dda4
+md"""
+Select var control:
+$(@bind var_control PlutoUI.Select([("constant PF" => "constant PF"), ("volt/var" => "volt/var")]))
+"""
+
 # ╔═╡ 8689056f-9135-4794-9684-da202086a979
 md"""
 power factor (-1,1) $(@bind PF PlutoUI.Slider(-1:0.01:1; default=0.95, show_value=true))
@@ -161,8 +167,11 @@ begin
 	
 	phases = collect(1:3)[BitArray([phase_a, phase_b, phase_c])]
 	@assert length(phases) > 0 
-	
-	pvsystems = [_RepNets.add_pvsystem(pv_buses, phases=phases, kVA=kVA, conn=conn, PF=PF, Pmpp=Pmpp)]	
+	if var_control == "constant PF"
+		pvsystems = [_RepNets.add_pvsystem(pv_buses, phases=phases, kVA=kVA, conn=conn, PF=PF, Pmpp=Pmpp, voltvar_control=false)]	
+	elseif var_control == "volt/var"
+		pvsystems = [_RepNets.add_pvsystem(pv_buses, phases=phases, kVA=kVA, conn=conn, Pmpp=Pmpp, voltvar_control=true)]
+	end
 end
 
 # ╔═╡ 6adcda53-28d2-4323-909b-d17612c0f772
@@ -273,9 +282,10 @@ end
 # ╟─66754599-3fa5-49d6-a3a2-c463b3eb40ca
 # ╟─f16ac2da-e148-4854-a784-ac7e53ca0526
 # ╟─cc84c5b5-c9a4-449c-9c89-4e3abce2b625
+# ╟─58f8f9c3-9478-4a0d-bfb6-9dc90390dda4
 # ╟─8689056f-9135-4794-9684-da202086a979
 # ╟─7cad5e72-9ee4-4583-93dc-7b00460f412d
-# ╟─4da21b95-f2d7-431f-933e-b650c7e7d23d
+# ╠═4da21b95-f2d7-431f-933e-b650c7e7d23d
 # ╟─6adcda53-28d2-4323-909b-d17612c0f772
 # ╟─4bc59303-506c-431a-9de1-f6a76df46fdb
 # ╟─6f56a6de-f608-46f1-9be1-b264fcffff5e

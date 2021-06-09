@@ -24,7 +24,7 @@ function remove_solve_command(filename)
 end
 
 
-function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), useactual=true, pvsystems=[], irradiance=rand(24), storage=[], cvr_load=[], data_path=pwd()*"/../csv_results")
+function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), useactual=true, pvsystems=[], irradiance=CSV.read(pwd()*"/../irradiance.csv", DataFrames.DataFrame, header=false)[!,:Column1], storage=[], cvr_load=[], data_path=pwd()*"/../csv_results")
     before_solve, after_solve = remove_solve_command(filename)
     
     _ODSS.dss("""  Clear  """)
@@ -38,6 +38,9 @@ function dss!(filename, mode; loadshapesP=ones(1,24), loadshapesQ=ones(1,24), us
         cvr_load_constructor()
     end
     
+    _ODSS.dss("""
+        New XYCurve.VoltVarCurve npts=4  Yarray=(1,  1, -1, -1 )  Xarray=(0.5, 0.95, 1.04 1.5)
+    """)
     add_irradiance(irradiance)
     pvsystem_bus_dict = Dict()
     for pvsystem_constructor in pvsystems

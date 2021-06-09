@@ -1,7 +1,7 @@
 # using Pkg
 # cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks/script/")
 # Pkg.activate("./script")
-cd("/Users/get050/Documents/repositories/GitHub/RepresentativeLVNetworks")
+cd("/Users/hei06j/Documents/repositories/remote/RepresentativeLVNetworks")
 using Pkg
 Pkg.activate("./script")
 
@@ -15,7 +15,7 @@ const _RepNets = RepresentativeLVNetworks
 # using PowerModelsDistribution
 # const PMD = PowerModelsDistribution
 
-cid = 1
+cid = 8
 
 #
 
@@ -72,12 +72,12 @@ load_names = loads_df[!,:Name]
 bus_names = collect(keys(buses_dict))
 # irradiance = CSV.read(data_path*"/irradiance.csv", DataFrame, header=false)[!,:Column1]
 # pvsystems = [_RepNets.add_pvsystem(["3103520"])]
-# pvsystems = [_RepNets.add_pvsystem(bus_names[1:5]); _RepNets.add_pvsystem(bus_names[6:10]; kVA=10, phases=[1,2])]
+pvsystems = [_RepNets.add_pvsystem(bus_names[1:5]); _RepNets.add_pvsystem(bus_names[6:10]; kVA=10, phases=[1,2], PF=0.95)]
 # storage = [_RepNets.add_storage(bus_names[1:5]); _RepNets.add_storage(bus_names[10:15]; kWrated=10, phases=[1])]
-cvr_changes = [_RepNets.change_cvr_loads!(load_names[1:4]; cvrwatts=0.4, cvrvars=2.0)]
+# cvr_changes = [_RepNets.change_cvr_loads!(load_names[1:4]; cvrwatts=0.4, cvrvars=2.0)]
 # pvsystem_bus_dict, storage_bus_dict = _RepNets.dss!(path*file, mode; loadshapesP=100*rand(3,24), loadshapesQ=100*rand(3,24), useactual=false, pvsystems=pvsystems, storage=storage)
-# pvsystem_bus_dict, _ = _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, pvsystems=pvsystems, irradiance=irradiance)
-_RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, cvr_load=cvr_changes)
+pvsystem_bus_dict, _ = _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, pvsystems=pvsystems)#, irradiance=irradiance)
+# _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, cvr_load=cvr_changes)
 # _RepNets.dss!(path*file, mode; loadshapesP=rand(3,24), loadshapesQ=rand(3,24), useactual=true)
 
 
