@@ -1,13 +1,12 @@
 Clear
 
-New Circuit.S  bus1=sourcebus_22000 pu=1.0 basekV=22.0
+New Circuit.S  bus1=3104154 pu=1.0 basekV=0.4
 
 Redirect LineCodes.dss
 Redirect Lines.dss
-Redirect Transformers.dss
 Redirect Loads.dss
 
-Set Voltagebases=[0.4, 0.41500000000000004, 22.0]
+Set Voltagebases=[0.4]
 
 Calcvoltagebases
 

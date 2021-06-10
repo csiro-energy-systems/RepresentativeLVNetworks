@@ -1,1 +1,1 @@
-New Linecode.1P_Code0 units=km nphases=1 R1=1.29 R0=(4 1.29 *) X1=0.258 X0=(4 0.258 *)
+New Linecode.1P_Code0 units=km nphases=1 R1=1.29 R0=1.29 X1=0.258 X0=0.258

@@ -121,7 +121,7 @@ md"""
 """
 
 # ╔═╡ ea3a93e3-0152-45a0-aff0-70b4131e0989
-md"Number of pv buses (0, $(length(bus_names))) $(@bind n_pvbus PlutoUI.Slider(0:1:length(bus_names); default=1, show_value=true))"
+md"Number of pv buses (0, $(length(bus_names))) $(@bind n_pvbus PlutoUI.Slider(0:1:length(bus_names); default=Int(ceil(length(bus_names)/2)), show_value=true))"
 
 
 # ╔═╡ a4f09d24-9f5d-4bea-8529-823f95b3b15e
