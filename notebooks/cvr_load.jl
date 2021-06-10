@@ -89,21 +89,6 @@ md"""
 load angle (-pi,pi) $(@bind load_angle_slider PlutoUI.Slider(-3.1:0.1:3.1; default=0.4, show_value=true))
 """
 
-# ╔═╡ fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
-md"""
-active power cvr exponent (0,4) $(@bind p_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.4, show_value=true))
-"""
-
-# ╔═╡ c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
-md"""
-reactive power cvr exponent (0,4) $(@bind q_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.8, show_value=true))
-"""
-
-# ╔═╡ 8e158284-0c24-4689-8930-bc8d51a01753
-md"""
-link P and Q (note: active power slider will control both)? $(@bind PQlink CheckBox(default=false))
-"""
-
 # ╔═╡ 08d8960c-b8a4-487e-bb83-056e7d1957d8
 begin 
 	loadpath = joinpath(dirname(pathof(_RepNets)),"..","data")
@@ -130,6 +115,26 @@ md"""
 ## CVR load
 """
 
+# ╔═╡ 8e158284-0c24-4689-8930-bc8d51a01753
+md"""
+link P and Q (note: active power slider will control both)? $(@bind PQlink CheckBox(default=false))
+"""
+
+# ╔═╡ fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
+md"""
+active power cvr exponent (0,4) $(@bind p_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.4, show_value=true))
+"""
+
+# ╔═╡ c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
+md"""
+reactive power cvr exponent (0,4) $(@bind q_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.8, show_value=true))
+"""
+
+# ╔═╡ 6850f8f7-be2c-4726-849a-f66ab029c09f
+md"""
+voltage source p.u. (0.9,1.1) $(@bind Vsource_pu PlutoUI.Slider(0.9:.01:1.1; default=01.0, show_value=true))
+"""
+
 # ╔═╡ 2095c811-7da4-4496-a895-c8743ae9d099
 begin
 	go
@@ -140,7 +145,7 @@ begin
 		q_cvr = q_cvr_exponent
 	end
 	
-	cvr_load = [_RepNets.change_cvr_loads!(load_names; cvrwatts=p_cvr_exponent, cvrvars=q_cvr)]
+	cvr_load = [_RepNets.change_cvr_loads!(load_names; cvrwatts=p_cvr_exponent, cvrvars=q_cvr, Vsource_pu=Vsource_pu)]
 end
 
 # ╔═╡ 689a9150-c445-4586-9305-4f6c2a9c1b9e
@@ -243,14 +248,15 @@ end
 # ╟─5cf99fe1-4859-463e-bbf8-03236a8e237a
 # ╟─db40a422-b0c3-456c-9f1c-e3af9695598e
 # ╟─b2949fff-54d4-45c6-93a5-9e2373862c66
-# ╟─fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
-# ╟─c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
-# ╟─8e158284-0c24-4689-8930-bc8d51a01753
 # ╟─08d8960c-b8a4-487e-bb83-056e7d1957d8
 # ╟─59dac11a-ddf9-4266-955e-32ac68824780
-# ╟─2095c811-7da4-4496-a895-c8743ae9d099
+# ╟─8e158284-0c24-4689-8930-bc8d51a01753
+# ╟─fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
+# ╟─c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
+# ╟─6850f8f7-be2c-4726-849a-f66ab029c09f
+# ╠═2095c811-7da4-4496-a895-c8743ae9d099
 # ╟─689a9150-c445-4586-9305-4f6c2a9c1b9e
-# ╟─c2466922-5325-40d1-962d-4124fa00c9de
+# ╠═c2466922-5325-40d1-962d-4124fa00c9de
 # ╟─c8af4c62-d2a1-4f1b-a8d3-e1b57a2f9a80
 # ╠═66970eca-d709-4b1f-9243-171fe776fa33
 # ╟─b23d9099-6f49-437c-bcba-0e4610031fa1

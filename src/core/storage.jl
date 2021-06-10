@@ -5,20 +5,23 @@ function add_storage_dispatch(;storage_file=pwd()*"/../storage_dispatch.csv")
 end
 
 
-function add_storage(buses; phases=[1,2,3], kV=0.4, kVA=5, conn="Wye", PF=1, kWrated=5, kWhrated=5, stored=50, Vminpu=0.7, Vmaxpu=1.3)
-    nphases = length(phases)
+function add_storage(buses, bus_phases; phases=[1,2,3], kV=0.4, kVA=5, conn="Wye", PF=1, kWrated=5, kWhrated=5, stored=50, Vminpu=0.7, Vmaxpu=1.3)
     function storage_constructor()
         storage_bus_dict = Dict()
         for bus in buses
-            bus_phase = phase_to_bus_string(bus, phases)
+            @assert _ODSS.Circuit.SetActiveBus(bus) != -1 "storage bus name is not in the list of buses"
+            @assert !isempty(intersect(Set(bus_phases[bus]), Set(phases))) "no phases to connect the storage system to"
+            phases2 = collect(intersect(Set(bus_phases[bus]), Set(phases)))
+            nphases = length(phases2)
+            bus_name = phase_to_bus_string(bus, phases2)
             storage_uuid = string(UUIDs.uuid1())
             storage_names = "storage_"*bus*"_"*storage_uuid
             storage_bus_dict[storage_names] = Dict()
             storage_bus_dict[storage_names]["bus"] = bus
-            storage_bus_dict[storage_names]["phases"] = phases
+            storage_bus_dict[storage_names]["phases"] = phases2
             storage_bus_dict[storage_names]["uuid"] = storage_uuid
             _ODSS.dss("""
-                New Storage.$storage_names Bus1=$bus_phase phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF kWrated=$kWrated kWhrated=$kWhrated %stored=$stored Vminpu=$Vminpu Vmaxpu=$Vmaxpu dispmode=follow  daily=storageShape
+                New Storage.$storage_names Bus1=$bus_name phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF kWrated=$kWrated kWhrated=$kWhrated %stored=$stored Vminpu=$Vminpu Vmaxpu=$Vmaxpu dispmode=follow  daily=storageShape
                 New Monitor.monitor_$storage_names element=Storage.$storage_names
             """)
         end

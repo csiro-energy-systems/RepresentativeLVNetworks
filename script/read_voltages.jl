@@ -15,7 +15,7 @@ const _RepNets = RepresentativeLVNetworks
 # using PowerModelsDistribution
 # const PMD = PowerModelsDistribution
 
-cid = 8
+cid = 12
 
 #
 
@@ -56,9 +56,14 @@ file = "/Master.dss"
 
 mode = "Snap"
 pvsystem_bus_dict, storage_bus_dict = _RepNets.dss!(case_path*file, mode)
-buses_dict = _RepNets.get_solution_bus_voltage_snap()
-loads_df = _RepNets.loads_to_dataframe()
-lines_df = _RepNets.lines_to_dataframe()
+# buses_dict = _RepNets.get_solution_bus_voltage_snap()
+# load_dict = _RepNets.get_solution_load()
+# lines_df = _RepNets.lines_to_dataframe()
+
+load_bus_mapping_dict = _RepNets.load_bus_mapping()
+bus_phase_mapping_dict = _RepNets.bus_phase_mapping()
+load_names = collect(keys(load_bus_mapping_dict))
+bus_names = collect(values(load_bus_mapping_dict))
 
 # _RepNets.plot_voltage_along_feeder_snap(buses_dict, lines_df)
 # _RepNets.plot_voltage_histogram_snap(buses_dict)
@@ -68,17 +73,17 @@ lines_df = _RepNets.lines_to_dataframe()
 ##
 cd(case_path)
 mode = "Daily"
-load_names = loads_df[!,:Name]
-bus_names = collect(keys(buses_dict))
-# irradiance = CSV.read(data_path*"/irradiance.csv", DataFrame, header=false)[!,:Column1]
-# pvsystems = [_RepNets.add_pvsystem(["3103520"])]
-pvsystems = [_RepNets.add_pvsystem(bus_names[1:5]); _RepNets.add_pvsystem(bus_names[6:10]; kVA=10, phases=[1,2], PF=0.95)]
-# storage = [_RepNets.add_storage(bus_names[1:5]); _RepNets.add_storage(bus_names[10:15]; kWrated=10, phases=[1])]
-# cvr_changes = [_RepNets.change_cvr_loads!(load_names[1:4]; cvrwatts=0.4, cvrvars=2.0)]
-# pvsystem_bus_dict, storage_bus_dict = _RepNets.dss!(path*file, mode; loadshapesP=100*rand(3,24), loadshapesQ=100*rand(3,24), useactual=false, pvsystems=pvsystems, storage=storage)
-pvsystem_bus_dict, _ = _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, pvsystems=pvsystems)#, irradiance=irradiance)
+
+# pvsystems = [_RepNets.add_pvsystem(bus_names[1:2], bus_phase_mapping_dict); _RepNets.add_pvsystem(bus_names[6:10],bus_phase_mapping_dict; kVA=10, phases=[1,2,3], PF=0.95)]
+# pvsystem_bus_dict, _ = _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, pvsystems=pvsystems)#, irradiance=irradiance)
+
+storage = [_RepNets.add_storage(bus_names[1:5], bus_phase_mapping_dict); _RepNets.add_storage(bus_names[10:15], bus_phase_mapping_dict; kWrated=10, phases=[1,2,3])]
+_, storage_bus_dict  = _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, storage=storage)
+
+# cvr_changes = [_RepNets.change_cvr_loads!(load_names[1:4]; cvrwatts=0.4, cvrvars=2.0, Vsource_pu=1.05)]
 # _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, cvr_load=cvr_changes)
-# _RepNets.dss!(path*file, mode; loadshapesP=rand(3,24), loadshapesQ=rand(3,24), useactual=true)
+
+_RepNets.dss!(path*file, mode; loadshapesP=rand(3,24), loadshapesQ=rand(3,24), useactual=true)
 
 
 

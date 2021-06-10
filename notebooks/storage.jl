@@ -68,10 +68,11 @@ begin
 	
 	_RepNets.dss!(path*file, "Snap")
 	buses_dict_snap = _RepNets.get_solution_bus_voltage_snap()
-	bus_names = collect(keys(buses_dict_snap))	
-	
-	loads_df_snap = _RepNets.loads_to_dataframe()
-	load_names = loads_df_snap[!,:Name]
+
+	load_bus_mapping_dict = _RepNets.load_bus_mapping()
+	bus_phase_mapping_dict = _RepNets.bus_phase_mapping()
+	load_names = collect(keys(load_bus_mapping_dict))
+	bus_names = collect(values(load_bus_mapping_dict))
 end
 
 # ╔═╡ be06145a-39ab-4cef-8fd8-82500be24112
@@ -166,7 +167,7 @@ begin
 	phases = collect(1:3)[BitArray([phase_a, phase_b, phase_c])]
 	@assert length(phases) > 0 "You should select at least one phase"
 	
-	storage = [_RepNets.add_storage(storage_buses, phases=phases, kVA=kVA, conn=conn, PF=PF, kWrated=kWrated, kWhrated=kWhrated)]	
+	storage = [_RepNets.add_storage(storage_buses, bus_phase_mapping_dict; phases=phases, kVA=kVA, conn=conn, PF=PF, kWrated=kWrated, kWhrated=kWhrated)]	
 end
 
 # ╔═╡ 8b17beb3-4727-431d-b986-8cdb9aa9e281

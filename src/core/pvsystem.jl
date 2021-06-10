@@ -6,19 +6,20 @@ function add_irradiance(irradiance)
 end
 
 
-function add_pvsystem(buses; phases=[1,2,3], kV=0.4, kVA=3, conn="Wye", PF=1, Pmpp=2, voltvar_control=false)
-    nphases = length(phases)
-    
+function add_pvsystem(buses, bus_phases; phases=[1,2,3], kV=0.4, kVA=3, conn="Wye", PF=1, Pmpp=2, voltvar_control=false)
     function pvsystem_constructor()
         pvsystem_bus_dict = Dict()
         for bus in buses
             @assert _ODSS.Circuit.SetActiveBus(bus) != -1 "PV bus name is not in the list of buses"
-            bus_name = phase_to_bus_string(bus, phases)
+            @assert !isempty(intersect(Set(bus_phases[bus]), Set(phases))) "no phases to connect the pvsystem to"
+            phases2 = collect(intersect(Set(bus_phases[bus]), Set(phases)))
+            nphases = length(phases2)
+            bus_name = phase_to_bus_string(bus, phases2)
             pv_uuid = string(UUIDs.uuid1())
             pvsystem_name = "pvsystem_"*bus*"_"*pv_uuid
             pvsystem_bus_dict[pvsystem_name] = Dict()
             pvsystem_bus_dict[pvsystem_name]["bus"] = bus
-            pvsystem_bus_dict[pvsystem_name]["phases"] = phases
+            pvsystem_bus_dict[pvsystem_name]["phases"] = phases2
             pvsystem_bus_dict[pvsystem_name]["uuid"] = pv_uuid
             _ODSS.dss("""
                 New PVSystem.$pvsystem_name Bus1=$bus_name phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF Pmpp=$Pmpp

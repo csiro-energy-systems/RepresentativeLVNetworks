@@ -66,11 +66,11 @@ begin
 	file = "/Master.dss"
 	
 	_RepNets.dss!(path*file, "Snap")
-	buses_dict_snap = _RepNets.get_solution_bus_voltage_snap()
-	bus_names = collect(keys(buses_dict_snap))	
 	
-	loads_df_snap = _RepNets.loads_to_dataframe()
-	load_names = loads_df_snap[!,:Name]
+	load_bus_mapping_dict = _RepNets.load_bus_mapping()
+	bus_phase_mapping_dict = _RepNets.bus_phase_mapping()
+	load_names = collect(keys(load_bus_mapping_dict))
+	bus_names = collect(values(load_bus_mapping_dict))
 end
 
 # ╔═╡ 057a7171-d8bb-4dfa-a02e-6f3faf039d97

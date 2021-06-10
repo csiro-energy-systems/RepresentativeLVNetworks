@@ -33,17 +33,20 @@ function add_loadshapes!(load_dict; useactual=true)
 end
 
 
-function change_cvr_loads!(load_names; cvrwatts=0.4, cvrvars=2.0)
+function change_cvr_loads!(load_names; cvrwatts=0.4, cvrvars=2.0, Vsource_pu=1.0)
     function cvr_load_constructor()
         for load_name in load_names
-            _ODSS.Loads.Name(load_name)
+            _ODSS.Loads.Name(string(load_name))
             _ODSS.Loads.CVRwatts(cvrwatts)
             _ODSS.Loads.CVRvars(cvrvars)
             _ODSS.Loads.Model(4)
         end
+        _ODSS.Vsources.First()
+        _ODSS.Vsources.PU(Vsource_pu)
     end
     return cvr_load_constructor
 end
+
 
 
 function add_load_monitors!()
@@ -66,7 +69,31 @@ function export_load_monitors!()
 end
 
 
-# S1 (kVA), Ang1, S2 (kVA), Ang2, S3 (kVA), Ang3, S4 (kVA), Ang4
+function load_bus_mapping()
+    load_bus_mapping_dict = Dict()
+
+    for bus_name in _ODSS.Circuit.AllBusNames()
+        _ODSS.Circuit.SetActiveBus(bus_name)
+        for load in _ODSS.Bus.LoadList()
+            load_name = split(load,".")[2]
+            load_bus_mapping_dict[load_name]= bus_name
+        end
+    end
+    return load_bus_mapping_dict
+end
+
+
+function bus_phase_mapping()
+    bus_phase_mapping_dict = Dict()
+    for bus_name in _ODSS.Circuit.AllBusNames()
+        _ODSS.Circuit.SetActiveBus(bus_name)
+        bus_phase_mapping_dict[bus_name] = _ODSS.Bus.Nodes()  # this phase list in not sorted. To sort, look at Lines busname
+    end
+    return bus_phase_mapping_dict
+end
+
+
+
 function get_solution_load()
     load_dict = Dict()
 
