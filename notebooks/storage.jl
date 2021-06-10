@@ -117,7 +117,7 @@ md"""
 """
 
 # ╔═╡ bc65c15d-39a7-42f1-82b0-5f082f9d840f
-md"Number of storage buses (0, $(length(bus_names))) $(@bind n_storagebus PlutoUI.Slider(0:1:length(bus_names); default=1, show_value=true))"
+md"Number of storage buses (0, $(length(bus_names))) $(@bind n_storagebus PlutoUI.Slider(0:1:length(bus_names); default=Int(ceil(length(bus_names)/2)), show_value=true))"
 
 # ╔═╡ 90c6666a-3a2d-4fdc-ad93-2ec9db4e60b8
 md"""
@@ -216,7 +216,7 @@ md"""
 
 # ╔═╡ 734cac0a-9f2f-465a-ad75-1be32766fe92
 md"""
-time step (1,24) $(@bind time_step PlutoUI.Slider(1:24; default=1, show_value=true))
+time step (1,24) $(@bind time_step PlutoUI.Slider(1:24; default=9, show_value=true))
 """
 
 # ╔═╡ 34ebc99a-b203-474e-b08f-89a92a0c921e
@@ -284,7 +284,7 @@ end
 # ╟─8d995dd5-1ea3-4cd1-adf3-42cd121340a7
 # ╠═97ff0b8b-d5e1-4490-a813-109425e41e15
 # ╟─9a424d3e-8442-49de-b98d-646c27af30eb
-# ╟─734cac0a-9f2f-465a-ad75-1be32766fe92
+# ╠═734cac0a-9f2f-465a-ad75-1be32766fe92
 # ╟─34ebc99a-b203-474e-b08f-89a92a0c921e
 # ╟─0d5d8eb0-b4ee-4320-b384-b2711ec777bf
 # ╟─e46de90b-89f6-48f6-b8fd-66a2eb208363

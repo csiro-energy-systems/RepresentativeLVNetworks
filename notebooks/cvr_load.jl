@@ -110,6 +110,21 @@ begin
 	plot(p_plot, q_plot, layout=(2,1), link=:both)
 end
 
+# ╔═╡ cdf19e2e-e548-48c6-9839-a0e3803c2f60
+md"""
+### Power Flow through substation bus with constant power loads
+"""
+
+# ╔═╡ 441feab9-f16c-4660-86ce-278c6a426eaa
+begin
+	go
+	cd(path)
+	_RepNets.dss!(path*file, "Daily"; loadshapesP=loaddata_Pmatrix, loadshapesQ=loaddata_Qmatrix, useactual=true)
+	p_before = _RepNets.plot_substation_power()
+	PQ_dict_before = _RepNets.get_solution_substation_power()
+	energy_before = Dict(PQ =>sum(timeseries) for (PQ, timeseries) in PQ_dict_before)
+end
+
 # ╔═╡ 59dac11a-ddf9-4266-955e-32ac68824780
 md"""
 ## CVR load
@@ -132,7 +147,7 @@ reactive power cvr exponent (0,4) $(@bind q_cvr_exponent PlutoUI.Slider(0.0:.1:4
 
 # ╔═╡ 6850f8f7-be2c-4726-849a-f66ab029c09f
 md"""
-voltage source p.u. (0.9,1.1) $(@bind Vsource_pu PlutoUI.Slider(0.9:.01:1.1; default=01.0, show_value=true))
+voltage source p.u. (0.9,1.1) $(@bind Vsource_pu PlutoUI.Slider(0.9:.01:1.1; default=0.9, show_value=true))
 """
 
 # ╔═╡ 2095c811-7da4-4496-a895-c8743ae9d099
@@ -163,7 +178,6 @@ We first run the model in the snapshot mode to extract load and bus names. Then 
 begin
 	cd(path)
 	mode = "Daily"
-	
 	
 	_RepNets.dss!(path*file, mode; loadshapesP=loaddata_Pmatrix, loadshapesQ=loaddata_Qmatrix, useactual=true, cvr_load=cvr_load)
 
@@ -230,16 +244,54 @@ end
 # ╔═╡ 555d55cb-c5fe-4f56-991f-abf58cad0d3e
 begin
 	go
-	p3 = _RepNets.plot_substation_power()
+	PQ_dict_after = _RepNets.get_solution_substation_power()
+	p_after = _RepNets.plot_substation_power()
 end
 
-# ╔═╡ db0cd563-ed72-4196-adca-27bb639fdd73
+# ╔═╡ dc5dcfef-977f-4910-9da3-5f7a725d950e
 begin
 	go
 	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_substation_power.pdf")
-	savefig(p3,figpath3)
+	savefig(p_after,figpath3)
 	@show "figure saved: $figpath3"
 end
+
+# ╔═╡ 0ae36f88-12b9-4f0a-8253-101154503953
+md"""
+# Comparison before-after
+"""
+
+# ╔═╡ 5bfa85db-dc25-4bc9-8621-c52cd2389e5a
+
+
+# ╔═╡ fcdf5943-25d0-4322-9fbf-0088be00c471
+begin
+	PP = plot()
+	Ptot_before = PQ_dict_before["P1"] + PQ_dict_before["P2"] + PQ_dict_before["P3"]
+	Ptot_after = PQ_dict_after["P1"] + PQ_dict_after["P2"] + PQ_dict_after["P3"]
+	Qtot_before = PQ_dict_before["Q1"] + PQ_dict_before["Q2"] + PQ_dict_before["Q3"]
+	Qtot_after = PQ_dict_after["Q1"] + PQ_dict_after["Q2"] + PQ_dict_after["Q3"]
+	
+	plot!(Ptot_before, label="P total at 1 pu")
+	plot!(Qtot_before, label="Q total at 1 pu")
+	plot!(Ptot_after, label="P total at $Vsource_pu pu")
+	plot!(Qtot_after, label="Q total at $Vsource_pu pu")
+	ylabel!("Power flow (kW/kvar)")
+	xlabel!("Time (h)")
+	title!("Power flow through substation bus")
+	PP
+end
+
+# ╔═╡ e59cb760-c03c-4121-8216-95503df2b003
+begin
+	go
+	figpath4 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_substation_power_comp.pdf")
+	savefig(PP,figpath4)
+	@show "figure saved: $figpath4"
+end
+
+# ╔═╡ db0cd563-ed72-4196-adca-27bb639fdd73
+
 
 # ╔═╡ Cell order:
 # ╟─4d7ec2f9-0263-465e-b736-3270b1fb7584
@@ -249,12 +301,14 @@ end
 # ╟─db40a422-b0c3-456c-9f1c-e3af9695598e
 # ╟─b2949fff-54d4-45c6-93a5-9e2373862c66
 # ╟─08d8960c-b8a4-487e-bb83-056e7d1957d8
+# ╟─cdf19e2e-e548-48c6-9839-a0e3803c2f60
+# ╟─441feab9-f16c-4660-86ce-278c6a426eaa
 # ╟─59dac11a-ddf9-4266-955e-32ac68824780
 # ╟─8e158284-0c24-4689-8930-bc8d51a01753
 # ╟─fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
 # ╟─c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
 # ╟─6850f8f7-be2c-4726-849a-f66ab029c09f
-# ╠═2095c811-7da4-4496-a895-c8743ae9d099
+# ╟─2095c811-7da4-4496-a895-c8743ae9d099
 # ╟─689a9150-c445-4586-9305-4f6c2a9c1b9e
 # ╠═c2466922-5325-40d1-962d-4124fa00c9de
 # ╟─c8af4c62-d2a1-4f1b-a8d3-e1b57a2f9a80
@@ -266,4 +320,9 @@ end
 # ╟─55737303-9100-471a-9ba4-d63d48935675
 # ╟─836d1582-5845-43f1-87cc-c0f1cee9a6d8
 # ╟─555d55cb-c5fe-4f56-991f-abf58cad0d3e
+# ╟─dc5dcfef-977f-4910-9da3-5f7a725d950e
+# ╟─0ae36f88-12b9-4f0a-8253-101154503953
+# ╟─5bfa85db-dc25-4bc9-8621-c52cd2389e5a
+# ╟─fcdf5943-25d0-4322-9fbf-0088be00c471
+# ╟─e59cb760-c03c-4121-8216-95503df2b003
 # ╟─db0cd563-ed72-4196-adca-27bb639fdd73
