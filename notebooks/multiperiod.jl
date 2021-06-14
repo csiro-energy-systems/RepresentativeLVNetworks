@@ -110,9 +110,6 @@ md"""
 This builds the multiperiod (sequential time) power flow simulation for the representative network.
 
 The network does not include pv and storage systems.
-
-We first run the model in the snapshot mode to extract load and bus names. 
-
 We attach the time series (load shapes) for all loads in the network
 """
 
@@ -134,14 +131,58 @@ We extract information for all transformers, generators, capacitors, lines from 
 # ╔═╡ 44bfe433-3187-4f6a-9848-19f748945d12
 begin
 	go
-	transformers_df = _RepNets.transformers_to_dataframe()
-	generators_df = _RepNets.generators_to_dataframe()
-	capacitors_df = _RepNets.capacitors_to_dataframe()
-	lines_df = _RepNets.lines_to_dataframe()
+	transformers_df = _RepNets.transformers_to_dataframe();
+	generators_df = _RepNets.generators_to_dataframe();
+	capacitors_df = _RepNets.capacitors_to_dataframe();
+	lines_df = _RepNets.lines_to_dataframe();
 	
-    load_dict = _RepNets.get_solution_load()
-	buses_dict = _RepNets.get_solution_bus_voltage()
+    load_dict = _RepNets.get_solution_load();
+	buses_dict = _RepNets.get_solution_bus_voltage();
 end
+
+# ╔═╡ fc75d085-5dec-4e7f-8338-9f82dfa0d67d
+md"""
+Line parameters:
+"""
+
+# ╔═╡ 95fdc8c1-696f-4bc3-a6ff-56c043152376
+lines_df
+
+# ╔═╡ 40733020-4e82-484d-9d9e-705b5fa51397
+md"""
+Note that some of the networks don't have transformer data, which will lead to an empty dataframe.
+
+Transformer Parameters:
+"""
+
+# ╔═╡ 8ed953ff-31d1-4bb8-9fbc-9d32c13d1299
+transformers_df
+
+# ╔═╡ 24ce68b4-95d6-423b-855e-debec3795fa1
+md"""
+Note that some of the networks don't have generator data, which will lead to an empty dataframe.
+
+Generator Parameters:
+"""
+
+# ╔═╡ b081b161-9448-407f-91ab-834e2e616e35
+generators_df
+
+# ╔═╡ bdab0a88-3e94-47ed-a4e9-c15a8edccf82
+md"""
+The power consumption of the loads, over time, is stored in a dictionary:
+"""
+
+# ╔═╡ 4ac4bd6a-d44f-4f58-82c6-82c26d5f1a2c
+load_dict
+
+# ╔═╡ 5b698b44-4473-44d2-93a0-a802e2424c6e
+md"""
+The voltage magnitudes at all buses and phases over time, are stored in a dictionary:
+"""
+
+# ╔═╡ 010812af-1df5-42b6-8332-0701308e1378
+buses_dict
 
 # ╔═╡ 27748f89-7b63-474a-a638-f123fac0f0bf
 md"""
@@ -150,7 +191,13 @@ md"""
 
 # ╔═╡ 87b855a7-9e5e-4ee3-a6fa-c7c8fd8a6ffc
 md"""
+Drag the slider to see voltage drops at different moments in time:
+
 time step (1,24) $(@bind time_step PlutoUI.Slider(1:24; default=1, show_value=true))
+
+The figures below show, the voltage magnitude drop by phase, as a function of distance from the substation (left) and a histogram of the voltage magnitudes (right). Dragging the slider will illustrate how the voltage magnitudes change throughout the day.
+
+Changing the slider for the load multiplier at the top of the notebook, to a value >1 will increase voltage drops. 
 """
 
 # ╔═╡ cc9bfff3-fc7a-480f-976f-1baebba730cb
@@ -171,6 +218,9 @@ end
 begin
 	go
 	p2 = _RepNets.plot_voltage_boxplot(buses_dict)
+	md"""
+	The figure below shows the power flow through the substation. Positive values indicate power supply to the network, negative values indicate reverse flows. The figure shows three curves, one for each phase. Nevertheless, for some of the networks, the data is balanced, so the curves overlap perfectly. 
+	"""
 end
 
 # ╔═╡ 34c51902-0d90-47a7-894e-205b880316ea
@@ -205,7 +255,17 @@ end
 # ╟─db64d15c-c56f-4ffd-ac2e-97d420665814
 # ╟─ff6b886b-e361-454c-9821-0f1d127ccfb9
 # ╟─0665c264-4cb3-425e-984b-7d85c519e916
-# ╠═44bfe433-3187-4f6a-9848-19f748945d12
+# ╟─44bfe433-3187-4f6a-9848-19f748945d12
+# ╟─fc75d085-5dec-4e7f-8338-9f82dfa0d67d
+# ╠═95fdc8c1-696f-4bc3-a6ff-56c043152376
+# ╟─40733020-4e82-484d-9d9e-705b5fa51397
+# ╠═8ed953ff-31d1-4bb8-9fbc-9d32c13d1299
+# ╟─24ce68b4-95d6-423b-855e-debec3795fa1
+# ╠═b081b161-9448-407f-91ab-834e2e616e35
+# ╟─bdab0a88-3e94-47ed-a4e9-c15a8edccf82
+# ╠═4ac4bd6a-d44f-4f58-82c6-82c26d5f1a2c
+# ╟─5b698b44-4473-44d2-93a0-a802e2424c6e
+# ╠═010812af-1df5-42b6-8332-0701308e1378
 # ╟─27748f89-7b63-474a-a638-f123fac0f0bf
 # ╟─87b855a7-9e5e-4ee3-a6fa-c7c8fd8a6ffc
 # ╟─cc9bfff3-fc7a-480f-976f-1baebba730cb

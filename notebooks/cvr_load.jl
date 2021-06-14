@@ -55,9 +55,9 @@ end
 
 # ╔═╡ 9a50652c-a9f7-4165-8548-80c861b53863
 md"""
-## Select the network file and press the button
+## Select Network
+
 Network: $(@bind i PlutoUI.Select(case_tuples))
-$(@bind go Button("Generate Figures!"))
 """
 
 # ╔═╡ 614c3e75-9651-4bfd-ba1c-fd4f1a6ec3c6
@@ -76,7 +76,8 @@ end
 
 # ╔═╡ 5cf99fe1-4859-463e-bbf8-03236a8e237a
 md"""
-## load data
+## Attach load data
+We attach time series data automatically. You can further increase the load levels and the P/Q ratio (using the angle).
 """
 
 # ╔═╡ db40a422-b0c3-456c-9f1c-e3af9695598e
@@ -112,22 +113,21 @@ end
 
 # ╔═╡ cdf19e2e-e548-48c6-9839-a0e3803c2f60
 md"""
-### Power Flow through substation bus with constant power loads
+## Power Flow simulation
+By default the load behavior is constant-power, i.e. when the network voltage changes, the load compensates by drawing a higher current to keep the power constant. It is well-known that this is a conservative approach to modelling load.
+The power flow through the substation bus now is the following.
 """
-
-# ╔═╡ 441feab9-f16c-4660-86ce-278c6a426eaa
-begin
-	go
-	cd(path)
-	_RepNets.dss!(path*file, "Daily"; loadshapesP=loaddata_Pmatrix, loadshapesQ=loaddata_Qmatrix, useactual=true)
-	p_before = _RepNets.plot_substation_power()
-	PQ_dict_before = _RepNets.get_solution_substation_power()
-	energy_before = Dict(PQ =>sum(timeseries) for (PQ, timeseries) in PQ_dict_before)
-end
 
 # ╔═╡ 59dac11a-ddf9-4266-955e-32ac68824780
 md"""
-## CVR load
+## Demand response through CVR
+We now change the voltage-dependence of the loads, by changing the load exponent
+
+$P = (P_{ref}/V_{ref}) \cdot V^{CVRP}$
+$Q = (Q_{ref}/V_{ref}) \cdot V^{CVRQ}$
+
+Note that voltage V is in per unit in this context.
+If the exponents are set 0, we re-obtain the constant power results. Alternatively, with an exponent of 1, we get the constant current behavior. Finally, with an exponent of 2 we obtain constant admittance behavior. Use the sliders to play with the exponents for P and Q. 
 """
 
 # ╔═╡ 8e158284-0c24-4689-8930-bc8d51a01753
@@ -137,18 +137,32 @@ link P and Q (note: active power slider will control both)? $(@bind PQlink Check
 
 # ╔═╡ fc96c5ed-0e8b-4a4c-84c0-8dd23180b0e3
 md"""
-active power cvr exponent (0,4) $(@bind p_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.4, show_value=true))
+active power cvr exponent (CVRP) (0,4) $(@bind p_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.4, show_value=true))
 """
 
 # ╔═╡ c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
 md"""
-reactive power cvr exponent (0,4) $(@bind q_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.8, show_value=true))
+reactive power cvr exponent (CVRQ) (0,4) $(@bind q_cvr_exponent PlutoUI.Slider(0.0:.1:4.0; default=0.8, show_value=true))
 """
 
 # ╔═╡ 6850f8f7-be2c-4726-849a-f66ab029c09f
 md"""
+We can also change the value of the voltage source on the reference bus to represent tap changing upstream. This will mean the loads now see different voltages.
+
 voltage source p.u. (0.9,1.1) $(@bind Vsource_pu PlutoUI.Slider(0.9:.01:1.1; default=0.9, show_value=true))
+
+$(@bind go Button("Refresh Figures!"))
 """
+
+# ╔═╡ 441feab9-f16c-4660-86ce-278c6a426eaa
+begin
+	go
+	cd(path)
+	_RepNets.dss!(path*file, "Daily"; loadshapesP=loaddata_Pmatrix, loadshapesQ=loaddata_Qmatrix, useactual=true)
+	PQ_dict_before = _RepNets.get_solution_substation_power()
+	energy_before = Dict(PQ =>sum(timeseries) for (PQ, timeseries) in PQ_dict_before)
+	p_before = _RepNets.plot_substation_power()
+end
 
 # ╔═╡ 2095c811-7da4-4496-a895-c8743ae9d099
 begin
@@ -163,17 +177,6 @@ begin
 	cvr_load = [_RepNets.change_cvr_loads!(load_names; cvrwatts=p_cvr_exponent, cvrvars=q_cvr, Vsource_pu=Vsource_pu)]
 end
 
-# ╔═╡ 689a9150-c445-4586-9305-4f6c2a9c1b9e
-md"""
-## solve multiperiod problem
-This is the multiperiod problem for the representative network.
-
-The network does not include pv and storage systems.
-
-
-We first run the model in the snapshot mode to extract load and bus names. Then the loadshapes are assigned to the multiperiod mode.
-"""
-
 # ╔═╡ c2466922-5325-40d1-962d-4124fa00c9de
 begin
 	cd(path)
@@ -185,10 +188,7 @@ end
 
 # ╔═╡ c8af4c62-d2a1-4f1b-a8d3-e1b57a2f9a80
 md"""
-## inspect results
-Extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes
-
-Extract load, bus and pvsystem data to dictionaries
+We extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes. Furthermore we extract load, bus and pvsystem data to dictionaries
 """
 
 # ╔═╡ 66970eca-d709-4b1f-9243-171fe776fa33
@@ -203,9 +203,15 @@ begin
 	buses_dict = _RepNets.get_solution_bus_voltage()
 end
 
+# ╔═╡ 0ae36f88-12b9-4f0a-8253-101154503953
+md"""
+# Comparison 
+We now plot the total power (sum of phase powers) through the substation. 
+"""
+
 # ╔═╡ b23d9099-6f49-437c-bcba-0e4610031fa1
 md"""
-## Plots
+## More plots for exploration
 """
 
 # ╔═╡ 5d2407c1-98ad-4500-bfcd-c75660dc6e8a
@@ -248,22 +254,6 @@ begin
 	p_after = _RepNets.plot_substation_power()
 end
 
-# ╔═╡ dc5dcfef-977f-4910-9da3-5f7a725d950e
-begin
-	go
-	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_substation_power.pdf")
-	savefig(p_after,figpath3)
-	@show "figure saved: $figpath3"
-end
-
-# ╔═╡ 0ae36f88-12b9-4f0a-8253-101154503953
-md"""
-# Comparison before-after
-"""
-
-# ╔═╡ 5bfa85db-dc25-4bc9-8621-c52cd2389e5a
-
-
 # ╔═╡ fcdf5943-25d0-4322-9fbf-0088be00c471
 begin
 	PP = plot()
@@ -290,6 +280,33 @@ begin
 	@show "figure saved: $figpath4"
 end
 
+# ╔═╡ d5d03d19-9682-4a20-81f1-3c0ef7ecd25a
+begin
+	energy_after = Dict(PQ =>sum(timeseries) for (PQ, timeseries) in PQ_dict_after)
+	E_tot_P_after = energy_after["P1"] + energy_after["P2"] + energy_after["P3"]
+	E_tot_Q_after = energy_after["Q1"] + energy_after["Q2"] + energy_after["Q3"]
+	E_tot_P_before = energy_before["P1"] + energy_before["P2"] + energy_before["P3"]
+	E_tot_Q_before = energy_before["Q1"] + energy_before["Q2"] + energy_before["Q3"]
+	ratio_P = Int(floor(100*(1-E_tot_P_after/E_tot_P_before)))
+	ratio_Q = Int(floor(100*(1-E_tot_Q_after/E_tot_Q_before)))
+	
+	md"""
+	The energy consumption originally was $(Int(floor(E_tot_P_before))) kWh and changed to $(Int(floor(E_tot_P_after))) kWh. 
+	
+	The reactive power consumption originally was $(Int(floor(E_tot_Q_before))) kvar and changed to $(Int(floor(E_tot_Q_after))) kvar. 
+	
+	This represents a reduction of $ratio_P % active power and $ratio_Q % reactive power
+	"""
+end
+
+# ╔═╡ dc5dcfef-977f-4910-9da3-5f7a725d950e
+begin
+	go
+	figpath3 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"_cvr_substation_power.pdf")
+	savefig(p_after,figpath3)
+	@show "figure saved: $figpath3"
+end
+
 # ╔═╡ db0cd563-ed72-4196-adca-27bb639fdd73
 
 
@@ -309,10 +326,13 @@ end
 # ╟─c08bdaea-29e7-44e4-8817-ec1cd82cf7fa
 # ╟─6850f8f7-be2c-4726-849a-f66ab029c09f
 # ╟─2095c811-7da4-4496-a895-c8743ae9d099
-# ╟─689a9150-c445-4586-9305-4f6c2a9c1b9e
-# ╠═c2466922-5325-40d1-962d-4124fa00c9de
+# ╟─c2466922-5325-40d1-962d-4124fa00c9de
 # ╟─c8af4c62-d2a1-4f1b-a8d3-e1b57a2f9a80
-# ╠═66970eca-d709-4b1f-9243-171fe776fa33
+# ╟─66970eca-d709-4b1f-9243-171fe776fa33
+# ╟─0ae36f88-12b9-4f0a-8253-101154503953
+# ╟─fcdf5943-25d0-4322-9fbf-0088be00c471
+# ╟─e59cb760-c03c-4121-8216-95503df2b003
+# ╟─d5d03d19-9682-4a20-81f1-3c0ef7ecd25a
 # ╟─b23d9099-6f49-437c-bcba-0e4610031fa1
 # ╟─5d2407c1-98ad-4500-bfcd-c75660dc6e8a
 # ╟─0432e80e-54fe-40e6-8469-87a5f0d8c116
@@ -321,8 +341,4 @@ end
 # ╟─836d1582-5845-43f1-87cc-c0f1cee9a6d8
 # ╟─555d55cb-c5fe-4f56-991f-abf58cad0d3e
 # ╟─dc5dcfef-977f-4910-9da3-5f7a725d950e
-# ╟─0ae36f88-12b9-4f0a-8253-101154503953
-# ╟─5bfa85db-dc25-4bc9-8621-c52cd2389e5a
-# ╟─fcdf5943-25d0-4322-9fbf-0088be00c471
-# ╟─e59cb760-c03c-4121-8216-95503df2b003
 # ╟─db0cd563-ed72-4196-adca-27bb639fdd73
