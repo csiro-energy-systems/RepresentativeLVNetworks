@@ -106,11 +106,11 @@ end
 
 # ╔═╡ db64d15c-c56f-4ffd-ac2e-97d420665814
 md"""
-## solve multiperiod problem
-This builds the multiperiod (sequential time) power flow simulation for the representative network.
+## solve multiperiod unbalanced power flow
+This builds the multiperiod (sequential time) unbalanced power flow simulation for the representative network.
 
-The network does not include pv and storage systems.
-We attach the time series (load shapes) for all loads in the network
+These case studies only include the base data and load time series.
+We attach the time series (load shapes) for all loads in the network.
 """
 
 # ╔═╡ ff6b886b-e361-454c-9821-0f1d127ccfb9
@@ -124,7 +124,7 @@ end
 
 # ╔═╡ 0665c264-4cb3-425e-984b-7d85c519e916
 md"""
-## inspect results
+## Inspect power flow results
 We extract information for all transformers, generators, capacitors, lines from OpenDSSDirect and store them in dataframes. We furthermore extract load, bus and pvsystem data to dictionaries.
 """
 
