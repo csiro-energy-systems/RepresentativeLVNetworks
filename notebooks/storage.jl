@@ -117,7 +117,7 @@ md"""
 """
 
 # ╔═╡ bc65c15d-39a7-42f1-82b0-5f082f9d840f
-md"Number of storage buses (0, $(length(bus_names))) $(@bind n_storagebus PlutoUI.Slider(0:1:length(bus_names); default=Int(ceil(length(bus_names)/2)), show_value=true))"
+md"Number of storage buses (0, $(length(bus_names))) $(@bind n_storagebus PlutoUI.Slider(0:1:length(bus_names); default=Int(ceil(length(bus_names)/10)), show_value=true))"
 
 # ╔═╡ 90c6666a-3a2d-4fdc-ad93-2ec9db4e60b8
 md"""
@@ -261,6 +261,23 @@ begin
 	@show "figure saved: $figpath3"
 end
 
+# ╔═╡ cbfb3c4a-50c0-4d47-82f5-a259d368e0b9
+begin
+	_RepNets.plot_storage_boxplot(storage_dict)
+end
+
+# ╔═╡ 22a129af-40f4-43bd-b0e0-5edad0e400b2
+md"""
+select storage system $(@bind storage_system PlutoUI.Slider(1:length(keys(storage_dict)); default=1, show_value=true))
+"""
+
+# ╔═╡ c543814a-bebf-4bc1-bd39-0db71446a764
+begin
+	storage_names = Dict((key, value) for (key, value) in enumerate(keys(storage_dict)))
+	
+	_RepNets.plot_storage(storage_dict[storage_names[storage_system]])
+end
+
 # ╔═╡ Cell order:
 # ╟─46131770-bc48-11eb-0920-bdf898c3c759
 # ╟─2476fd06-9c37-41b0-bf62-b75c3cc88c97
@@ -284,10 +301,13 @@ end
 # ╟─8d995dd5-1ea3-4cd1-adf3-42cd121340a7
 # ╠═97ff0b8b-d5e1-4490-a813-109425e41e15
 # ╟─9a424d3e-8442-49de-b98d-646c27af30eb
-# ╠═734cac0a-9f2f-465a-ad75-1be32766fe92
+# ╟─734cac0a-9f2f-465a-ad75-1be32766fe92
 # ╟─34ebc99a-b203-474e-b08f-89a92a0c921e
 # ╟─0d5d8eb0-b4ee-4320-b384-b2711ec777bf
 # ╟─e46de90b-89f6-48f6-b8fd-66a2eb208363
 # ╟─a8bbc39a-7232-42f2-bf0d-8e47c0cec96e
 # ╟─a2da2024-dab8-4056-89e8-f16f2d7658b6
 # ╟─0dfafadc-9566-4f31-a6df-8625875d02eb
+# ╠═cbfb3c4a-50c0-4d47-82f5-a259d368e0b9
+# ╠═22a129af-40f4-43bd-b0e0-5edad0e400b2
+# ╠═c543814a-bebf-4bc1-bd39-0db71446a764

@@ -76,7 +76,7 @@ function load_bus_mapping()
         _ODSS.Circuit.SetActiveBus(bus_name)
         for load in _ODSS.Bus.LoadList()
             load_name = split(load,".")[2]
-            load_bus_mapping_dict[load_name]= bus_name
+            load_bus_mapping_dict[load_name] = bus_name
         end
     end
     return load_bus_mapping_dict
@@ -93,6 +93,23 @@ function bus_phase_mapping()
 end
 
 
+function load_line_mapping()
+    load_line_mapping_dict = Dict()
+    for bus_name in _ODSS.Circuit.AllBusNames()
+        _ODSS.Circuit.SetActiveBus(bus_name)
+        if ~isempty(_ODSS.Bus.LoadList()) && length(_ODSS.Bus.LineList()) == 1 
+            for load in _ODSS.Bus.LoadList()
+                load_name = split(load,".")[2]
+                load_line_mapping_dict[load_name] = Dict()
+
+                line_name = split(_ODSS.Bus.LineList()[1],".")[2] 
+                load_line_mapping_dict[load_name]["line"] = line_name
+                load_line_mapping_dict[load_name]["bus"] = bus_name
+            end
+        end
+    end
+    return load_line_mapping_dict
+end
 
 function get_solution_load()
     load_dict = Dict()

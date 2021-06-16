@@ -65,6 +65,7 @@ bus_phase_mapping_dict = _RepNets.bus_phase_mapping()
 load_names = collect(keys(load_bus_mapping_dict))
 bus_names = collect(values(load_bus_mapping_dict))
 
+
 # _RepNets.plot_voltage_along_feeder_snap(buses_dict, lines_df)
 # _RepNets.plot_voltage_histogram_snap(buses_dict)
 # _RepNets.plot_voltage_snap(buses_dict, lines_df)
@@ -83,7 +84,7 @@ _, storage_bus_dict  = _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,
 # cvr_changes = [_RepNets.change_cvr_loads!(load_names[1:4]; cvrwatts=0.4, cvrvars=2.0, Vsource_pu=1.05)]
 # _RepNets.dss!(case_path*file, mode; loadshapesP=1*rand(3,24), loadshapesQ=1*rand(3,24), useactual=true, cvr_load=cvr_changes)
 
-_RepNets.dss!(path*file, mode; loadshapesP=rand(3,24), loadshapesQ=rand(3,24), useactual=true)
+# _RepNets.dss!(path*file, mode; loadshapesP=rand(3,24), loadshapesQ=rand(3,24), useactual=true)
 
 
 
@@ -97,7 +98,7 @@ lines_df = _RepNets.lines_to_dataframe()
 buses_dict = _RepNets.get_solution_bus_voltage()
 load_dict = _RepNets.get_solution_load()
 # pvsystem_dict = _RepNets.get_solution_pvsystem(pvsystem_bus_dict)
-# storage_dict = _RepNets.get_solution_storage(storage_bus_dict)
+storage_dict = _RepNets.get_solution_storage(storage_bus_dict)
 
 
 # _RepNets.plot_voltage_along_feeder_snap(buses_dict, lines_df, t=20)

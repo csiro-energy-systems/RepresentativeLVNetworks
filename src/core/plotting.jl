@@ -207,7 +207,6 @@ function plot_substation_power()
     _ODSS.Monitors.Name(monitor_fbus_name)
     monitor_file = _ODSS.Monitors.FileName()
     monitors_csv = CSV.read(monitor_file, DataFrames.DataFrame)
-    @show monitors_csv
 
     # phase_mapping = Dict(1=>"a", 2=>"b", 3=>"c")
     plt_P = plot()
@@ -228,3 +227,43 @@ function plot_substation_power()
     plt = plot(plt_P, plt_Q, layout=(2,1))
     return plt
 end
+
+
+function plot_storage(storage_system)
+    plt = plot()
+    title!("Storage dispatch")
+    xlabel!("time (h)")
+    ylabel!("power (kW/kvar)")
+    for p ∈ [1,2,3]
+        if haskey(storage_system, "P$p")
+            plot!(storage_system["P$p"], label="P$p") 
+            plot!(storage_system["Q$p"], label="Q$p")
+        end
+    end
+    return plt
+end
+
+
+
+function plot_storage_boxplot(storage_dict)
+    PQ_vector = []
+    phase_vector = []
+    storage_vector = []
+    for (storage_name, storage_data) in storage_dict
+        for p ∈ [1,2,3]
+            if haskey(storage_data, "P$p")
+                append!(PQ_vector, storage_data["P$p"])
+                append!(phase_vector, ["phase $p" for i=1:length(storage_data["P$p"])])
+                append!(storage_vector, [storage_name for i=1:length(storage_data["P$p"])])
+            end
+        end
+    end
+    p = groupedboxplot(storage_vector, PQ_vector, group=phase_vector, xrotation=90, bottom_margin=10mm, legend=:outertopright)
+
+    xlabel!("Storage name (-)")
+    ylabel!("Power (kW/kvar)")
+    title!("Power dispatch by storage and phase")
+
+    return p
+end
+
