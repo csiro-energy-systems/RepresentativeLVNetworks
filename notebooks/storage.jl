@@ -172,13 +172,10 @@ end
 
 # ╔═╡ 8b17beb3-4727-431d-b986-8cdb9aa9e281
 md"""
-## solve multiperiod problem
-This is the multiperiod problem for the representative network.
+## Solve multiperiod unbalanced power flow
+This calls the power flow for the chosen network, but now with storage systems added at the load locations.
 
-The network does not include pv and storage systems.
-
-
-We first run the model in the snapshot mode to extract load and bus names. Then the loadshapes are assigned to the multiperiod mode.
+Note that the dispatch may lead to a large number of control iterations. If there are convergence problems, the best thing to do is to reduce the number of storage systems.
 """
 
 # ╔═╡ 8ffb81df-cace-43e3-a79d-e1478dfca1df
@@ -299,7 +296,7 @@ end
 # ╟─8b17beb3-4727-431d-b986-8cdb9aa9e281
 # ╟─8ffb81df-cace-43e3-a79d-e1478dfca1df
 # ╟─8d995dd5-1ea3-4cd1-adf3-42cd121340a7
-# ╠═97ff0b8b-d5e1-4490-a813-109425e41e15
+# ╟─97ff0b8b-d5e1-4490-a813-109425e41e15
 # ╟─9a424d3e-8442-49de-b98d-646c27af30eb
 # ╟─734cac0a-9f2f-465a-ad75-1be32766fe92
 # ╟─34ebc99a-b203-474e-b08f-89a92a0c921e
