@@ -260,7 +260,15 @@ end
 
 # ╔═╡ cbfb3c4a-50c0-4d47-82f5-a259d368e0b9
 begin
-	_RepNets.plot_storage_boxplot(storage_dict)
+	p4 = _RepNets.plot_storage_boxplot(storage_dict)
+end
+
+# ╔═╡ 925dd4e4-72f5-4d09-ba8e-a7febef03fb6
+begin
+	go
+	figpath4 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"storage_charge_boxplot.pdf")
+	savefig(p4,figpath4)
+	@show "figure saved: $figpath4"
 end
 
 # ╔═╡ 22a129af-40f4-43bd-b0e0-5edad0e400b2
@@ -272,7 +280,15 @@ select storage system $(@bind storage_system PlutoUI.Slider(1:length(keys(storag
 begin
 	storage_names = Dict((key, value) for (key, value) in enumerate(keys(storage_dict)))
 	
-	_RepNets.plot_storage(storage_dict[storage_names[storage_system]])
+	p5 = _RepNets.plot_storage(storage_dict[storage_names[storage_system]])
+end
+
+# ╔═╡ d9a0608d-696a-4426-9774-e6d9b134e834
+begin
+	go
+	figpath5 = joinpath(pwd(), "network_"*case[parse(Int,i)]*"storage_charge_power_time.pdf")
+	savefig(p5,figpath5)
+	@show "figure saved: $figpath5"
 end
 
 # ╔═╡ Cell order:
@@ -305,6 +321,8 @@ end
 # ╟─a8bbc39a-7232-42f2-bf0d-8e47c0cec96e
 # ╟─a2da2024-dab8-4056-89e8-f16f2d7658b6
 # ╟─0dfafadc-9566-4f31-a6df-8625875d02eb
-# ╠═cbfb3c4a-50c0-4d47-82f5-a259d368e0b9
-# ╠═22a129af-40f4-43bd-b0e0-5edad0e400b2
-# ╠═c543814a-bebf-4bc1-bd39-0db71446a764
+# ╟─cbfb3c4a-50c0-4d47-82f5-a259d368e0b9
+# ╟─925dd4e4-72f5-4d09-ba8e-a7febef03fb6
+# ╟─22a129af-40f4-43bd-b0e0-5edad0e400b2
+# ╟─c543814a-bebf-4bc1-bd39-0db71446a764
+# ╟─d9a0608d-696a-4426-9774-e6d9b134e834
