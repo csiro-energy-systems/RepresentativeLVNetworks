@@ -32,6 +32,13 @@ C_dict = {  "N478545":"45", "N477585":"85",
             "N478544":"44", "N748376":"76",
             "N478542":"42", "N478541":"41"}
             
+Lines_dict = {"n478545":"45", "n477585":"85",
+            "n478529":"29", "n478543":"43",
+            "n478546":"46", "n478547":"47",
+            "n748770":"70", "n748764":"64",
+            "n478544":"44", "n748376":"76",
+            "n478542":"42", "n478541":"41"}
+
 D_dict = {  "N506359":"59",  "N761088":"088", "N506360":"60",  
             "N506334":"34",  "N761079":"079", "N506356":"56",
             "N506346":"46",  "N761083":"083", "N761087":"087",
@@ -85,7 +92,7 @@ K_dict = {  "N092515":"5", "N092516":"6", "N590529":"9",
 Dict_dict = {   "A.dss": A_dict,
                 "B.dss": B_dict,
                 "C.dss": C_dict,
-                "Lines.dss": C_dict,
+                "Lines.dss": Lines_dict,
                 "D.dss": D_dict,
                 "E.dss": E_dict,
                 "F.dss": F_dict,
@@ -100,5 +107,5 @@ for root, dir, files in os.walk(dirname):
     for file in files:
         print(file)
         if file[-3:]=="dss":
-            replace(file, file[0]+"_out.txt", Dict_dict[file])
+            replace(file, file[:-4]+"_out.txt", Dict_dict[file])
 
