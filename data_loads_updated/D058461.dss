@@ -1,0 +1,58 @@
+! data exported through PowerModelsDistribution.jl
+Clear
+new circuit.East_Region_D058461 bus1=N555251 basekv=0.433 basemva=1.0 pu=1.0 mvasc1=1e6 mvasc3=1e6 angle=0 
+
+! vsource
+
+! linecode
+new linecode.unknown_linecode nphases=3 basefreq=50.0 units=m
+~ rmatrix = (0.0001 | 0.0 0.0001 | 0.0 0.0 0.0001 )
+~ xmatrix = (0.0001 | 0.0 0.0001 | 0.0 0.0 0.0001 )
+
+! line
+new line.line5 bus1=N416047 bus2=N718880 linecode=unknown_linecode length=0.1 units=m 
+new line.line2 bus1=N555253 bus2=N780464 linecode=unknown_linecode length=0.1 units=m 
+new line.line4 bus1=N555254 bus2=N416047 linecode=unknown_linecode length=0.1 units=m 
+new line.line3 bus1=N555252 bus2=N555254 linecode=LV_240AL_XLPE length=72.69 units=m 
+new line.line1 bus1=N555252 bus2=N555253 linecode=LV_240AL_XLPE length=35.51000000000001 units=m 
+new line.line0 bus1=N555251 bus2=N555252 linecode=LV_240AL_XLPE length=11.04 units=m 
+
+! load
+new load.load24 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load26 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load2 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load11 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load3 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load8 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load31 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load13 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load21 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load12 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load22 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load29 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load10 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load28 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load7 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load15 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load27 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load18 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load5 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load1 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load4 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load14 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load20 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load23 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load19 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load17 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load6 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load9 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load16 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load25 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load30 phases=3 bus1=N555253.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+
+Buscoords D058461_buscoords.csv
+set voltagebases=[0.4]
+set tolerance=0.000001
+set defaultbasefreq=50.0
+calcvoltagebases
+solve

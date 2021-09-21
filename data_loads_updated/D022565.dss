@@ -1,0 +1,82 @@
+! data exported through PowerModelsDistribution.jl
+Clear
+new circuit.Central_Coast_D022565 bus1=N198233 basekv=0.433 basemva=1.0 pu=1.0 mvasc1=1e6 mvasc3=1e6 angle=0 
+
+! vsource
+
+! linecode
+new linecode.unknown_linecode nphases=3 basefreq=50.0 units=m
+~ rmatrix = (0.0001 | 0.0 0.0001 | 0.0 0.0 0.0001 )
+~ xmatrix = (0.0001 | 0.0 0.0001 | 0.0 0.0 0.0001 )
+
+! line
+new line.line5 bus1=N198238 bus2=N198239 linecode=7/4.5_AAC_-_MERCURY length=27.6 units=m 
+new line.line2 bus1=N198235 bus2=N198236 linecode=38_HD_CU length=33.61 units=m 
+new line.line7 bus1=N198240 bus2=N198241 linecode=7/4.5_AAC_-_MERCURY length=42.65 units=m 
+new line.line8 bus1=N198241 bus2=N198242 linecode=7/4.5_AAC_-_MERCURY length=46.09 units=m 
+new line.line18 bus1=N198247 bus2=N627731 linecode=7/4.5_AAC_-_MERCURY length=1.94 units=m 
+new line.line22 bus1=N198249 bus2=N627733 linecode=unknown_linecode length=0.1 units=m 
+new line.line13 bus1=N198237 bus2=N198245 linecode=7/4.5_AAC_-_MERCURY length=60.89 units=m 
+new line.line9 bus1=N198242 bus2=N198243 linecode=7/4.5_AAC_-_MERCURY length=45.23 units=m 
+new line.line19 bus1=N198238 bus2=N198248 linecode=unknown_linecode length=17.83 units=m 
+new line.line6 bus1=N198239 bus2=N198240 linecode=7/4.5_AAC_-_MERCURY length=0.11 units=m 
+new line.line12 bus1=N198244 bus2=N627730 linecode=7/.080_CU_(7/2.0) length=1.16 units=m 
+new line.line15 bus1=N198246 bus2=N193434 linecode=38_HD_CU length=21.07 units=m 
+new line.line14 bus1=N198245 bus2=N198246 linecode=7/4.5_AAC_-_MERCURY length=0.1 units=m 
+new line.line3 bus1=N198236 bus2=N198237 linecode=38_HD_CU length=0.6 units=m 
+new line.line10 bus1=N198243 bus2=N627729 linecode=7/4.5_AAC_-_MERCURY length=1.94 units=m 
+new line.line17 bus1=N198246 bus2=N198247 linecode=7/4.5_AAC_-_MERCURY length=52.18 units=m 
+new line.line4 bus1=N198237 bus2=N198238 linecode=7/4.5_AAC_-_MERCURY length=45.55 units=m 
+new line.line1 bus1=N198234 bus2=N198235 linecode=38_HD_CU length=28.91 units=m 
+new line.line21 bus1=N198246 bus2=N198249 linecode=unknown_linecode length=24.22 units=m 
+new line.line0 bus1=N198233 bus2=N198234 linecode=38_HD_CU length=1.75 units=m 
+new line.line11 bus1=N198240 bus2=N198244 linecode=7/.080_CU_(7/2.0) length=55.57 units=m 
+new line.line16 bus1=N193434 bus2=N626079 linecode=38_HD_CU length=0.1 units=m 
+new line.line20 bus1=N198248 bus2=N627732 linecode=unknown_linecode length=0.1 units=m 
+
+! load
+new load.load24 phases=3 bus1=N198248.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load34 phases=3 bus1=N198234.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load33 phases=3 bus1=N198234.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load26 phases=3 bus1=N198247.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load2 phases=3 bus1=N198239.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load35 phases=3 bus1=N198234.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load11 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load3 phases=3 bus1=N198236.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load8 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load31 phases=3 bus1=N198249.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load13 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load21 phases=3 bus1=N198243.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load12 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load22 phases=3 bus1=N198243.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load29 phases=3 bus1=N198238.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load10 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load36 phases=3 bus1=N198244.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load28 phases=3 bus1=N198247.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load7 phases=3 bus1=N198241.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load15 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load37 phases=3 bus1=N198244.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load27 phases=3 bus1=N198247.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load18 phases=3 bus1=N198245.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load5 phases=3 bus1=N198241.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load1 phases=3 bus1=N198239.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load4 phases=3 bus1=N198241.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load14 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load20 phases=3 bus1=N198245.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load23 phases=3 bus1=N198248.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load19 phases=3 bus1=N198245.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load17 phases=3 bus1=N198245.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load6 phases=3 bus1=N198241.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load9 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load16 phases=3 bus1=N198242.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load25 phases=3 bus1=N198247.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load38 phases=3 bus1=N198244.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load30 phases=3 bus1=N198235.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load32 phases=3 bus1=N198249.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+
+Buscoords D022565_buscoords.csv
+set voltagebases=[0.4]
+set tolerance=0.000001
+set defaultbasefreq=50.0
+calcvoltagebases
+solve
