@@ -1,0 +1,24 @@
+! data exported through PowerModelsDistribution.jl
+Clear
+new circuit.Hunter_Region_D009819 bus1=3 basekv=0.433 basemva=1.0 pu=1.0 mvasc1=1e6 mvasc3=1e6 angle=0 
+
+! vsource
+
+! linecode
+
+! line
+new line.line2 bus1=5 bus2=6 linecode=25AL_ABC length=33.62 units=m 
+new line.line3 bus1=6 bus2=9 linecode=25AL_ABC length=0.11 units=m 
+new line.line1 bus1=4 bus2=5 linecode=25AL_ABC length=21.69 units=m 
+new line.line0 bus1=3 bus2=4 linecode=25AL_ABC length=1.06 units=m 
+
+! load
+new load.load2 phases=3 bus1=5.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load1 phases=3 bus1=6.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+
+Buscoords D009819_buscoords.csv
+set voltagebases=[0.4]
+set tolerance=0.000001
+set defaultbasefreq=50.0
+calcvoltagebases
+solve
