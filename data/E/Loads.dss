@@ -1,9 +1,38 @@
-New Load.load_load1 conn=wye bus1=44.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load2 conn=wye bus1=44.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load3 conn=wye bus1=44.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load4 conn=wye bus1=47.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load5 conn=wye bus1=42.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load6 conn=wye bus1=42.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load7 conn=wye bus1=42.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load8 conn=wye bus1=42.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
-New Load.load_load9 conn=wye bus1=42.1.2.3 kV=0.433 Vminpu=0.7 Vmaxpu=1.3 model=1 kW=1.0 kvar=1.00001918018394 
+new load.load24 phases=3 bus1=48.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load34 phases=3 bus1=34.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load33 phases=3 bus1=34.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load26 phases=3 bus1=47.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load2 phases=3 bus1=39.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load35 phases=3 bus1=34.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load11 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load3 phases=3 bus1=36.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load8 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load31 phases=3 bus1=49.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load13 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load21 phases=3 bus1=43.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load12 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load22 phases=3 bus1=43.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load29 phases=3 bus1=38.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load10 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load36 phases=3 bus1=44.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load28 phases=3 bus1=47.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load7 phases=3 bus1=41.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load15 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load37 phases=3 bus1=44.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load27 phases=3 bus1=47.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load18 phases=3 bus1=45.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load5 phases=3 bus1=41.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load1 phases=3 bus1=39.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load4 phases=3 bus1=41.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load14 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load20 phases=3 bus1=45.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load23 phases=3 bus1=48.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load19 phases=3 bus1=45.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load17 phases=3 bus1=45.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load6 phases=3 bus1=41.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load9 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load16 phases=3 bus1=42.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load25 phases=3 bus1=47.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load38 phases=3 bus1=44.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load30 phases=3 bus1=35.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
+new load.load32 phases=3 bus1=49.1.2.3.0 kv=0.433 kw=1.0 kvar=1.0 model=1 conn=wye vminpu=0.7 vmaxpu=1.3 
