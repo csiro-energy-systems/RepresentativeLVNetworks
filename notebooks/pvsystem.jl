@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.14.7
+# v0.16.1
 
 using Markdown
 using InteractiveUtils
@@ -11,6 +11,12 @@ macro bind(def, element)
         global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
         el
     end
+end
+
+# ╔═╡ d0c17902-2d96-43dc-a627-1bcadb463d45
+begin
+	using Pkg
+	Pkg.activate(joinpath(pwd(),".."))
 end
 
 # ╔═╡ 9326d206-bc46-11eb-202d-1716f033df55
@@ -270,6 +276,7 @@ begin
 end
 
 # ╔═╡ Cell order:
+# ╠═d0c17902-2d96-43dc-a627-1bcadb463d45
 # ╟─9326d206-bc46-11eb-202d-1716f033df55
 # ╟─51cf36b1-1a0c-4514-8e74-3887718e8c4d
 # ╟─e52daa14-1f3c-4572-924e-5d08c4972d1b
