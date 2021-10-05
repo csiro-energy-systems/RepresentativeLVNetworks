@@ -18,6 +18,7 @@ The package contains:
 
 
  ## Installation instructions
+We use Visual studio code to launch the notebooks, in combination with the long-term support Julia release (1.6)
 Install:
 - Visual studio code https://code.visualstudio.com/Download
 - Julia 1.6 https://julialang.org/
