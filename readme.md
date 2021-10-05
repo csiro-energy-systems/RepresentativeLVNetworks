@@ -19,7 +19,7 @@ The package contains:
 
  ## Installation instructions
 We recommend using Visual studio code (an integrated development environment) to launch the notebooks, in combination with the long-term support Julia 
-release (1.6). To this end
+release (1.6). To this end, ensure that the OpenDSS software has been installed, and furthermore 
 
 Install:
 - Visual studio code https://code.visualstudio.com/Download
@@ -27,7 +27,7 @@ Install:
 
 Install the Julia plug-in for VSCode: https://www.julia-vscode.org/docs/dev/gettingstarted/#Installation-and-Configuration-1 
 
-Installation instructions of RepresentativeLVNetworks.jl
+Installation instructions for RepresentativeLVNetworks.jl
  1) Unzip the file downloaded from NEAR (http://linked.data.gov.au/dataset/energy/f325fb3c-2dcd-410c-97a8-e).
  2) Browser in VSCode to the root of the unzipped folder.
  3) Open a Julia terminal within VSCode. E.g. menu "view" -> "command pallete" and type "Julia start REPL". Press enter. This provides you with the Julia "REPL" green prompt julia>, see https://docs.julialang.org/en/v1/stdlib/REPL/ 
