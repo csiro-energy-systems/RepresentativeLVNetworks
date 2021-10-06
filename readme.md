@@ -14,10 +14,10 @@ The package contains:
 - the national low voltage feeder taxonomy data set (in `/data`). 
 - convenience functions for working with OpenDSSDirect.jl (in `src`)
 - Pluto.jl notebook files (in `notebooks`) that explore: 
-    1) multiperiod unbalanced power flow (in `/data/multiperiod.jl`)
-    2) multiperiod unbalanced power flow with PV (in `/data/pvsystem.jl`)
-    3) multiperiod unbalanced power flow with storage (in `/data/storage.jl`)
-    4) multiperiod unbalanced power flow with demand response  through transformer tap changing (a.k.a. conservation voltage reduction) (in `/data/cvr_load.jl`)
+    1) multiperiod unbalanced power flow (in `/notebook/multiperiod.jl`)
+    2) multiperiod unbalanced power flow with PV (in `/notebook/pvsystem.jl`)
+    3) multiperiod unbalanced power flow with storage (in `/notebook/storage.jl`)
+    4) multiperiod unbalanced power flow with demand response  through transformer tap changing (a.k.a. conservation voltage reduction) (in `/notebook/cvr_load.jl`)
     
  ## Installation instructions
 We recommend using Visual studio code (an integrated development environment) to launch the notebooks, in combination with the long-term support Julia 
