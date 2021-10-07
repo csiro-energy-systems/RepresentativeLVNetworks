@@ -43,12 +43,12 @@ Installation instructions for RepresentativeLVNetworks.jl
 
 Running the notebooks of RepresentativeLVNetworks.jl
  1) Open a Julia terminal within VSCode. E.g. menu "view" -> "command pallete" and type "Julia start REPL". Press enter.
- 2) In the VSCode file browser, go to the `/notebooks` folder and choose a notebook to run, e.g. `multiperiod.jl` (see `## Package contents` above) and right-click to "copy path".
+ 2) In the VSCode file browser, go to the `/notebooks` folder and choose a notebook to run, e.g. `multiperiod.jl` (see section Package contents above) and right-click to "copy path".
  3) Type: `include("script/pluto_launch.jl") [enter]` to launch Pluto.jl. This should launch a browser with a webpage stating "Welcome to Pluto".
  4) In the 'open from file' text box, paste the copied notebook path and click 'open'. This will launch the selected notebook.
  5) Julia will now just-in-time compile a lot of code, which means you'll have to wait about 3 minutes before the notebook becomes interactive. 
  6) Each notebook (`multiperiod.jl`, `pvsystem.jl`, `storage.jl`, and 
- `cvr_load.jl`) contains a dropdown box to select the network (a letter between A and W) and a button "generate figures". You need to press this button every time you change the network selection. This triggers the notebook to update the OpenDSS calculations and fitures. In each notebook, there are sliders and tickboxes to finetune the simulation. Generally, you'll also need to press "generate figures" after any change of the sliders/tickboxes.
+ `cvr_load.jl`) contains a dropdown box to select the network (a letter between A and W) and a button "generate figures". You need to press this button every time you change the network selection. This triggers the notebook to update the OpenDSS calculations and figures. In each notebook, there are sliders and tickboxes to finetune the simulation. Generally, you'll also need to press "generate figures" after any change of the sliders/tickboxes.
 
  Figures are stored in `data/csv_results`.
 
