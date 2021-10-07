@@ -1,57 +1,68 @@
 ### A Pluto.jl notebook ###
-# v0.14.5
+# v0.16.1
 
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    quote
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : missing
+        el
+    end
+end
+
+# ╔═╡ df30e911-e0f9-4110-acf0-b770123c6c53
+begin
+	using Pkg
+	Pkg.activate(joinpath(pwd(),".."))
+end
+
 # ╔═╡ d663dc4c-b926-11eb-1760-6d7e227eebd3
 begin
-
-	# using RepresentativeLVNetworks
-	import RepresentativeLVNetworks
+	using RepresentativeLVNetworks
 	const _RepNets = RepresentativeLVNetworks
-
+	using PlutoUI
 	using OpenDSSDirect
+	using JSON
 
 	case = Dict()
 
-	case[1] = "D003278" 
-	case[2] = "D009819"
-	case[3] = "D014683"
-	case[4] = "D023303" 
-	case[5] = "D037984" 
-	case[6] = "D047205"
-	case[7] = "D049759" 
-	case[8] = "D052609" 
-	case[9] = "D058461" 
-	case[10] = "sourcebus_11000.118_744"
-	case[11] = "sourcebus_11000.130_1438"
-	case[12] = "sourcebus_11000.trafo_75585177_75585177"
-	case[13] = "sourcebus_11000.trafo_75588995_75588995"
-	case[14] = "sourcebus_11000.trafo_75589759_75589759"
-	case[15] = "sourcebus_11000.trafo_75592323_75592323"
-	case[16] = "sourcebus_11000.trafo_75604448_75604448"
-	case[17] = "sourcebus_11000.trafo_75615289_75615289"
-	case[18] = "sourcebus_11000.trafo_75617346_75617346"
-	case[19] = "sourcebus_22000.trafo_75612682_75612682"
-	case[20] = "sourcebus_22000.trafo_75618991_75618991"
-	case[21] = "sourcebus_22000.trafo_75621868_75621868"
-	case[22] = "sourcebus_22000.trafo_75628143_75628143"
-	case[23] = "sourcebus_22000.trafo_75628932_75628932"
-
-	i = 9
+	case[1] = "A" 
+	case[2] = "B" 
+	case[3] = "C" 
+	case[4] = "D"
+	case[5] = "E"
+	case[6] = "F"
+	case[7] = "G"
+	case[8] = "H" 
+	case[9] = "I" 
+	case[10] = "J"
+	case[11] = "K"
+	case[12] = "L"
+	case[13] = "M"
+	case[14] = "N"
+	case[15] = "O"
+	case[16] = "P"
+	case[17] = "Q"
+	case[18] = "R"
+	case[19] = "S"
+	case[20] = "T"
+	case[21] = "U"
+	case[22] = "V"
+	case[23] = "W"
 	
-	path = joinpath(dirname(pathof(_RepNets)),"..","data/",case[i])
-	cd(path)
-	file = "/Master.dss"
-	
-	
-	# getproperty(_RepNets, )
-	# typeof(_RepNets)
-	 # mode = "Snap"
-	# _RepNets.dss!(path*file, mode)
+	case_tuples = [(string(key) => value) for (key, value) in sort(collect(case), by=x->x[1])];
 	
 end
+
+# ╔═╡ a43ff009-fde4-4f38-b2fd-c679e2276fa8
+md"""
+## Select Network
+
+Network: $(@bind i PlutoUI.Select(case_tuples))
+"""
 
 # ╔═╡ 78e32c08-a45b-41f0-8858-b9919b94cdc9
 md"""
@@ -65,6 +76,10 @@ The network data includes snapshot load data.
 
 # ╔═╡ e72d955a-0658-4cab-9071-14996a3c1ceb
 begin
+	path = joinpath(dirname(pathof(_RepNets)),"..","data/",case[parse(Int,i)])
+	cd(path)
+	file = "/Master.dss"
+	
 	cd(path)
 	
 	mode = "Snap"
@@ -107,10 +122,12 @@ md"""
 ## Plotting"""
 
 # ╔═╡ Cell order:
-# ╠═d663dc4c-b926-11eb-1760-6d7e227eebd3
+# ╟─df30e911-e0f9-4110-acf0-b770123c6c53
+# ╟─d663dc4c-b926-11eb-1760-6d7e227eebd3
+# ╟─a43ff009-fde4-4f38-b2fd-c679e2276fa8
 # ╟─78e32c08-a45b-41f0-8858-b9919b94cdc9
-# ╠═e72d955a-0658-4cab-9071-14996a3c1ceb
+# ╟─e72d955a-0658-4cab-9071-14996a3c1ceb
 # ╟─c0f3f3c0-d528-4bbf-822f-ea47eba174bd
-# ╠═29debbaa-1aa8-47f0-b0df-ab9e58703575
+# ╟─29debbaa-1aa8-47f0-b0df-ab9e58703575
 # ╟─247aa5cd-c59d-4391-a395-badef95d1d44
-# ╠═f0bf97fd-4630-4fc1-8df1-5625925da248
+# ╟─f0bf97fd-4630-4fc1-8df1-5625925da248
