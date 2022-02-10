@@ -18,6 +18,8 @@ The package contains:
     2) multiperiod unbalanced power flow with PV (in `/notebooks/pvsystem.jl`)
     3) multiperiod unbalanced power flow with storage (in `/notebooks/storage.jl`)
     4) multiperiod unbalanced power flow with demand response  through transformer tap changing (a.k.a. conservation voltage reduction) (in `/notebooks/cvr_load.jl`)
+- Example Python code for reading the Low Voltage Feeder Taxonomy representative network DSS files using Ditto, converting to NetworkX graphs and rendering to HTML/PNG, and calculating clustering metrics.
+  - See [Python Readme](./python-reader/Readme.md) in `./python-reader` subproject for details.
     
  ## Installation instructions
 We recommend using Visual studio code (an integrated development environment) to launch the notebooks, in combination with the long-term support Julia 
@@ -64,6 +66,7 @@ CSIRO contributors to this package include:
 - Thomas Brinsmead
 - Frederik Geth
 - Rahmat Heidarihaei
+- Sam West
 
 
 
