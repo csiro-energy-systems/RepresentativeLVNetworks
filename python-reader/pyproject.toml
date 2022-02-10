@@ -1,8 +1,14 @@
 [tool.poetry]
-name = "lvft-python-reader"
+name = "lvft-reader"
 version = "0.0.1"
 description = "Exmaple code for reading the Low Voltage Feeder Taxonomy representative network DSS files using Ditto"
 authors = ["Sam West <sam.west@csiro.au>"]
+
+
+packages = [
+    { include = "lvft_reader/**/*", from="src" },   # need to specify this if it doesn't match the project name
+    { include = "tests/**/*", from="src"}
+]
 
 [tool.poetry.dependencies]
 python = " >=3.9,<3.11"
