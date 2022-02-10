@@ -22,6 +22,7 @@ pipeline {
           steps {
             // Need to provide git creds here to allow poetry to install packages from bitbucket urls
             withCredentials([gitUsernamePassword(credentialsId: 'DEMC-Backup')]) {
+                sh "cd python_reader; pwd"
                 sh "$HOME/.poetry/bin/poetry install"
             }
           }
@@ -31,7 +32,7 @@ pipeline {
             steps {
                  // Credentials are pre-defined inside Jenkins, just specify the 'credentialsId' here to use them. See https://docs.cloudbees.com/docs/cloudbees-ci/latest/cloud-secure-guide/injecting-secrets
                 withCredentials([usernamePassword(credentialsId: 'DEMC-Backup', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh("pwd")
+                    sh "cd python_reader; pwd"
                     sh("ls -l")
                     sh('export SMB_UN=$user && export SMB_PW=$pass && export SMB_DOMAIN=NEXUS && $HOME/.poetry/bin/poetry run coverage run --source ./src -m pytest -s') // single quotes are more secure - http://www.jenkins.io/doc/book/pipeline/jenkinsfile/#string-interpolation
                     sh('$HOME/.poetry/bin/poetry run coverage report')
@@ -40,13 +41,6 @@ pipeline {
                     sh('$HOME/.poetry/bin/poetry build')
                     archiveArtifacts artifacts: 'dist/*', fingerprint: true
                 }
-            }
-        }
-
-        stage('doc') {
-            steps {
-                sh('$HOME/.poetry/bin/poetry run ./scripts/gen-doc.sh')
-                archiveArtifacts artifacts: 'docs/build/', fingerprint: true
             }
         }
     }
