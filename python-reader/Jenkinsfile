@@ -38,6 +38,7 @@ pipeline {
                         sh('export SMB_UN=$user && export SMB_PW=$pass && export SMB_DOMAIN=NEXUS && $HOME/.poetry/bin/poetry run coverage run --source ./src -m pytest -s') // single quotes are more secure - http://www.jenkins.io/doc/book/pipeline/jenkinsfile/#string-interpolation
                         sh('$HOME/.poetry/bin/poetry run coverage report')
                         sh('$HOME/.poetry/bin/poetry run coverage html')
+                        archiveArtifacts artifacts: 'output/*', fingerprint: true
                         archiveArtifacts artifacts: 'htmlcov/*', fingerprint: true
                         sh('$HOME/.poetry/bin/poetry build')
                         archiveArtifacts artifacts: 'dist/*', fingerprint: true

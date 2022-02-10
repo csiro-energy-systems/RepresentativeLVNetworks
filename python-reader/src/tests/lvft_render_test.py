@@ -38,7 +38,8 @@ class LVFTRenderTest(unittest.TestCase):
                     if len(power_source_names) > 0:
                         for sourcebus in power_source_names:
                             html_file, ditto_network = ditto_utils.plot_network(store, sourcebus, f'Network {model_name}, Source {sourcebus}, Trans={store.name}', out_dir, engine='pyvis')
-                            render_html(html_file, out_dir)
+                            # Uncomment this to enable PNG rendering of HTML network graphs. Disabled because it fails in headless jenkins environment.
+                            # render_html(html_file, out_dir)
 
         # TODO Some of the metrics fail to be generated on the final representative networks - something about impedance matrix conversion.
         print('Generating network report.')
