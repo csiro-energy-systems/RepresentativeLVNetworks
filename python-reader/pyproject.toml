@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "lvft-python-reader"
+version = "0.0.1"
+description = "Exmaple code for reading the Low Voltage Feeder Taxonomy representative network DSS files using Ditto"
+authors = ["Sam West <sam.west@csiro.au>"]
+
+[tool.poetry.dependencies]
+python = " >=3.9,<3.11"
+colorlog = "^5.0.1"
+colorama = "^0.4.4"
+PyYAML = "^5.4.1"
+loguru = "^0.5.3"
+coverage = "^5.5"
+rst-to-myst = {extras = ["sphinx"], version = "^0.3.2"}
+"ditto.py" = {version = "0.2.0", extras = ["opendss"]}
+networkx = "^2.6.3"
+psutil = "^5.9.0"
+matplotlib = "^3.5.1"
+tqdm = "^4.62.3"
+scipy = "^1.8.0"
+pyppeteer = "^1.0.2"
+pyvis = "^0.1.9"
+pyarrow = "^7.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.3"
+Sphinx = "^4.2.0"
+sphinx-rtd-theme = "^1.0.0"
+myst-parser = "^0.15.2"
+coverage = "^5.5"
+pip-licenses = "^3.5.2"
+pylint = "^2.11.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.autopep8]
+max-line-length = 200
+ignore = "E501,W6,E704,W505"
+in-place = true
+recursive = true
+aggressive = 3

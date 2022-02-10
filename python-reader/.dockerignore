@@ -1,0 +1,6 @@
+.idea
+.git
+.pytest_cache
+**/__pycache__
+log.*txt*
+*.tar*
