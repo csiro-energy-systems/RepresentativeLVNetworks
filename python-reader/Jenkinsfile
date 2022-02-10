@@ -22,8 +22,9 @@ pipeline {
           steps {
             // Need to provide git creds here to allow poetry to install packages from bitbucket urls
             withCredentials([gitUsernamePassword(credentialsId: 'DEMC-Backup')]) {
-                sh "cd python-reader; pwd"
-                sh "$HOME/.poetry/bin/poetry install"
+                dir('python-reader') {
+                    sh "$HOME/.poetry/bin/poetry install"
+                }
             }
           }
         }
@@ -32,14 +33,15 @@ pipeline {
             steps {
                  // Credentials are pre-defined inside Jenkins, just specify the 'credentialsId' here to use them. See https://docs.cloudbees.com/docs/cloudbees-ci/latest/cloud-secure-guide/injecting-secrets
                 withCredentials([usernamePassword(credentialsId: 'DEMC-Backup', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh "cd python-reader; pwd"
-                    sh("ls -l")
-                    sh('export SMB_UN=$user && export SMB_PW=$pass && export SMB_DOMAIN=NEXUS && $HOME/.poetry/bin/poetry run coverage run --source ./src -m pytest -s') // single quotes are more secure - http://www.jenkins.io/doc/book/pipeline/jenkinsfile/#string-interpolation
-                    sh('$HOME/.poetry/bin/poetry run coverage report')
-                    sh('$HOME/.poetry/bin/poetry run coverage html')
-                    archiveArtifacts artifacts: 'htmlcov/*', fingerprint: true
-                    sh('$HOME/.poetry/bin/poetry build')
-                    archiveArtifacts artifacts: 'dist/*', fingerprint: true
+                    dir('python-reader') {
+                        sh("ls -l")
+                        sh('export SMB_UN=$user && export SMB_PW=$pass && export SMB_DOMAIN=NEXUS && $HOME/.poetry/bin/poetry run coverage run --source ./src -m pytest -s') // single quotes are more secure - http://www.jenkins.io/doc/book/pipeline/jenkinsfile/#string-interpolation
+                        sh('$HOME/.poetry/bin/poetry run coverage report')
+                        sh('$HOME/.poetry/bin/poetry run coverage html')
+                        archiveArtifacts artifacts: 'htmlcov/*', fingerprint: true
+                        sh('$HOME/.poetry/bin/poetry build')
+                        archiveArtifacts artifacts: 'dist/*', fingerprint: true
+                    }
                 }
             }
         }
