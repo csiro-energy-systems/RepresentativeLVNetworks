@@ -1,0 +1,8 @@
+# git config --global init.templateDir ~/.git-template
+# pre-commit init-templatedir ~/.git-template
+#
+repos:
+-   repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v1.5.7
+    hooks:
+    -   id: autopep8

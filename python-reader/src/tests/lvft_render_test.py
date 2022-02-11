@@ -10,7 +10,6 @@ from lvft_reader import ditto_utils, parse_utils
 from lvft_reader.lvft_metrics import LVFTMetrics
 from lvft_reader.render_html import render_html
 
-
 logger.configure(**logging)
 
 

@@ -1,1 +1,1 @@
-pip-licenses -f md > docs\source\licenses.md
+pip-licenses -f md > licenses.md

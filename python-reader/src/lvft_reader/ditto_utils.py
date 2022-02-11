@@ -72,12 +72,14 @@ var options = {
 }
 """
 
+
 def valid_json(o):
     try:
         json.dumps(o)
         return True
     except:
         return False
+
 
 def get_discrete_colourmap(n: int, base_cmap=plt.cm.jet):
     """
@@ -92,7 +94,7 @@ def get_discrete_colourmap(n: int, base_cmap=plt.cm.jet):
     # force the first color entry to be grey
     # cmaplist[0] = (.5, .5, .5, 1.0)
     # define the bins and normalize
-    bounds = np.linspace(0, n, n+1)
+    bounds = np.linspace(0, n, n + 1)
     norm = mpl.colors.BoundaryNorm(bounds, base_cmap.N)
     cols = [base_cmap(norm(i)) for i in bounds]
     return cols
@@ -111,15 +113,11 @@ def store_to_json(store: Store, out_dir: str, filename: str):
     from ditto.writers.json.write import Writer
     Writer(output_path=out_dir, filename=filename).write(store)
 
+
 def store_to_dss(store: Store, out_dir: str):
     ''' Writes a ditto model to a DSS format '''
     from ditto.writers.opendss.write import Writer
     Writer(output_path=out_dir, log_file=out_dir + '/conversion.log').write(store)
-
-# def read_from_dss(filename: str, out_dir: str) -> Store:
-#     ''' Writes a ditto model to a DSS format '''
-#     from ditto.readers.opendss.read import Reader
-#     Reader(output_path=out_dir, log_file=out_dir + '/conversion.log').parse()
 
 
 def load_from_json(filename: str) -> ditto.Store:
@@ -141,7 +139,9 @@ def prettyify(v: object):
 def get_pos(m):
     return m['positions'][0] if 'positions' in m.keys() and m['positions'] is not None and m['positions'] != [] else None
 
-def plot_network(model: Store, source: str, title: str, out_dir: Path = None, feeder_subgraphs=None, feeder_head_node=None, engine: str = 'pyvis', line_unique_features=['R1', 'X1', 'line_type', 'nominal_voltage', 'nameclass'], show_plot=False):
+
+def plot_network(model: Store, source: str, title: str, out_dir: Path = None, feeder_subgraphs=None, feeder_head_node=None, engine: str = 'pyvis',
+                 line_unique_features=['R1', 'X1', 'line_type', 'nominal_voltage', 'nameclass'], show_plot=False):
     '''
     Plots a ditto model using networkx and pyvis to an HTML visualisation with colourised edges according to line characteristics, and nodes according to ditto model type.
     Useful for checking parsing correctness. There are actually 3 different rendering engines that do slightly different things, see 'engine' param for details.
@@ -171,7 +171,7 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
     H = nx.Graph(G.graph)
     G.is_directed = False
 
-    f = out_dir / make_filename_safe(f'{model.dnsp if hasattr(model,"dnsp") else ""} {title}.html')
+    f = out_dir / make_filename_safe(f'{model.dnsp if hasattr(model, "dnsp") else ""} {title}.html')
 
     if engine == 'pyvis':
         from pyvis.network import Network
@@ -181,7 +181,6 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
         #     edges = nx.edges(H, e)
         #     sum_metres = sum(filter(None, [H.edges[e].get('length') for e in edges]))
         #     H.nodes[e]['mass'] = sum_metres/10 + 1
-
 
         for e in H.nodes():
             H.nodes[e]['mass'] = 1
@@ -234,15 +233,13 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
         sets = np.unique(line_types)
         try:
             feat_col_map = None
-            cmap = dict(zip(sets, get_discrete_colourmap(len(sets)+1)))
+            cmap = dict(zip(sets, get_discrete_colourmap(len(sets) + 1)))
             feat_col_map = {line_types[i]: cmap[line_types[i]] for i in range(len(line_types))}
         except ZeroDivisionError:
             logger.warning(f'Error getting colourmap for Lines with n={len(sets)}', exc_info=True)
 
-
         ''' Do stuff to edges '''
         for idx, e in enumerate(nt.get_edges()):
-
 
             ''' Set edge weights from their length.  This is better than setting the Node masses, but it's trickier to get the physics settings right to show the result '''
             if e.get('length') is not None and e.get('length') > 1:
@@ -261,10 +258,9 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
             for k in del_keys:
                 del e[k]
 
-
             ''' Set labels on visualisation '''
             hovers = ''.join([f'{k} = {v}<br>' for k, v in dict(sorted(e.items())).items()])
-            e['title'] = f'<b>Name={e.get("name")}</b><br>'+hovers
+            e['title'] = f'<b>Name={e.get("name")}</b><br>' + hovers
             # n['title'] = 'Test Hover Label<br>other line'
             edge_type = type(model.model_names.get(e.get("name"))).__name__
             if feat_col_map is not None:
@@ -276,8 +272,6 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
             line_features = [f'{k} = {prettyify(v)}\n' for k, v in dict(sorted(e.items())).items() if k in line_unique_features]  # string with all unique line features
             e['label'] = f"{'' if e.get('equipment_name') is None else e.get('equipment_name')}\n" + ''.join(line_features)
             e['label'] = f'{edge_type}: {e["label"]}'
-
-
 
         if feeder_subgraphs is not None:
             ''' Draw feeder Lines thicker '''
@@ -354,7 +348,7 @@ def get_node_edge_properties(edges, graph, line_props):
     data['avg_degree'] = np.mean(list(dict(nx.degree(graph, nodes)).values()))
     data['max_degree'] = np.max(list(dict(nx.degree(graph, nodes)).values()))
     data['sum_metres'] = sum(filter(None, [graph.edges[e].get('length') for e in edges]))
-    data['n_fuses']    = sum(filter(None, [graph.edges[e].get('is_fuse') for e in edges]))
+    data['n_fuses'] = sum(filter(None, [graph.edges[e].get('is_fuse') for e in edges]))
     data['n_switches'] = sum(filter(None, [graph.edges[e].get('is_switch') for e in edges]))
     data['n_recloser'] = sum(filter(None, [graph.edges[e].get('is_recloser') for e in edges]))
     return data
@@ -377,7 +371,7 @@ def edge_to_feat_str(edge_dict: dict, line_unique_features: list):
     :param line_unique_features: list of feature (Line properties) to include
     :return:
     '''
-    return str([round(edge_dict.get(f), 5) if isinstance(edge_dict.get(f), float) else edge_dict.get(f)  for f in line_unique_features])
+    return str([round(edge_dict.get(f), 5) if isinstance(edge_dict.get(f), float) else edge_dict.get(f) for f in line_unique_features])
 
 
 def weighted_diameter(graph, weight_prop: str):
@@ -442,7 +436,7 @@ def get_trivial_lines(graph, line_unique_features, short_line_threshold=1.0, tri
     # trivial_edges.extend([l.name for l in model.models if isinstance(l, Line) and (l.is_switch or l.is_fuse or l.is_breaker or l.is_recloser or l.is_network_protector or l.is_sectionalizer)])
 
     ''' Get edge-tuple to edge-data-dict mapping (for cleaner code) '''
-    ed = {e: graph.edges[e] for e in graph.edges} #ed = edge-data
+    ed = {e: graph.edges[e] for e in graph.edges}  # ed = edge-data
     ''' Find edges with missing or low R1 '''
     trivial_edges = [tuple(sorted(e)) for e in graph.edges if 'R1' not in ed[e].keys() or np.isnan(ed[e]['R1']) or (ed[e]['R1'] < trivial_line_R1_threshold)]
     ''' Find edges that are switches, fuses or breakers '''
@@ -451,7 +445,6 @@ def get_trivial_lines(graph, line_unique_features, short_line_threshold=1.0, tri
     trivial_edges.extend([tuple(sorted(e)) for e in graph.edges if graph.edges[e].get('length') is None or graph.edges[e].get('length') <= short_line_threshold])  # short lines
     ''' Find substrings in edge names '''
     trivial_edges.extend([tuple(sorted(e)) for e in graph.edges if any(['name' in ed[e].keys() and s.lower() in ed[e].get('name') for s in trivial_line_substrs])])
-
 
     ''' Find edge types with missing ot low R1'''
     trivial_types = ltypes[(ltypes['R1'] < trivial_line_R1_threshold) | (ltypes['R1'].isna())].index.values if 'R1' in ltypes.columns else []
@@ -462,7 +455,7 @@ def get_trivial_lines(graph, line_unique_features, short_line_threshold=1.0, tri
     return trivial_edges, trivial_types, type_to_edge, ltypes
 
 
-def find_feeder_networks(model: Store, source: str, line_unique_features: list, feeder_length_percentile_threshold = 10):
+def find_feeder_networks(model: Store, source: str, line_unique_features: list, feeder_length_percentile_threshold=10):
     '''
 
     Feeder Identification Heuristic.
@@ -497,7 +490,7 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
         ''' Build ditto network and networkx graphs '''
         net: dn.Network = dn.Network()
         net.build(model, source=source)
-        net.set_attributes(model) # Set the attributes in the graph
+        net.set_attributes(model)  # Set the attributes in the graph
         graph = nx.Graph(net.graph)
 
         ''' Remove all nodes are are not ditto Nodes, Transformers or PowerSources '''
@@ -535,9 +528,9 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
 
             keep_edges = type_to_edge.get(t)
             keep_edges.extend(trivial_edges)
-            type_sg = graph.edge_subgraph(tuple(keep_edges)).copy() #subgraph with all edges of this tupe
+            type_sg = graph.edge_subgraph(tuple(keep_edges)).copy()  # subgraph with all edges of this tupe
 
-            connected_sgs = [type_sg.subgraph(c) for c in list(nx.connected_components(type_sg))] #subgraphs of type_subgraph for each separate group of connected components
+            connected_sgs = [type_sg.subgraph(c) for c in list(nx.connected_components(type_sg))]  # subgraphs of type_subgraph for each separate group of connected components
             for s in connected_sgs:
                 if feeder_head_node in s.nodes and any([nx.has_path(s, n, feeder_head_node) and n != feeder_head_node for n in s.nodes]):
                     ''' Build list of 1-type subgraphs which are connected to the feeder_head '''
@@ -546,25 +539,25 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
                     ''' Also keep a list of the groups not connected to the feeder_head, for identifying long "remote-feeders" '''
                     remote_connected_sgs.append(s)
 
-
         ''' Identify individual feeders branches by removing the special node from the subgraph above, grabbing each remaining connected segment, then adding the special node back in '''
         feeder_branches = []
         for feeder in source_connected_sgs:
             branch_heads = list(nx.neighbors(feeder, feeder_head_node))
 
             for head_node in branch_heads:
-                if not isinstance(model.model_names.get(head_node), PowerSource): #Special-case: don't use the power source as a feeder-branch head
+                if not isinstance(model.model_names.get(head_node), PowerSource):  # Special-case: don't use the power source as a feeder-branch head
                     branch = feeder.copy()
                     del_edge = branch.edges[nx.shortest_path(branch, feeder_head_node, head_node)]
                     del_node = branch.nodes[feeder_head_node]
                     branch.remove_node(feeder_head_node)
                     branch_list = [branch.subgraph(c) for c in list(nx.connected_components(branch))]  # subgraphs of type_subgraph for each separate group of connected components
-                    branch = [b for b in branch_list if head_node in b.nodes][0].copy() #the (hopefully 1) remaining branch containing the branch-head-node
+                    branch = [b for b in branch_list if head_node in b.nodes][0].copy()  # the (hopefully 1) remaining branch containing the branch-head-node
 
                     ''' Put the deleted node and edge back '''
                     branch.add_node(feeder_head_node, object=del_node)
                     for k, v in del_node.items():
-                        branch.nodes[feeder_head_node][k] = v  # We set the properties the same way ditto does, not using the standard way which creates an 'object={}' parent-dict for all the ditto key:values, ie don't use: `.add_node(n, object=dict)`
+                        branch.nodes[feeder_head_node][
+                            k] = v  # We set the properties the same way ditto does, not using the standard way which creates an 'object={}' parent-dict for all the ditto key:values, ie don't use: `.add_node(n, object=dict)`
 
                     branch.add_edge(del_edge['from_element'], del_edge['to_element'])
                     for k, v in del_edge.items():
@@ -577,9 +570,9 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
 
         ''' Choose any subgraphs that are longer than the n% of the total network length '''
         connected_sg_lengths = {s: weighted_diameter(s, 'length') for s in feeder_branches}
-        connected_sg_lengths = {s: connected_sg_lengths[s] for s in connected_sg_lengths.keys() if connected_sg_lengths[s]>1}
+        connected_sg_lengths = {s: connected_sg_lengths[s] for s in connected_sg_lengths.keys() if connected_sg_lengths[s] > 1}
         # length_cutoff = np.percentile(list(connected_sg_lengths.values()), feeder_length_percentile_threshold) if len(connected_sg_lengths) > 0 else 0
-        length_cutoff = diameter * feeder_length_percentile_threshold/100.0
+        length_cutoff = diameter * feeder_length_percentile_threshold / 100.0
         selected_feeders = [sg for sg in connected_sg_lengths.keys() if connected_sg_lengths[sg] > length_cutoff]
 
         ''' Also include any 'remote feeders' - ie those which aren't directly connected to the feeder_head node, but
@@ -592,8 +585,9 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
         for sg in remote_connected_sgs:
             feeder_diameter = weighted_diameter(sg, 'length')
             if feeder_diameter > length_cutoff:
-                dist_to_head = min([nx.algorithms.shortest_path_length(graph, n, feeder_head_node, weight='length') for n in sg.nodes]) # get shortest distance from any subgraph node to the feeder_head
-                if dist_to_head < feeder_diameter: # we're arbitrarily choosing the distance-to-head cutoff here.  Feel free to tweak further :)
+                dist_to_head = min(
+                    [nx.algorithms.shortest_path_length(graph, n, feeder_head_node, weight='length') for n in sg.nodes])  # get shortest distance from any subgraph node to the feeder_head
+                if dist_to_head < feeder_diameter:  # we're arbitrarily choosing the distance-to-head cutoff here.  Feel free to tweak further :)
                     selected_feeders.append(sg)
 
         ''' Print results/warnings '''
@@ -602,7 +596,8 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
         elif selected_feeders is None or len(selected_feeders) == 0:
             logger.warning(f'For network "{model.name}", selected feeder head node as "{feeder_head_node}", but failed to find feeders in model "{model.name}" with {len(graph.nodes)} nodes')
         else:
-            logger.info(f'For network "{model.name}", selected feeder head node as "{feeder_head_node}", and {len(selected_feeders)} branches from {len(selected_feeders)} of {len(connected_sg_lengths)} feeder candidates with length > {length_cutoff:.1f}m ({feeder_length_percentile_threshold}% of diameter: ({diameter})).')
+            logger.info(
+                f'For network "{model.name}", selected feeder head node as "{feeder_head_node}", and {len(selected_feeders)} branches from {len(selected_feeders)} of {len(connected_sg_lengths)} feeder candidates with length > {length_cutoff:.1f}m ({feeder_length_percentile_threshold}% of diameter: ({diameter})).')
             for idx, sg in enumerate(selected_feeders):
                 length = sum(list(filter(None, [sg.edges[e].get('length') for e in sg.edges])))
                 logger.debug(f'Feeder #{idx} has {len(sg.edges)} edges and length: {length}m')
@@ -613,10 +608,11 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
 
     return selected_feeders, feeder_head_node
 
+
 def is_there_a_path(_from, _to):
-    visited = set() # remember what you visited
+    visited = set()  # remember what you visited
     while _from:
-        from_node = _from.pop(0) # get a new unvisited node
+        from_node = _from.pop(0)  # get a new unvisited node
         if from_node in _to:
             # went the path
             return True
@@ -628,6 +624,7 @@ def is_there_a_path(_from, _to):
                 visited.add(neighbor_node)
                 _from.append(neighbor_node)
     return False
+
 
 def get_power_sources(store):
     '''
@@ -644,7 +641,6 @@ def get_power_sources(store):
     return power_source_names
 
 
-
 def make_filename_safe(value, allow_unicode=False):
     """
     Taken from https://github.com/django/django/blob/master/django/utils/text.py
@@ -658,7 +654,7 @@ def make_filename_safe(value, allow_unicode=False):
     else:
         value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
     import string
-    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits) #Allows: '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)  # Allows: '-_.() abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     return ''.join(c for c in value if c in valid_chars)
 
 
@@ -722,10 +718,10 @@ def open_switches_in_cycles(model, source, line_unique_features):
 
         for cycle in removable_edges.keys():
             edges = removable_edges[cycle]
-            e = edges[0] # Just aribtrarily pick the first removable edge to delete.  In lieu of better information about the lines, I'm not sure there's a better approach.
+            e = edges[0]  # Just aribtrarily pick the first removable edge to delete.  In lieu of better information about the lines, I'm not sure there's a better approach.
 
             ''' Remove the line from the ditto model '''
-            if e in graph.edges: #need to check because previous cycle traversals may have already removed this edge from another direction
+            if e in graph.edges:  # need to check because previous cycle traversals may have already removed this edge from another direction
                 model_name = graph.edges[e].get('equipment_name')
                 m = model.model_names[model_name]
                 model.model_store.remove(m)
@@ -774,9 +770,9 @@ def get_impedance_from_matrix(impedance_matrix):
     from numpy import exp, pi, matrix, real, imag
     from numpy.linalg import inv
     alpha = exp((2 * pi) / 3j)
-    a = matrix([[1, 1,           1],
-                [1, alpha ** 2,  alpha],
-                [1, alpha,       alpha ** 2]])
+    a = matrix([[1, 1, 1],
+                [1, alpha ** 2, alpha],
+                [1, alpha, alpha ** 2]])
 
     # impedance_matrix = matrix[[1, 2, 3], [4, 5, 6], [7, 8, 9]] #for testing
     Zabc = impedance_matrix
@@ -810,6 +806,7 @@ def set_low_priority():
     else:
         os.nice(1)
 
+
 def set_normal_priority():
     """ Set the priority of the process to normal.
         See https://stackoverflow.com/questions/1023038/change-process-priority-in-python-cross-platform
@@ -828,6 +825,7 @@ def set_normal_priority():
         p.nice(psutil.NORMAL_PRIORITY_CLASS)
     else:
         os.nice(0)
+
 
 def set_high_priority():
     """ Set the priority of the process to normal.

@@ -10,9 +10,11 @@ import opendssdirect as dss
 from opendssdirect.utils import run_command
 from pathlib import Path
 import pandas as pd
+
 logger = logging.getLogger(__name__)
 import networkx as nx
 import matplotlib.pyplot as plt
+
 
 def run_opendss_power_flow(path_to_master, path_to_export):
     '''
@@ -31,7 +33,7 @@ def run_opendss_power_flow(path_to_master, path_to_export):
     :return: A Dataframe constructed from reading  the simulated voltage_profile.csv, or and empty DataFrame if the simulation failed.
     :raise ChildProcessError if the simulation was unsuccessful.
     '''
-    in_file = str((Path(path_to_master)/'master.dss').resolve())
+    in_file = str((Path(path_to_master) / 'master.dss').resolve())
     voltage_out_file = str(Path(path_to_export) / 'voltage_profile.csv')
     Path(path_to_export).mkdir(parents=True, exist_ok=True)
     line_out_file = f'{path_to_export}\\line_profile.csv'
@@ -75,7 +77,6 @@ def run_opendss_power_flow(path_to_master, path_to_export):
 
         logger.debug(f'Voltages:\n{df_voltages.to_string()}')
         logger.debug(f'Lines:\n{df_lines.to_string()}')
-
 
         return df_voltages, df_lines
 

@@ -6,4 +6,3 @@ from loguru import logger
 from config import logger_config
 
 logger.configure(**logger_config.logging)
-

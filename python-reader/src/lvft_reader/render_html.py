@@ -5,6 +5,7 @@ from pathlib import Path
 
 from pyppeteer import launch
 
+
 def render_html(html: Path, out_dir: Path, width=1920, height=1920, wait_secs=10):
     '''
     Render an HTML file as a PNG 'screenshot' using a headless Chromium browser instance.
@@ -15,7 +16,8 @@ def render_html(html: Path, out_dir: Path, width=1920, height=1920, wait_secs=10
     :param wait_secs:
     :return:
     '''
-    png_files=[]
+    png_files = []
+
     async def main():
         browser = await launch({'defaultViewport': {'width': width, 'height': height}})
         page = await browser.newPage()
@@ -25,6 +27,7 @@ def render_html(html: Path, out_dir: Path, width=1920, height=1920, wait_secs=10
         await page.screenshot({'path': png_file}, fullPage=False)
         await browser.close()
         png_files.append(png_file)
+
     asyncio.get_event_loop().run_until_complete(main())
     return png_files
 
@@ -41,6 +44,7 @@ def html_table(lol):
         html_str += '  </td></tr>\n'
     html_str += '</table>\n'
     return html_str
+
 
 def render_networks_to_png(network_dict, out_dir, base_dirs):
     Path(out_dir).mkdir(parents=True, exist_ok=True)
@@ -66,6 +70,4 @@ def render_networks_to_png(network_dict, out_dir, base_dirs):
 
             for f in files:
                 png_files.append(render_html(f.resolve(), k_out_dir))
-                copyfile(f.resolve(), (k_out_dir/f.name).resolve())
-
-
+                copyfile(f.resolve(), (k_out_dir / f.name).resolve())

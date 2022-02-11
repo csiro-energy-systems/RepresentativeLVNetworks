@@ -21,7 +21,6 @@ from lvft_reader import ditto_utils
 logger = logging.getLogger(__name__)
 
 
-
 class LVFTMetrics():
     """
     Functions for calculating various low voltage network metrics from a collection of Ditto Stores
@@ -105,7 +104,6 @@ class LVFTMetrics():
             powersources = [l for l in mdl.models if isinstance(l, PowerSource)]
             source = ditto_utils.get_power_sources(mdl)[0]
 
-
             positions = [p.positions for p in mdl.models if hasattr(p, 'positions') and p.positions is not None and p.positions != []]  # get Positions from model attribute
             positions.extend([[p] for p in mdl.models if isinstance(p, ditto.models.position.Position)])  # get Positions that were put directly into from store.model
             lats = [k[0].lat for k in positions if k[0].lat is not None and k[0].lat != 0]
@@ -160,7 +158,7 @@ class LVFTMetrics():
             voltage_keys = [240, 400, 11000]
             nominal_voltages = OrderedDict(dict(zip(voltage_keys, nominal_voltages[0])))
             for voltage, count in nominal_voltages.items():
-                stats[f'n_loads_{voltage if voltage<11000 else ">400"}V'] = count
+                stats[f'n_loads_{voltage if voltage < 11000 else ">400"}V'] = count
 
             ''' Counts of nominal Line voltages '''
             nominal_voltages = np.histogram([l.nominal_voltage for l in lines if hasattr(l, 'nominal_voltage') and l.nominal_voltage is not None], bins=[1, 300, 500, np.inf])
@@ -190,7 +188,7 @@ class LVFTMetrics():
 
             ''' Cable cross section (wire.gmr) and diameters '''
             wires = [l.wires for l in mdl.models if isinstance(l, Line)]
-            wires = [item for sublist in wires for item in sublist] #flatten nested lists
+            wires = [item for sublist in wires for item in sublist]  # flatten nested lists
             cross_sections = [w.gmr for w in wires if w.gmr is not None and not np.isnan(w.gmr)]
             if len(cross_sections) > 0:
                 stats['min_wire_radius'] = np.nanmin(cross_sections)
@@ -266,8 +264,6 @@ class LVFTMetrics():
                 feeder_avg_stats = df.mean(axis='rows')
                 stats.update(feeder_avg_stats.to_dict())
 
-
-
             ditto_metrics = self.get_ditto_metrics(mdl)
             stats.update(ditto_metrics)
 
@@ -303,8 +299,8 @@ class LVFTMetrics():
             # Ditto defines network nodes as anything with a from, to or connecting element, so we'll duplicate this logic when defining the feeder nodes.
             feeder_nodes = [[i.name for i in store.models if
                              (hasattr(i, "from_element") and i.from_element is not None and
-                                hasattr(i, "to_element") and i.to_element is not None) or
-                             (hasattr(i, "connecting_element") and i.connecting_element is not None )]]
+                              hasattr(i, "to_element") and i.to_element is not None) or
+                             (hasattr(i, "connecting_element") and i.connecting_element is not None)]]
             feeder_names = [source_bus_name]
             substations = {source_bus_name: source_bus_name}
             feeder_types = [source_bus_name]
@@ -385,40 +381,40 @@ class LVFTMetrics():
         stats = OrderedDict()
         ''' Add summary stats for all nodes-to-sub measurements '''
         if len(hops) > 0:
-            stats[prefix+'max_hops_to_sub'] = round(max(hops),3)
-            stats[prefix+'min_hops_to_sub'] = round(min(hops),3)
-            stats[prefix+'mean_hops_to_sub'] = round(np.nanmean(hops),3)
-            stats[prefix+'median_hops_to_sub'] = round(np.nanmedian(hops),3)
+            stats[prefix + 'max_hops_to_sub'] = round(max(hops), 3)
+            stats[prefix + 'min_hops_to_sub'] = round(min(hops), 3)
+            stats[prefix + 'mean_hops_to_sub'] = round(np.nanmean(hops), 3)
+            stats[prefix + 'median_hops_to_sub'] = round(np.nanmedian(hops), 3)
 
         if len(metres) > 0:
-            stats[prefix+'min_dist_to_sub'] = round(min(metres),3)
-            stats[prefix+'max_dist_to_sub'] = round(max(metres),3)
-            stats[prefix+'mean_dist_to_sub'] = round(np.nanmean(metres),3)
-            stats[prefix+'median_dist_to_sub'] = round(np.nanmedian(metres),3)
+            stats[prefix + 'min_dist_to_sub'] = round(min(metres), 3)
+            stats[prefix + 'max_dist_to_sub'] = round(max(metres), 3)
+            stats[prefix + 'mean_dist_to_sub'] = round(np.nanmean(metres), 3)
+            stats[prefix + 'median_dist_to_sub'] = round(np.nanmedian(metres), 3)
 
         if len(r0s) > 0:
-            stats[prefix+'min_R0_to_sub'] = round(min(r0s),3)
-            stats[prefix+'max_R0_to_sub'] = round(max(r0s),3)
-            stats[prefix+'mean_R0_to_sub'] = round(np.nanmean(r0s),3)
-            stats[prefix+'median_R0_to_sub'] = round(np.nanmedian(r0s),3)
+            stats[prefix + 'min_R0_to_sub'] = round(min(r0s), 3)
+            stats[prefix + 'max_R0_to_sub'] = round(max(r0s), 3)
+            stats[prefix + 'mean_R0_to_sub'] = round(np.nanmean(r0s), 3)
+            stats[prefix + 'median_R0_to_sub'] = round(np.nanmedian(r0s), 3)
 
         if len(r1s) > 0:
-            stats[prefix+'min_R1_to_sub'] = round(min(r1s),3)
-            stats[prefix+'max_R1_to_sub'] = round(max(r1s),3)
-            stats[prefix+'mean_R1_to_sub'] = round(np.nanmean(r1s),3)
-            stats[prefix+'median_R1_to_sub'] = round(np.nanmedian(r1s),3)
+            stats[prefix + 'min_R1_to_sub'] = round(min(r1s), 3)
+            stats[prefix + 'max_R1_to_sub'] = round(max(r1s), 3)
+            stats[prefix + 'mean_R1_to_sub'] = round(np.nanmean(r1s), 3)
+            stats[prefix + 'median_R1_to_sub'] = round(np.nanmedian(r1s), 3)
 
         if len(x0s) > 0:
-            stats[prefix+'min_X0_to_sub'] = round(min(x0s),3)
-            stats[prefix+'max_X0_to_sub'] = round(max(x0s),3)
-            stats[prefix+'mean_X0_to_sub'] = round(np.nanmean(x0s),3)
-            stats[prefix+'median_X0_to_sub'] = round(np.nanmedian(x0s),3)
+            stats[prefix + 'min_X0_to_sub'] = round(min(x0s), 3)
+            stats[prefix + 'max_X0_to_sub'] = round(max(x0s), 3)
+            stats[prefix + 'mean_X0_to_sub'] = round(np.nanmean(x0s), 3)
+            stats[prefix + 'median_X0_to_sub'] = round(np.nanmedian(x0s), 3)
 
         if len(x1s) > 0:
-            stats[prefix+'min_X1_to_sub'] = round(min(x1s),3)
-            stats[prefix+'max_X1_to_sub'] = round(max(x1s),3)
-            stats[prefix+'mean_X1_to_sub'] = round(np.nanmean(x1s),3)
-            stats[prefix+'median_X1_to_sub'] = round(np.nanmedian(x1s),3)
+            stats[prefix + 'min_X1_to_sub'] = round(min(x1s), 3)
+            stats[prefix + 'max_X1_to_sub'] = round(max(x1s), 3)
+            stats[prefix + 'mean_X1_to_sub'] = round(np.nanmean(x1s), 3)
+            stats[prefix + 'median_X1_to_sub'] = round(np.nanmedian(x1s), 3)
         return stats
 
     def calc_network_stats(self, graph, mdl, source, prefix='', parent_graph=None):
@@ -442,24 +438,24 @@ class LVFTMetrics():
         nodes = [l for l in mdl.models if isinstance(l, Node) if l.name in graph_names]
 
         ''' Total line length of whole network'''
-        stats[prefix+'total_line_length'] = sum([x.length for x in lines])
+        stats[prefix + 'total_line_length'] = sum([x.length for x in lines])
 
         ''' Number of graph edges'''
-        stats[prefix+'n_edges'] = len(graph.edges)
+        stats[prefix + 'n_edges'] = len(graph.edges)
 
         ''' Total number of nodes '''
-        stats[prefix+'n_nodes'] = len(graph.nodes)
+        stats[prefix + 'n_nodes'] = len(graph.nodes)
 
         ''' Amount of nodes of degree 1, 2, 3, 4, >4 (absolute or percentage) '''
         node_degrees = np.histogram([val for (node, val) in graph.degree()], bins=[1, 2, 3, 4, 5, 6, np.inf])
         node_degrees = OrderedDict(dict(zip(node_degrees[1], node_degrees[0])))
         for k in sorted(node_degrees.keys()):
-            stats[prefix+f'n_deg_{int(k) if k < 5 else ">4"}_node'] = node_degrees[k]
+            stats[prefix + f'n_deg_{int(k) if k < 5 else ">4"}_node'] = node_degrees[k]
 
         ''' Number of Wires per line '''
         wire_counts = dict(collections.Counter(sorted([len(l.wires) for l in lines if hasattr(l, 'wires')])))
         for wires, count in wire_counts.items():
-            stats[prefix+f'n_{int(wires)}_wire_lines'] = count
+            stats[prefix + f'n_{int(wires)}_wire_lines'] = count
 
         ''' Distance (length, hops & impedance) to LV substation from all nodes  '''
         to_sub = self.calc_to_sub_stats(graph, mdl, source, prefix, parent_graph)
