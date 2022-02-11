@@ -1,6 +1,6 @@
 #=
 ListLicenses:
-- Julia version: 
+- Julia version: 1.6.0
 - Author: https://discourse.julialang.org/t/i-need-to-do-a-license-compliance-check-on-my-dependencies/50460/3
 - Date: 2022-02-11
 =#
@@ -26,6 +26,5 @@ coverages = [map(nt -> nt.license_file_percent_covered, license_checks[p]) for p
 df = @chain DataFrame(package = packages, license = licenses, coverage = coverages) begin
     flatten([:license, :coverage])
     flatten(:license)
-
-write(df, "licenses.csv")
 end
+df

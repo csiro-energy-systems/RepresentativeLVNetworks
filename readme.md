@@ -20,7 +20,7 @@ The package contains:
     4) multiperiod unbalanced power flow with demand response  through transformer tap changing (a.k.a. conservation voltage reduction) (in `/notebooks/cvr_load.jl`)
 - Example Python code for reading the Low Voltage Feeder Taxonomy representative network DSS files using Ditto, converting to NetworkX graphs and rendering to HTML/PNG, and calculating clustering metrics.
   - See [Python Readme](./python-reader/Readme.md) in `./python-reader` subproject for details.
-    
+
  ## Installation instructions
 We recommend using Visual studio code (an integrated development environment) to launch the notebooks, in combination with the long-term support Julia 
 release (1.6). To this end, ensure that the OpenDSS software has been installed, and furthermore 
@@ -57,6 +57,22 @@ Running the notebooks of RepresentativeLVNetworks.jl
 ## Resources
 You can ask for generic Julia help on discourse (https://discourse.julialang.org/)
 The JuliaLang youtube channel also contains tutorials (https://www.youtube.com/c/TheJuliaLanguage)
+
+# Publications
+This code is the result of a research project.  See below for links to the final report and other publications describing it and its results.
+
+## Final report
+- F. Geth, T.S. Brinsmead, S. West, P. Goldthorpe, B. Spak, G. Cross and J.H. Braslavsky. (2021). "National Low-Voltage Feeder Taxonomy Study." Final Report. CSIRO, Newcastle, Australia. DOI: https://doi.org/10.25919/2tas-7213
+### Lessons learnt presentation
+This presentation covers the Challenges and opportunities of the digital electric grid and Lessons learnt from the CSIRO National Low-Voltage Feeder Taxonomy Study. The presentation focuses on the LVFT project context, aims and achievements, final report highlights, lessons learnt and future directions.
+- Slides http://linked.data.gov.au/dataset/energy/15d42cd5-dc72-449a-9ff2-7a2561830233
+- Video recording http://linked.data.gov.au/dataset/energy/1038ac62-633f-4234-9284-f7ea0ca2b22c
+### Methodology and power flow illustrations presentation
+- This presentation explains the Low-Voltage representative models and notebooks that have been developed as part of the CSIRO Low-Voltage Feeder Taxonomy study.
+- Video recording http://linked.data.gov.au/dataset/energy/1038ac62-633f-4234-9284-f7ea0ca2b22c
+
+## Third Party Licenses
+For a list of licenses for libraries required by this code, see [THIRD_PARTY_LICENSES.csv](THIRD_PARTY_LICENSES.csv)
 
 ## Acknowledgements
 This work received funding from ARENA, the Australian Renewable Energy Agency. The views expressed herein are not necessarily the views of the Australian government, and the Australian government does not accept responsibility for any information or advice contained herein.

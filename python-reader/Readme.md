@@ -28,3 +28,6 @@ python src\python_template\example.py #run code
 pytest # run unit tests - generates network renders
 dir output # view test outputs
 ```
+
+## Third Party Licenses
+For a list of licenses for libraries required by this code, see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)
