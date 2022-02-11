@@ -3,16 +3,19 @@ ListLicenses:
 - Julia version: 1.6.0
 - Author: https://discourse.julialang.org/t/i-need-to-do-a-license-compliance-check-on-my-dependencies/50460/3
 - Date: 2022-02-11
+To Run:
+cd RepresentativeLVNetworks
+julia --project=. script\ListLicenses.jl
 =#
+using Pkg
+Pkg.activate(".")
 
 using DataFrames
 using DataFramesMeta
 using CSV
 using LicenseGrabber
 using LicenseCheck
-
-using Pkg
-Pkg.activate(".")
+using Chain
 
 license_locations = LicenseGrabber.getlicloc()
 license_checks = Dict(
@@ -27,4 +30,5 @@ df = @chain DataFrame(package = packages, license = licenses, coverage = coverag
     flatten([:license, :coverage])
     flatten(:license)
 end
-df
+show(df, allrows=true, allcols=true)
+CSV.write("THIRD_PARTY_LICENSES.csv", df)
