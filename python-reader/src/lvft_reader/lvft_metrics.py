@@ -43,7 +43,7 @@ class LVFTMetrics():
                     df_list.append(row)
                     self.count += 1
         else:
-            # Multiprocess this to speed it up (esp. for Tas and Ausgrid)
+            # Multiprocess this to speed it up
             ditto_utils.set_low_priority()
             with concurrent.futures.ProcessPoolExecutor(multiprocessing.cpu_count() * 2) as executor:
                 futures = []

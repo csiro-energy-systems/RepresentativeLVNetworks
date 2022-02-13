@@ -84,9 +84,9 @@ def valid_json(o):
 def get_discrete_colourmap(n: int, base_cmap=plt.cm.jet):
     """
     Gets a list of n RGBA colour tuples, uniformly sampled from a matplotlib colormap
-    @param n: number of colors to return.
-    @param base_cmap: the base colormap to sample from.
-    @return: a list of n RGBA tuples
+    :param n: number of colors to return.
+    :param base_cmap: the base colormap to sample from.
+    :return: a list of n RGBA tuples
     """
 
     # extract all colors from the base map
@@ -145,13 +145,13 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
     '''
     Plots a ditto model using networkx and pyvis to an HTML visualisation with colourised edges according to line characteristics, and nodes according to ditto model type.
     Useful for checking parsing correctness. There are actually 3 different rendering engines that do slightly different things, see 'engine' param for details.
-    @param model: the ditto network model
-    @param source: name of the powersource for this network
-    @param title: title for the plot, and filename
-    @param out_dir: directory to save the rendered file in. Won't save if None.
-    @param engine: 'pyvis' (uses a force graph simulation for layout, and coloursnodes/edges by ditto classes) 'plotly' (uses lat/long coordinates in Position objects in model) or 'networkx' (quick, basic layout viz)
-    @param line_unique_features: a list of features which together determine uniqueness of a Line (graph edge). Used for colouring edges.
-    @return: (filename of the saved file, and the built ditto.Network)
+    :param model: the ditto network model
+    :param source: name of the powersource for this network
+    :param title: title for the plot, and filename
+    :param out_dir: directory to save the rendered file in. Won't save if None.
+    :param engine: 'pyvis' (uses a force graph simulation for layout, and coloursnodes/edges by ditto classes) 'networkx' (quick, basic layout viz)
+    :param line_unique_features: a list of features which together determine uniqueness of a Line (graph edge). Used for colouring edges.
+    :return: (filename of the saved file, and the built ditto.Network)
     '''
     # TODO set lengths as weights when plotting
 
@@ -292,8 +292,6 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
                     break
 
         if out_dir is not None:
-            # logger.info(f'Saved network plot to {f}')
-            # nt.show(str(f))
             {n['x']: n['y'] for n in nt.nodes if 'x' in n.keys()}
             nt.write_html((str(f.resolve())))
             # nx.readwrite.gml.write_gml(H, str(f.resolve())+'.gml')
@@ -301,9 +299,6 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
 
     elif engine == 'networkx':
         ''' Visualise Graph '''
-        # try:
-        #     pos = nx.nx_agraph.graphviz_layout(H) #nneds pygraphvix installed.  Difficult in Windows.
-        # except ImportError:
         pos = nx.spring_layout(H, iterations=40)
 
         plt.rcParams["text.usetex"] = False
@@ -315,7 +310,6 @@ def plot_network(model: Store, source: str, title: str, out_dir: Path = None, fe
         edge_labels = {(u, v): '' if d.get('equipment_name') is None else d.get('equipment_name') for u, v, d in H.edges(data=True)}
         nx.draw_networkx_edge_labels(H, pos, edge_labels=edge_labels, font_size=9)
         plt.title(f"{title} - {source}")
-        # plt.show()
 
         if out_dir is not None:
             plt.savefig(f)
@@ -387,13 +381,12 @@ def weighted_diameter(graph, weight_prop: str):
     diameter = nx.diameter(graph, e=e)
     return diameter
 
-
 def get_line_types(graph, line_unique_features):
     ''' Find the set of distinct Line types (based on a given set of attributes like impedance, lineclass etc) '''
     line_types = []
     type_to_edge = defaultdict(list)
 
-    ''' Make sure the R/X values have been set from the matrix (I'm looking at you Ausgrid)'''
+    ''' Make sure the R/X values have been set from the matrix'''
     for e in graph.edges:
         if graph.edges[e].get('impedance_matrix') is not None and len(graph.edges[e]['impedance_matrix']) > 0:
             try:
@@ -404,7 +397,7 @@ def get_line_types(graph, line_unique_features):
 
     for edge in graph.edges:
         feats = edge_to_feat_str(graph.edges[edge], line_unique_features)
-        type_to_edge[feats].append(tuple(sorted(edge)))  # Have to sort the edge-to/from order because apparently this isnt' fixed in networkx.  Sigh.
+        type_to_edge[feats].append(tuple(sorted(edge)))  # Have to sort the edge-to/from order because apparently this isn't fixed in networkx.
         line_types.append(str(feats))
 
     ''' Build a table of line types and their properties, mostly for debugging purposes '''
@@ -431,9 +424,6 @@ def get_trivial_lines(graph, line_unique_features, short_line_threshold=1.0, tri
     '''
 
     type_to_edge, ltypes = get_line_types(graph, line_unique_features)
-
-    # trivial_edges = [l.name for l in model.models if isinstance(l, Line) and any(sub in l.name.lower() for sub in trivial_line_substrs)]
-    # trivial_edges.extend([l.name for l in model.models if isinstance(l, Line) and (l.is_switch or l.is_fuse or l.is_breaker or l.is_recloser or l.is_network_protector or l.is_sectionalizer)])
 
     ''' Get edge-tuple to edge-data-dict mapping (for cleaner code) '''
     ed = {e: graph.edges[e] for e in graph.edges}  # ed = edge-data
@@ -610,6 +600,9 @@ def find_feeder_networks(model: Store, source: str, line_unique_features: list, 
 
 
 def is_there_a_path(_from, _to):
+    """
+
+    """
     visited = set()  # remember what you visited
     while _from:
         from_node = _from.pop(0)  # get a new unvisited node
@@ -629,8 +622,8 @@ def is_there_a_path(_from, _to):
 def get_power_sources(store):
     '''
     Gets a list of power source names from a ditto Store object
-    @param store: the store to process
-    @return: list of names
+    :param store: the store to process
+    :return: list of names
     '''
     power_source_names = []
     for obj in store.models:
@@ -660,15 +653,15 @@ def make_filename_safe(value, allow_unicode=False):
 
 def open_switches_in_cycles(model, source, line_unique_features):
     '''
-        For any cycles in the network graph, see if there are any open-able edges (eg switches, fuses, etc), and iteratively open/remove them to see if the cycle can be removed.
-        We try to do this in a deterministic manner, so that repeated runs result in the same loop-free network.
-        Note that this MODIFIES THE DITTO MODEL - removing 'trivial' Lines if cycles are found containing them! Pass model.copy() if this is an issue.
-        Note that this process may disconnect parts of the network, in which case... AAAARGH! WHAT DO WE DO?!
+    For any cycles in the network graph, see if there are any open-able edges (eg switches, fuses, etc), and iteratively open/remove them to see if the cycle can be removed.
+    We try to do this in a deterministic manner, so that repeated runs result in the same loop-free network.
+    Note that this MODIFIES THE DITTO MODEL - removing 'trivial' Lines if cycles are found containing them! Pass model.copy() if this is an issue.
+    Note that this process may disconnect parts of the network, in which case... AAAARGH! WHAT DO WE DO?!
 
-        :param model:
-        :param source:
-        :param line_unique_features:
-        :return:
+    :param model:
+    :param source:
+    :param line_unique_features:
+    :return:
     '''
 
     ''' Build ditto network and networkx graphs '''

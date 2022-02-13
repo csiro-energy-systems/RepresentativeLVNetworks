@@ -58,7 +58,7 @@ Running the notebooks of RepresentativeLVNetworks.jl
 You can ask for generic Julia help on discourse (https://discourse.julialang.org/)
 The JuliaLang youtube channel also contains tutorials (https://www.youtube.com/c/TheJuliaLanguage)
 
-# Publications
+## Publications
 This code is the result of a research project.  See below for links to the final report and other publications describing it and its results.
 
 ## Final report

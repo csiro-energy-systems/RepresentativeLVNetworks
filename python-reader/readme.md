@@ -24,7 +24,6 @@ poetry env use path/to/python3.9.exe
 poetry install # install all dependencies (direct and transitive) listed in project.toml
 poetry shell # activate virtual environment
 python --version # make sure this is v3.9 (or whatever your set above with `poetry env use ...`).
-python src\python_template\example.py #run code
 pytest # run unit tests - generates network renders
 dir output # view test outputs
 ```
