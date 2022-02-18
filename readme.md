@@ -77,7 +77,7 @@ See [LICENSE](LICENSE) for this software's license terms. If using this software
 ## Third Party Licenses
 For a list of licenses for libraries required by this code, see:
 - Julia code: [THIRD_PARTY_LICENSES.csv](THIRD_PARTY_LICENSES.csv)
-- Python code: [THIRD_PARTY_LICENSES.md](python_reader/THIRD_PARTY_LICENSES.md)
+- Python code: [THIRD_PARTY_LICENSES.md](python-reader/THIRD_PARTY_LICENSES.md)
 
 
 ## Acknowledgements
