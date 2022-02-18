@@ -1,0 +1,11 @@
+.idea
+**/__pycache__
+log.*txt*
+*.tar*
+*.log
+*.whl
+/htmlcov/
+*.pptx
+*.coverage
+docs/build
+docs/source/_static
