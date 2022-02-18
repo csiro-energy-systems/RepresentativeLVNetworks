@@ -19,7 +19,7 @@ The package contains:
     3) multiperiod unbalanced power flow with storage (in `/notebooks/storage.jl`)
     4) multiperiod unbalanced power flow with demand response  through transformer tap changing (a.k.a. conservation voltage reduction) (in `/notebooks/cvr_load.jl`)
 - Example Python code for reading the Low Voltage Feeder Taxonomy representative network DSS files using Ditto, converting to NetworkX graphs and rendering to HTML/PNG, and calculating clustering metrics.
-  - See [Python Readme](./python-reader/Readme.md) in `./python-reader` subproject for details.
+  - See [Python Readme](./python-reader/readme.md) in `./python-reader` subproject for details.
 
  ## Installation instructions
 We recommend using Visual studio code (an integrated development environment) to launch the notebooks, in combination with the long-term support Julia 
@@ -71,8 +71,14 @@ This presentation covers the Challenges and opportunities of the digital electri
 - This presentation explains the Low-Voltage representative models and notebooks that have been developed as part of the CSIRO Low-Voltage Feeder Taxonomy study.
 - Video recording http://linked.data.gov.au/dataset/energy/1038ac62-633f-4234-9284-f7ea0ca2b22c
 
+## License
+See [LICENSE](LICENSE) for this software's license terms. If using this software, you must abide by this license agreement.
+
 ## Third Party Licenses
-For a list of licenses for libraries required by this code, see [THIRD_PARTY_LICENSES.csv](THIRD_PARTY_LICENSES.csv)
+For a list of licenses for libraries required by this code, see:
+- Julia code: [THIRD_PARTY_LICENSES.csv](THIRD_PARTY_LICENSES.csv)
+- Python code: [THIRD_PARTY_LICENSES.md](python_reader/THIRD_PARTY_LICENSES.md)
+
 
 ## Acknowledgements
 This work received funding from ARENA, the Australian Renewable Energy Agency. The views expressed herein are not necessarily the views of the Australian government, and the Australian government does not accept responsibility for any information or advice contained herein.
