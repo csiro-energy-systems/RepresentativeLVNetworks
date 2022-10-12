@@ -17,7 +17,7 @@ Then grab the code, build and run it from a command prompt (bash, cmd, powershel
 windows, should be similar in other OSes:
 
 ```shell
-git clone <repo-url.git>  
+git clone <this-repo-url.git>  
 
 # Now tell poetry which python install to use. On windows with normal python, it'll be like: C:\Users\wes148\Python\Python39\python.exe
 poetry env use path/to/python3.9.exe 
@@ -25,7 +25,7 @@ poetry install # install all dependencies (direct and transitive) listed in proj
 poetry shell # activate virtual environment
 python --version # make sure this is v3.9 (or whatever your set above with `poetry env use ...`).
 pytest # run unit tests - generates network renders
-dir output # view test outputs
+dir output # view test outputs - html renders, csv clustering features etc.
 ```
 
 ## Third Party Licenses

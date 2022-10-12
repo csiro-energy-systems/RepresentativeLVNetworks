@@ -5,3 +5,7 @@ data/.DS_Store
 data/csv_results
 *.csv
 /python-reader/output/
+*.png
+.idea
+output
+*.html
