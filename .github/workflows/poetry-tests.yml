@@ -1,0 +1,90 @@
+# On push to branches (but not PRs) Build poetry env with caching and run tests
+# Based on https://github.com/marketplace/actions/install-poetry-action
+
+name: Unit Tests
+
+on: [ push, workflow_dispatch ]
+
+
+env:
+  # Make sure these secrets are set in this git repo or organisation settings:
+
+  # Private package index credentials, for installing and publishing to the private pypi index (see readme)
+  PUBLISH_URL: ${{secrets.PRIVATE_PYPI_PUBLISH_URL}}
+  PUBLISH_USER: ${{secrets.PRIVATE_PYPI_PUBLISH_USER}}
+  PUBLISH_PASSWORD: ${{secrets.PRIVATE_PYPI_PUBLISH_PASSWORD}}
+
+  PYTHON_VERSION: 3.9.13
+  POETRY_VERSION: 1.1.14
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ] # macOS-latest - disabled by default because it's charged at 10x the cost
+
+    steps:
+      # check-out repo and set-up python
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      # Manual Large File System fetch - workaround for github bug: https://github.com/actions/checkout/issues/270
+      - name: Fetch large files from lfs
+        run: git lfs checkout
+
+      - name: Set up python
+        id: setup-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      # install & configure poetry
+      - name: Install Poetry
+        uses: snok/install-poetry@v1.3.1
+        with:
+          version: ${{ env.POETRY_VERSION }}
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      # load cached venv if cache exists
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        if: runner.os != 'Windows' # caching breaks on windows, known bug
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      # Adds private package index URL and credentials to the poetry config, for installing from and publishing to the private package index.
+      - name: Add Private Package Index
+        if: "${{ env.PUBLISH_URL != '' }}"
+        run: |
+          poetry config repositories.csiroenergy ${{env.PUBLISH_URL}}
+          poetry config http-basic.csiroenergy ${{env.PUBLISH_USER}} ${{env.PUBLISH_PASSWORD}} 
+
+      # install dependencies if cache does not exist
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || runner.os == 'Windows' # install if cache miss or on windows (never caches)
+        run: poetry install --no-interaction --no-root --remove-untracked
+
+      # run test suite
+      - name: Run tests (linux/mac)
+        if: runner.os != 'Windows'
+        run: |
+          poetry run pre-commit run --color never
+          poetry run scripts/test.sh
+
+      # run test suite
+      - name: Run tests (windows)
+        if: runner.os == 'Windows'
+        run: |
+          poetry run pre-commit run --color never
+          poetry run scripts\test.cmd
+      
+          
+
