@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, windows-latest, macOS-latest] # macOS-latest disabled by default because it's charged at 10x the cost
+        os: [ ubuntu-latest, windows-latest] # macOS-latest disabled by default because it's charged at 10x the cost
 
     defaults:
       run:
