@@ -9,6 +9,7 @@ on: [ push, workflow_dispatch ]
 env:
   PYTHON_VERSION: 3.9.13
   POETRY_VERSION: 1.2.1
+  WORKING_DIR: ./python-reader
 
 jobs:
   test:
@@ -20,7 +21,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./python-reader
+        working-directory: ./${{ env.WORKING_DIR }}
 
     steps:
       # check-out repo and set-up python
@@ -54,12 +55,12 @@ jobs:
         uses: actions/cache@v2
         if: runner.os != 'Windows' # caching breaks on windows, known bug
         with:
-          path: .venv
+          path: ${{ env.WORKING_DIR }}/.venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
       # install dependencies if cache does not exist
       - name: Install dependencies
-#        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || runner.os == 'Windows' # install if cache miss or on windows (never caches)
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || runner.os == 'Windows' # install if cache miss or on windows (never caches)
         run: poetry install --no-interaction --no-root --sync
 
       # run test suite
