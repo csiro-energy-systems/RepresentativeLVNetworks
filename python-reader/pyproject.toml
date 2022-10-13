@@ -3,7 +3,6 @@ name = "lvft-reader"
 version = "0.0.1"
 description = "Example code for reading the Low Voltage Feeder Taxonomy representative network DSS files using Ditto"
 authors = ["Sam West <sam.west@csiro.au>"]
-copyright = "Copyright 2021 CSIRO"
 
 packages = [
     { include = "lvft_reader/**/*", from="src" },   # need to specify this if it doesn't match the project name
