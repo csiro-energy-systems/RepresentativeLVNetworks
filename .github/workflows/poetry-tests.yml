@@ -59,7 +59,7 @@ jobs:
 
       # install dependencies if cache does not exist
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || runner.os == 'Windows' # install if cache miss or on windows (never caches)
+#        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || runner.os == 'Windows' # install if cache miss or on windows (never caches)
         run: poetry install --no-interaction --no-root --sync
 
       # run test suite
