@@ -23,6 +23,10 @@ Alternatively, you can explore the power flow results of the representative netw
 Pluto.jl is a Julia package that provides a convenient, user-friendly, interactive notebook user interface to Julia. The contents of the notebook files provide guided, step-by-step, examples of
 OpenDSS analysis of the LVFT `/data` files.
 
+Example network render, see [./python-reader/output](./python-reader/output) for html renders:
+
+![Network_W](data/Network_W.png)
+
 ## Julia Package
 
 The Julia package contains:
