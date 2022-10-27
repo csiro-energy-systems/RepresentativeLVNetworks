@@ -9,6 +9,11 @@ logger = logging.getLogger((__name__))
 
 
 def read_dss(db_file: Path):
+    """
+    Read a DSS file into a ditto Store object.
+    :param db_file: The path to the DSS file to read.
+    :return: A list of ditto Store objects.
+    """
     store = Store()
     from datetime import datetime
     t0 = datetime.now()
