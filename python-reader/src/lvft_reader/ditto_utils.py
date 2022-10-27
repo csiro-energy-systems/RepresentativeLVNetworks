@@ -401,13 +401,13 @@ def get_line_types(graph, line_unique_features):
         line_types.append(str(feats))
 
     ''' Build a table of line types and their properties, mostly for debugging purposes '''
-    ltypes = pd.DataFrame()
+    ltypes = []
     for lt in type_to_edge.keys():
         edges = type_to_edge[lt]
         subgraph_props = get_node_edge_properties(edges, graph, line_unique_features)
-        ltypes = pd.concat([ltypes, pd.DataFrame(index=[lt], data=subgraph_props)])
-        ltypes = ltypes.sort_values('R1', ascending=True)
-    return type_to_edge, ltypes
+        ltypes.append(pd.DataFrame(index=[lt], data=subgraph_props))
+    ltypes_df = pd.concat(ltypes).sort_values('R1', ascending=True)
+    return type_to_edge, ltypes_df
 
 
 def get_trivial_lines(graph, line_unique_features, short_line_threshold=1.0, trivial_line_R1_threshold=0.01, trivial_line_substrs=['removable', 'fuse', 'switch', 'connector']):
