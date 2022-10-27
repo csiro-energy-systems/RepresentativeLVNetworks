@@ -1,0 +1,80 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Network S, Source Vsource.source, Trans=S</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 95%;
+            height: 95%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#9467bd", "feeder_name": "3104154_src", "id": "3104154", "is_substation": false, "is_substation_connection": false, "label": "Node: 3104154", "mass": 1, "name": "3104154", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 10, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=3104154\u003c/b\u003e\u003cbr\u003efeeder_name = 3104154_src\u003cbr\u003eid = 3104154\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = 3104154\u003cbr\u003emass = 1\u003cbr\u003ename = 3104154\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#ff0000", "connecting_element": "3104154", "emergency_power": 2000000000.0, "id": "Vsource.source", "is_sourcebus": true, "label": "PowerSource: Vsource.source", "mass": 1, "name": "Vsource.source", "nominal_voltage": 400.0, "per_unit": 1.0, "phase_angle": 0.0, "rated_power": 100000000.0, "shape": "dot", "size": 10, "title": "\u003cb\u003eType=PowerSource\u003cbr\u003e Name=Vsource.source\u003c/b\u003e\u003cbr\u003econnecting_element = 3104154\u003cbr\u003eemergency_power = 2000000000.0\u003cbr\u003eid = Vsource.source\u003cbr\u003eis_sourcebus = True\u003cbr\u003elabel = Vsource.source\u003cbr\u003emass = 1\u003cbr\u003ename = Vsource.source\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003eper_unit = 1.0\u003cbr\u003ephase_angle = 0.0\u003cbr\u003erated_power = 100000000.0\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003e"}, {"color": "#9467bd", "feeder_name": "3104154_src", "id": "3108995", "is_substation": false, "is_substation_connection": false, "label": "Node: 3108995", "mass": 1, "name": "3108995", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 10, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=3108995\u003c/b\u003e\u003cbr\u003efeeder_name = 3104154_src\u003cbr\u003eid = 3108995\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = 3108995\u003cbr\u003emass = 1\u003cbr\u003ename = 3108995\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#9467bd", "feeder_name": "3104154_src", "id": "3115553", "is_substation": false, "is_substation_connection": false, "label": "Node: 3115553", "mass": 1, "name": "3115553", "nominal_voltage": 400.0, "positions": [], "shape": "dot", "size": 10, "substation_name": "", "title": "\u003cb\u003eType=Node\u003cbr\u003e Name=3115553\u003c/b\u003e\u003cbr\u003efeeder_name = 3104154_src\u003cbr\u003eid = 3115553\u003cbr\u003eis_substation = False\u003cbr\u003eis_substation_connection = False\u003cbr\u003elabel = 3115553\u003cbr\u003emass = 1\u003cbr\u003ename = 3115553\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003esubstation_name = \u003cbr\u003e"}, {"color": "#98df8a", "connecting_element": "3115553", "connection_type": "Y", "feeder_name": "3104154_src", "id": "load_1", "is_center_tap": false, "is_substation": false, "label": "Load: load_1", "mass": 1, "name": "load_1", "nominal_voltage": 230.94010767585, "num_users": 1.0, "positions": [], "shape": "dot", "size": 10, "timeseries": [], "title": "\u003cb\u003eType=Load\u003cbr\u003e Name=load_1\u003c/b\u003e\u003cbr\u003econnecting_element = 3115553\u003cbr\u003econnection_type = Y\u003cbr\u003efeeder_name = 3104154_src\u003cbr\u003eid = load_1\u003cbr\u003eis_center_tap = False\u003cbr\u003eis_substation = False\u003cbr\u003elabel = load_1\u003cbr\u003emass = 1\u003cbr\u003ename = load_1\u003cbr\u003enominal_voltage = 230.94010767585\u003cbr\u003enum_users = 1.0\u003cbr\u003epositions = []\u003cbr\u003eshape = dot\u003cbr\u003esize = 10\u003cbr\u003etimeseries = []\u003cbr\u003evmax = 1.3\u003cbr\u003evmin = 0.3\u003cbr\u003e", "vmax": 1.3, "vmin": 0.3}]);
+        edges = new vis.DataSet([{"color": "#ffe600", "from": "3104154", "label": "NoneType: \n", "title": "\u003cb\u003eName=None\u003c/b\u003e\u003cbr\u003efrom = 3104154\u003cbr\u003eto = Vsource.source\u003cbr\u003eweight = 1\u003cbr\u003e", "to": "Vsource.source", "weight": 1}, {"color": "#00d4ff", "equipment": "Line", "equipment_name": "line_75616329_3108995_3104154", "faultrate": 0.1, "feeder_name": "3104154_src", "from": "3104154", "from_element": "3104154", "is_substation": false, "label": "Line: line_75616329_3108995_3104154\nnameclass = 1P_Code0\nnominal_voltage = 400.000\n", "length": 31.8, "name": "line_75616329_3108995_3104154", "nameclass": "1P_Code0", "nominal_voltage": 400.0, "positions": [], "title": "\u003cb\u003eName=line_75616329_3108995_3104154\u003c/b\u003e\u003cbr\u003eequipment = Line\u003cbr\u003eequipment_name = line_75616329_3108995_3104154\u003cbr\u003efaultrate = 0.1\u003cbr\u003efeeder_name = 3104154_src\u003cbr\u003efrom = 3104154\u003cbr\u003efrom_element = 3104154\u003cbr\u003eis_substation = False\u003cbr\u003elength = 31.8\u003cbr\u003ename = line_75616329_3108995_3104154\u003cbr\u003enameclass = 1P_Code0\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eto = 3108995\u003cbr\u003eto_element = 3108995\u003cbr\u003eweight = 31.8\u003cbr\u003e", "to": "3108995", "to_element": "3108995", "weight": 31.8}, {"color": "#00d4ff", "equipment": "Line", "equipment_name": "line_75625428_3115553_3108995", "faultrate": 0.1, "feeder_name": "3104154_src", "from": "3108995", "from_element": "3108995", "is_substation": false, "label": "Line: line_75625428_3115553_3108995\nnameclass = 1P_Code0\nnominal_voltage = 400.000\n", "length": 25.2, "name": "line_75625428_3115553_3108995", "nameclass": "1P_Code0", "nominal_voltage": 400.0, "positions": [], "title": "\u003cb\u003eName=line_75625428_3115553_3108995\u003c/b\u003e\u003cbr\u003eequipment = Line\u003cbr\u003eequipment_name = line_75625428_3115553_3108995\u003cbr\u003efaultrate = 0.1\u003cbr\u003efeeder_name = 3104154_src\u003cbr\u003efrom = 3108995\u003cbr\u003efrom_element = 3108995\u003cbr\u003eis_substation = False\u003cbr\u003elength = 25.2\u003cbr\u003ename = line_75625428_3115553_3108995\u003cbr\u003enameclass = 1P_Code0\u003cbr\u003enominal_voltage = 400.0\u003cbr\u003epositions = []\u003cbr\u003eto = 3115553\u003cbr\u003eto_element = 3115553\u003cbr\u003eweight = 25.2\u003cbr\u003e", "to": "3115553", "to_element": "3115553", "weight": 25.2}, {"color": "#000080", "connecting_element": "3115553", "connection_type": "Y", "feeder_name": "3104154_src", "from": "3115553", "is_center_tap": false, "is_substation": false, "label": "Load: \nnominal_voltage = 230.940\n", "name": "load_1", "nominal_voltage": 230.94010767585, "num_users": 1.0, "positions": [], "timeseries": [], "title": "\u003cb\u003eName=load_1\u003c/b\u003e\u003cbr\u003econnecting_element = 3115553\u003cbr\u003econnection_type = Y\u003cbr\u003efeeder_name = 3104154_src\u003cbr\u003efrom = 3115553\u003cbr\u003eis_center_tap = False\u003cbr\u003eis_substation = False\u003cbr\u003ename = load_1\u003cbr\u003enominal_voltage = 230.94010767585\u003cbr\u003enum_users = 1.0\u003cbr\u003epositions = []\u003cbr\u003etimeseries = []\u003cbr\u003eto = load_1\u003cbr\u003evmax = 1.3\u003cbr\u003evmin = 0.3\u003cbr\u003eweight = 1\u003cbr\u003e", "to": "load_1", "vmax": 1.3, "vmin": 0.3, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"configure": {"enabled": true, "filter": ["physics"]}, "nodes": {"borderWidth": 2, "borderWidthSelected": 4, "font": {"size": 7, "face": "tahoma"}}, "edges": {"color": {"inherit": true}, "font": {"size": 4, "face": "tahoma"}, "hoverWidth": 2, "shadow": {"enabled": true}, "smooth": {"type": "continuous", "forceDirection": "none"}, "width": 3}, "physics": {"forceAtlas2Based": {"gravitationalConstant": -52, "centralGravity": 0.005, "springLength": 20, "springConstant": 0.095, "damping": 1, "avoidOverlap": 0.35}, "maxVelocity": 150, "minVelocity": 0.75, "solver": "forceAtlas2Based"}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -21,7 +21,7 @@ from lvft_reader import ditto_utils
 logger = logging.getLogger(__name__)
 
 
-class LVFTMetrics():
+class LVFTMetrics:
     """
     Functions for calculating various low voltage network metrics from a collection of Ditto Stores
     """
@@ -29,11 +29,8 @@ class LVFTMetrics():
     count = 0
 
     def generate_report(self, dnsp_model_dict: dict, single_process=False):
-        ''' Generate a basic report on parsing results '''
-        # report = generate_report(dnsp_samples)
-
-        report: pd.DataFrame = pd.DataFrame()
-
+        """ Generate a basic report on parsing results """
+        
         df_list = []
 
         if single_process:
@@ -61,43 +58,44 @@ class LVFTMetrics():
 
         report = pd.concat(df_list)
         report = report.sort_values(by=['dnsp', 'name'])
-        # report = report.sort_index(axis='columns')
+
         return report
 
-    def generate_report_row(self, mdl: Store, dnsp: str, count: int):
-        '''
-            Calculates metrics describing the given model.  Also appends all ditto metrics.
+    def generate_report_row(self, mdl: Store, dnsp: str, count: int, voltage_keys = [240, 400, 11000]):
+        """
+        Calculates metrics describing the given model.  Also appends all ditto metrics.
 
-            Counts / category metrics:
-                •✓	Amount of nodes
-                •✓	Amount of edges
-                •✓	Is the topology radial?
-                •✓	Amount of three-phase vs single-phase nodes / lines
-                •	Dominant config: three-phase with neutral / without neutral / split-phase (ditto nominal voltages_1: split <400, 400<3ph<433
-                •✓	Amount of nodes of degree 1, 2, 3, 4, >4 (absolute or percentage)
+        The list of planned metrics is below.  Ticks indicate metrics that have been implemented:
 
+        Counts / category metrics:
+            •✓	Amount of nodes
+            •✓	Amount of edges
+            •✓	Is the topology radial?
+            •✓	Amount of three-phase vs single-phase nodes / lines
+            •	Dominant config: three-phase with neutral / without neutral / split-phase (ditto nominal voltages_1: split <400, 400<3ph<433
+            •✓	Amount of nodes of degree 1, 2, 3, 4, >4 (absolute or percentage)
 
-            Statistical features (min, mean, median, max):
-                •✓	Overhead/underground
-                •✓	Cable cross section (wire.gmr)
-                •	Conductor material (wire.diameter)
-                •✓	Node Degree (ditto's 'avg_degree')
-                •✓	Distance to LV substation from all nodes for
-                o✓	    Length
-                o✓	    Hops
-                o✓	    Impedance
-                •	Current limit
-                •✓	Number of wires per line
-                •	Amount of feeders
-                •	Amount of service lines
-                •✓	Amount of nodes/lines/loads at each nominal voltage
-
+        Statistical features (min, mean, median, max):
+            •✓	Overhead/underground
+            •✓	Cable cross section (wire.gmr)
+            •	Conductor material (wire.diameter)
+            •✓	Node Degree (ditto's 'avg_degree')
+            •✓	Distance to LV substation from all nodes for
+            o✓	    Length
+            o✓	    Hops
+            o✓	    Impedance
+            •	Current limit
+            •✓	Number of wires per line
+            •	Amount of feeders
+            •	Amount of service lines
+            •✓	Amount of nodes/lines/loads at each nominal voltage
 
         :param mdl: the ditto model
         :param dnsp: string describing the DNSP (distribution network service provider)
         :param count: an integer index for this network
+        :param voltage_keys: a list of nominal voltage classes to classify results into
         :return:
-        '''
+        """
         try:
             mdl.set_names()
 
@@ -123,7 +121,7 @@ class LVFTMetrics():
             if hasattr(mdl, 'ancillary_data'):
                 stats.update(mdl.ancillary_data)
 
-            ''' Stats for cycle removal '''
+            """ Stats for cycle removal """
             if hasattr(mdl, 'edge_type_df'):
                 stats['n_line_types'] = mdl.edge_type_df.shape[0] if mdl.edge_type_df is not None else np.nan
 
@@ -138,39 +136,37 @@ class LVFTMetrics():
             class_counts = collections.Counter(types)
             stats.update(class_counts)
 
-            ''' Count duplicate model names.  Probably indicates parsing errors'''
+            """ Count duplicate model names.  Probably indicates parsing errors"""
             name_counts = collections.Counter([m.name for m in mdl.models if hasattr(m, 'name')])
             dup_names = {name: name_counts[name] for name in name_counts.keys() if name_counts[name] > 1}
             stats['n_duplicate_names'] = len(dup_names)
 
-            ''' Count disconnected subgraphs.  Values >1 may indicate a parsing issue or incorrectly set switch state '''
+            """ Count disconnected subgraphs.  Values >1 may indicate a parsing issue or incorrectly set switch state """
             stats['n_disconnected_graphs'] = len(list((graph.subgraph(c) for c in nx.connected_components(graph))))
 
-            ''' Number of graph cycles/loops '''
+            """ Number of graph cycles/loops """
             stats['n_cycles'] = len(nx.algorithms.cycles.cycle_basis(graph))
 
-            ''' Basic stats for the whole network '''
+            """ Basic stats for the whole network """
             net_stats, loads, lines, nodes, transformers = self.calc_network_stats(graph, mdl, source)
             stats.update(net_stats)
 
-            ''' Counts of nominal Load voltages '''
+
+            """ Counts of nominal Load voltages """
             nominal_voltages = np.histogram([l.nominal_voltage for l in loads if hasattr(l, 'nominal_voltage') and l.nominal_voltage is not None], bins=[1, 300, 500, np.inf])
-            voltage_keys = [240, 400, 11000]
-            nominal_voltages = OrderedDict(dict(zip(voltage_keys, nominal_voltages[0])))
+            nominal_voltages = OrderedDict(dict(zip(voltage_keys.copy(), nominal_voltages[0])))
             for voltage, count in nominal_voltages.items():
                 stats[f'n_loads_{voltage if voltage < 11000 else ">400"}V'] = count
 
-            ''' Counts of nominal Line voltages '''
+            """ Counts of nominal Line voltages """
             nominal_voltages = np.histogram([l.nominal_voltage for l in lines if hasattr(l, 'nominal_voltage') and l.nominal_voltage is not None], bins=[1, 300, 500, np.inf])
-            voltage_keys = [240, 400, 11000]
-            nominal_voltages = OrderedDict(dict(zip(voltage_keys, nominal_voltages[0])))
+            nominal_voltages = OrderedDict(dict(zip(voltage_keys.copy(), nominal_voltages[0])))
             for voltage, count in nominal_voltages.items():
                 stats[f'n_lines_{voltage if voltage < 11000 else ">400"}V'] = count
 
-            ''' Counts of nominal Node voltages '''
+            """ Counts of nominal Node voltages """
             nominal_voltages = np.histogram([l.nominal_voltage for l in nodes if hasattr(l, 'nominal_voltage') and l.nominal_voltage is not None], bins=[1, 300, 500, np.inf])
-            voltage_keys = [240, 400, 11000]
-            nominal_voltages = OrderedDict(dict(zip(voltage_keys, nominal_voltages[0])))
+            nominal_voltages = OrderedDict(dict(zip(voltage_keys.copy(), nominal_voltages[0])))
             for voltage, count in nominal_voltages.items():
                 stats[f'n_nodes_{voltage if voltage < 11000 else ">400"}V'] = count
 
@@ -180,13 +176,13 @@ class LVFTMetrics():
             if hasattr(powersources[0], 'phases'):
                 stats['powersource_n_phases'] = len(powersources[0].phases)
 
-            ''' TODO finish this. Number of phases on transformer secondary '''
+            """ TODO finish this. Number of phases on transformer secondary """
             # windings = [l.windings for l in transformers if hasattr(l, 'windings') and l.windings is not None]
             # voltage_winding_counts = {w for w in windings}
             # for windings, count in node_degrees.items():
             #     stats[f'n_{int(windings)}_windings'] = count
 
-            ''' Cable cross section (wire.gmr) and diameters '''
+            """ Cable cross section (wire.gmr) and diameters """
             wires = [l.wires for l in mdl.models if isinstance(l, Line)]
             wires = [item for sublist in wires for item in sublist]  # flatten nested lists
             cross_sections = [w.gmr for w in wires if w.gmr is not None and not np.isnan(w.gmr)]
@@ -203,12 +199,12 @@ class LVFTMetrics():
                 stats['mean_wire_diameter'] = np.nanmean(diameter)
                 stats['mean_wire_diameter'] = np.nanmedian(diameter)
 
-            ''' Phase identifier counts '''
+            """ Phase identifier counts """
             phase_counts = dict(collections.Counter(sorted([w.phase for w in wires])))
             for ph, count in phase_counts.items():
                 stats[f'n_{ph}_phase_wires'] = count
 
-            ''' Wire X/Y Positions '''
+            """ Wire X/Y Positions """
             x_pos = [w.X for w in wires if w.X is not None]
             y_pos = [w.Y for w in wires if w.Y is not None]
             if len(x_pos) > 0:
@@ -220,7 +216,7 @@ class LVFTMetrics():
                 stats['min_wire_y_pos'] = max(y_pos)
                 stats['mean_wire_y_pos'] = np.nanmean(y_pos)
 
-            ''' Number/ratio Overhead / underground lines '''
+            """ Number/ratio Overhead / underground lines """
             # line_types = dict(collections.Counter(sorted([l.line_type for l in lines if hasattr(l, 'line_type')])))
             # stats.update(line_types)
             n_overhead_lines = len(([l for l in lines if hasattr(l, 'line_type') and l.line_type == 'overhead']))
@@ -229,17 +225,17 @@ class LVFTMetrics():
             stats['n_underground_lines'] = n_underground_lines
             stats['ratio_lines_overhead'] = np.nan if n_overhead_lines + n_underground_lines == 0 else n_overhead_lines / (n_overhead_lines + n_underground_lines)
 
-            ''' Feeder Stats '''
-            ''' ✓ n_feeders '''
-            ''' Total line length of feeders '''
-            ''' Number of graph edges in the feeder '''
-            ''' Total number of nodes  in the feeder '''
-            ''' Amount of nodes of degree 1, 2, 3, 4, >4 (absolute or percentage) '''
-            ''' Number of Wires in the feeder '''
-            ''' Distance (length, hops & impedance) to LV substation from all nodes ('*_to_sub') '''
-            ''' n_distinct_line_types (a byproduct of finding feeders and removing cycles) '''
-            ''' Min/Max/Avg/Median feeder length '''
-            ''' Distance (length, hops & impedance) to LV substation from all Feeder nodes  '''
+            """ Feeder Stats """
+            """ ✓ n_feeders """
+            """ Total line length of feeders """
+            """ Number of graph edges in the feeder """
+            """ Total number of nodes  in the feeder """
+            """ Amount of nodes of degree 1, 2, 3, 4, >4 (absolute or percentage) """
+            """ Number of Wires in the feeder """
+            """ Distance (length, hops & impedance) to LV substation from all nodes ('*_to_sub') """
+            """ n_distinct_line_types (a byproduct of finding feeders and removing cycles) """
+            """ Min/Max/Avg/Median feeder length """
+            """ Distance (length, hops & impedance) to LV substation from all Feeder nodes  """
 
             feeder_sub_stats = []
             feeder_lines = []
@@ -253,13 +249,13 @@ class LVFTMetrics():
 
                 stats['feeder_total_line_length'] = sum([x.length for x in feeder_lines])
 
-                ''' Number of graph edges'''
+                """ Number of graph edges"""
                 stats['feeder_total_n_edges'] = sum([len(graph.edges) for graph in mdl.feeder_subgraphs])
 
-                ''' Total number of nodes '''
+                """ Total number of nodes """
                 stats['feeder_total_n_nodes'] = sum([len(graph.nodes) for graph in mdl.feeder_subgraphs])
 
-                ''' Take the average of all the usual stats across all feeders '''
+                """ Take the average of all the usual stats across all feeders """
                 df = pd.DataFrame(feeder_sub_stats)
                 feeder_avg_stats = df.mean(axis='rows')
                 stats.update(feeder_avg_stats.to_dict())
@@ -267,7 +263,7 @@ class LVFTMetrics():
             ditto_metrics = self.get_ditto_metrics(mdl)
             stats.update(ditto_metrics)
 
-            # ''' Store all lats and longs in a cell.  Have to create column and set dtype to object for this to work.'''
+            # """ Store all lats and longs in a cell.  Have to create column and set dtype to object for this to work."""
             # if 'all_lat_longs' not in report.columns:
             #     report['all_lat_longs'] = np.nan
             #     report['all_lat_longs'] = report['all_lat_longs'].astype('object')
@@ -280,22 +276,22 @@ class LVFTMetrics():
             return pd.DataFrame(index=[count], data={'metrics_error': str(e)})
 
     def get_ditto_metrics(self, store) -> dict:
-        '''
-        Try to compute the metrics.  See https://nrel.github.io/ditto/metrics/ for metrics descriptions.
-        # TODO make some effort to actually identify feeders based on continuous distinct line properties
+        """
+        Try to compute the ditto metrics.  See https://nrel.github.io/ditto/metrics/ for metrics descriptions.
+        # TODO identify feeders based on continuous distinct line properties
 
         :param store: the ditto Store model, which should contain only a single LV network, from which to calculate the metrics.
         :return: a dict containing all calculated metrics.
-        '''
+        """
         try:
             # Add the feeder information to the network analyzer so metrics can be computed
-            ''' There should only be one power source per LV network, just get its name. '''
+            """ There should only be one power source per LV network, just get its name. """
             source_bus_name = ditto_utils.get_power_sources(store)[0]
 
-            ''' Ditto makes you set some info about the feeder(s) inside the network before it will calculate metrics. 
+            """ Ditto makes you set some info about the feeder(s) inside the network before it will calculate metrics. 
                 We don't have a good way of identifying the actual feeder lines/nodes (yet), so just include all non-load nodes in the LV network.
                 Unclear what feeder_types is used for - think it's just an arbitrary string. 
-            '''
+            """
             # Ditto defines network nodes as anything with a from, to or connecting element, so we'll duplicate this logic when defining the feeder nodes.
             feeder_nodes = [[i.name for i in store.models if
                              (hasattr(i, "from_element") and i.from_element is not None and
@@ -311,7 +307,7 @@ class LVFTMetrics():
             network_analyst.compute_all_metrics(source_bus_name)
             # logger.info(f'Metrics: \n{network_analyst.results}')
 
-            ''' Ditto returns a nested dict structure.  Flatten this and drop missing and non-scalar values, or anything with named keys (eg 'wire' metrics)'''
+            """ Ditto returns a nested dict structure.  Flatten this and drop missing and non-scalar values, or anything with named keys (eg 'wire' metrics)"""
             flat = flatten_dict(network_analyst.results[source_bus_name])
             flat = {i: j for i, j in flat.items() if j is not None and
                     not i.startswith('wire') and
@@ -326,7 +322,7 @@ class LVFTMetrics():
             return {'ditto_metrics_error': repr(e)}
 
     def calc_to_sub_stats(self, graph: nx.Graph, mdl: Store, source: str, prefix: str = '', parent_graph=None):
-        '''
+        """
         Calculates various distance metrics (length, hops & impedance) to LV substation from all nodes in the graph.
         :param graph: networkx graph in which to traverse node-to-source paths.  Maye be a subset of the model's full network.
         :param mdl: ditto model
@@ -334,7 +330,7 @@ class LVFTMetrics():
         :param prefix: a prefix to append to stat names (dict keys)
         :param parent_graph: if graph is a feeder subgraph (which may be disconnected from the sub node), you must also provide its parent graph so the path to sub can be assessed.
         :return: stats about node-to-source paths
-        '''
+        """
 
         hops, metres, r0s, r1s, x0s, x1s = [], [], [], [], [], []
         for node in graph.nodes:
@@ -344,7 +340,7 @@ class LVFTMetrics():
                 total_metres = nx.algorithms.shortest_path_length(graph if parent_graph is None else parent_graph, str(node), source, weight='length')
                 if total_metres > 0:
 
-                    ''' Step along the path from node to power source and sum total (not per metre) impedance values '''
+                    """ Step along the path from node to power source and sum total (not per metre) impedance values """
                     path = nx.algorithms.shortest_path(graph if parent_graph is None else parent_graph, str(node), source)
                     r0, r1, x0, x1 = 0, 0, 0, 0  # total resistance and admittance for the path from this node to the power source
                     for idx in range(len(path) - 1):
@@ -379,7 +375,7 @@ class LVFTMetrics():
                     if x1 > 0: x1s.append(x1)
 
         stats = OrderedDict()
-        ''' Add summary stats for all nodes-to-sub measurements '''
+        """ Add summary stats for all nodes-to-sub measurements """
         if len(hops) > 0:
             stats[prefix + 'max_hops_to_sub'] = round(max(hops), 3)
             stats[prefix + 'min_hops_to_sub'] = round(min(hops), 3)
@@ -418,14 +414,14 @@ class LVFTMetrics():
         return stats
 
     def calc_network_stats(self, graph, mdl, source, prefix='', parent_graph=None):
-        '''
+        """
         Calculates network stats for nodes, edges and paths to the transformer based on only the models in `mdl` which match the names of nodes and edges in `graph`.
         This allows separate calculations to be made for the entire network, and for subgraphs (like feeders)
         :param graph: the networkx graph (possibly containing a subset of objects in the ditto `mdl`) for which to calculate the stats
         :param mdl: the ditto model. Must contain all objects referenced (by mdl...name and graph...equipment_name) by the graph.
         :param source: the name of the power source in the model
         :return: a dict of stats
-        '''
+        """
 
         stats = OrderedDict()
 
@@ -437,27 +433,27 @@ class LVFTMetrics():
         loads = [l for l in mdl.models if isinstance(l, Load) if l.name in graph_names]
         nodes = [l for l in mdl.models if isinstance(l, Node) if l.name in graph_names]
 
-        ''' Total line length of whole network'''
+        """ Total line length of whole network"""
         stats[prefix + 'total_line_length'] = sum([x.length for x in lines])
 
-        ''' Number of graph edges'''
+        """ Number of graph edges"""
         stats[prefix + 'n_edges'] = len(graph.edges)
 
-        ''' Total number of nodes '''
+        """ Total number of nodes """
         stats[prefix + 'n_nodes'] = len(graph.nodes)
 
-        ''' Amount of nodes of degree 1, 2, 3, 4, >4 (absolute or percentage) '''
+        """ Amount of nodes of degree 1, 2, 3, 4, >4 (absolute or percentage) """
         node_degrees = np.histogram([val for (node, val) in graph.degree()], bins=[1, 2, 3, 4, 5, 6, np.inf])
         node_degrees = OrderedDict(dict(zip(node_degrees[1], node_degrees[0])))
         for k in sorted(node_degrees.keys()):
             stats[prefix + f'n_deg_{int(k) if k < 5 else ">4"}_node'] = node_degrees[k]
 
-        ''' Number of Wires per line '''
+        """ Number of Wires per line """
         wire_counts = dict(collections.Counter(sorted([len(l.wires) for l in lines if hasattr(l, 'wires')])))
         for wires, count in wire_counts.items():
             stats[prefix + f'n_{int(wires)}_wire_lines'] = count
 
-        ''' Distance (length, hops & impedance) to LV substation from all nodes  '''
+        """ Distance (length, hops & impedance) to LV substation from all nodes  """
         to_sub = self.calc_to_sub_stats(graph, mdl, source, prefix, parent_graph)
         stats.update(to_sub)
 
@@ -465,13 +461,13 @@ class LVFTMetrics():
 
 
 def flatten_dict(d, parent_key='', sep='_'):
-    '''
+    """
     Recursively flattens nested dicts, combining their keys for children.
     :param d:
     :param parent_key:
     :param sep:
     :return:
-    '''
+    """
     items = []
     for k, v in d.items():
         new_key = parent_key + sep + str(k) if parent_key else str(k)

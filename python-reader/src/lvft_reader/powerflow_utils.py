@@ -16,9 +16,9 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
-def run_opendss_power_flow(path_to_master, path_to_export):
+def run_opendss_power_flow(path_to_master: str, path_to_export: str):
     '''
-    Example code for runnings very basic power flow simulations using OpenDSS.
+    Experimental code for running very basic power flow simulations using OpenDSS.
 
     All:
     - Master.dss: remove all 'phases=3' strings
@@ -28,8 +28,8 @@ def run_opendss_power_flow(path_to_master, path_to_export):
     Run OpenDSS power flow on given feeder.
     Note: This relies on Opendssdirect.py (run: `pip install OpenDSSDirect.py[extras]==0.6.1`)
 
-    :param path_to_master:
-    :param path_to_export:
+    :param path_to_master: Path to master.dss file
+    :param path_to_export: Path to save resulting output files
     :return: A Dataframe constructed from reading  the simulated voltage_profile.csv, or and empty DataFrame if the simulation failed.
     :raise ChildProcessError if the simulation was unsuccessful.
     '''
