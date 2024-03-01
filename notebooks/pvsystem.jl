@@ -149,7 +149,7 @@ connection (delta,wye) $(@bind conn PlutoUI.Select(["wye","delta"]))
 # ╔═╡ 58f8f9c3-9478-4a0d-bfb6-9dc90390dda4
 md"""
 Select var control:
-$(@bind var_control PlutoUI.Select([("constant PF" => "constant PF"), ("volt/var" => "volt/var")]))
+$(@bind var_control PlutoUI.Select(["constant PF", "volt/var"]))
 """
 
 # ╔═╡ 8689056f-9135-4794-9684-da202086a979
@@ -278,7 +278,7 @@ end
 
 # ╔═╡ Cell order:
 # ╠═d0c17902-2d96-43dc-a627-1bcadb463d45
-# ╟─9326d206-bc46-11eb-202d-1716f033df55
+# ╠═9326d206-bc46-11eb-202d-1716f033df55
 # ╟─51cf36b1-1a0c-4514-8e74-3887718e8c4d
 # ╟─e52daa14-1f3c-4572-924e-5d08c4972d1b
 # ╟─c40d64d4-e27e-461c-ac0c-5c0784f3b8dc
@@ -290,12 +290,13 @@ end
 # ╟─a4f09d24-9f5d-4bea-8529-823f95b3b15e
 # ╟─66754599-3fa5-49d6-a3a2-c463b3eb40ca
 # ╟─f16ac2da-e148-4854-a784-ac7e53ca0526
-# ╟─cc84c5b5-c9a4-449c-9c89-4e3abce2b625
+# ╠═cc84c5b5-c9a4-449c-9c89-4e3abce2b625
 # ╟─58f8f9c3-9478-4a0d-bfb6-9dc90390dda4
 # ╟─8689056f-9135-4794-9684-da202086a979
 # ╟─7cad5e72-9ee4-4583-93dc-7b00460f412d
 # ╟─4da21b95-f2d7-431f-933e-b650c7e7d23d
 # ╟─6adcda53-28d2-4323-909b-d17612c0f772
+# ╠═270ebb94-9ea3-44ef-9d7b-03d06b253ea9
 # ╟─4bc59303-506c-431a-9de1-f6a76df46fdb
 # ╟─6f56a6de-f608-46f1-9be1-b264fcffff5e
 # ╠═273753d2-ee13-4cf0-aa53-fcd02df6dd93
