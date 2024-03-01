@@ -216,8 +216,8 @@ function plot_substation_power()
     ylabel!("Reactive power (kvar)")
     xlabel!("Time (hour)")
     for (p, phase) in enumerate(fbus_phases)
-        sm = monitors_csv[!," S$p (kVA)"]
-        sa = monitors_csv[!," Ang$p"]
+        sm = monitors_csv[!,"S$p (kVA)"]
+        sa = monitors_csv[!,"Ang$p"]
         S = sm.*exp.(im*sa./180*pi) 
         P = real.(S)
         Q = imag.(S)

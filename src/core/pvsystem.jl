@@ -21,6 +21,7 @@ function add_pvsystem(buses, bus_phases; phases=[1,2,3], kV=0.4, kVA=3, conn="Wy
             pvsystem_bus_dict[pvsystem_name]["bus"] = bus
             pvsystem_bus_dict[pvsystem_name]["phases"] = phases2
             pvsystem_bus_dict[pvsystem_name]["uuid"] = pv_uuid
+            
             _ODSS.dss("""
                 New PVSystem.$pvsystem_name Bus1=$bus_name phases=$nphases kV=$kV kVA=$kVA conn=$conn PF=$PF Pmpp=$Pmpp
                 New Monitor.monitor_$pvsystem_name element=PVSystem.$pvsystem_name
@@ -63,30 +64,30 @@ function get_solution_pvsystem(pvsystem_bus_dict)
         pvsystem_dict[pvsystem_name]["bus"] = bus_name
         pvsystem_dict[pvsystem_name]["monitor_file"] = monitor_file
         pvsystem_dict[pvsystem_name]["hour"] = monitors_csv[!,"hour"]
-        pvsystem_dict[pvsystem_name]["time_sec"] = monitors_csv[!," t(sec)"]
-        if " I1" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["cma"] = monitors_csv[!," I1"]
+        pvsystem_dict[pvsystem_name]["time_sec"] = monitors_csv[!,"t(sec)"]
+        if "I1" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["cma"] = monitors_csv[!,"I1"]
         end
-        if " I2" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["cmb"] = monitors_csv[!," I2"]
+        if "I2" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["cmb"] = monitors_csv[!,"I2"]
         end
-        if " I3" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["cmc"] = monitors_csv[!," I3"]
+        if "I3" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["cmc"] = monitors_csv[!,"I3"]
         end
-        if " I4" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["cmn"] = monitors_csv[!," I4"]
+        if "I4" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["cmn"] = monitors_csv[!,"I4"]
         end
-        if " IAngle1" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["caa"] = monitors_csv[!," IAngle1"]
+        if "IAngle1" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["caa"] = monitors_csv[!,"IAngle1"]
         end
-        if " IAngle2" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["cab"] = monitors_csv[!," IAngle2"]
+        if "IAngle2" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["cab"] = monitors_csv[!,"IAngle2"]
         end
-        if " IAngle3" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["cac"] = monitors_csv[!," IAngle3"]
+        if "IAngle3" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["cac"] = monitors_csv[!,"IAngle3"]
         end
-        if " IAngle4" in DataFrames.names(monitors_csv)
-            pvsystem_dict[pvsystem_name]["can"] = monitors_csv[!," IAngle4"]
+        if "IAngle4" in DataFrames.names(monitors_csv)
+            pvsystem_dict[pvsystem_name]["can"] = monitors_csv[!,"IAngle4"]
         end
 
     end

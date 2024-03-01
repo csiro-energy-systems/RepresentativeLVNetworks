@@ -142,7 +142,7 @@ kVA (0, 20) $(@bind kVA PlutoUI.Slider(0:0.5:20; default=5, show_value=true))
 
 # ╔═╡ 7ae129c6-bc47-496c-9b32-2fdcddd4d632
 md"""
-connection (delta,wye) $(@bind conn PlutoUI.Select(["first"=>"wye", "second"=>"delta"]))
+connection (delta,wye) $(@bind conn PlutoUI.Select([wye", "delta"]))
 """
 
 # ╔═╡ f5af133d-7a38-4c06-8297-db14f896b80f
