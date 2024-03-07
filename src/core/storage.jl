@@ -63,42 +63,42 @@ function get_solution_storage(storage_bus_dict)
         storage_dict[storage_name]["bus"] = bus_name
         storage_dict[storage_name]["monitor_file"] = monitor_file
         storage_dict[storage_name]["hour"] = monitors_csv[!,"hour"]
-        storage_dict[storage_name]["time_sec"] = monitors_csv[!," t(sec)"]
+        storage_dict[storage_name]["time_sec"] = monitors_csv[!,"t(sec)"]
 
         _ODSS.Circuit.SetActiveBus(bus_name)
         bus_nodes = _ODSS.Bus.Nodes()
 
         for (p, phase) in enumerate(bus_nodes)
-            sm = monitors_csv[!," S$p (kVA)"]
-            sa = monitors_csv[!," Ang$p"]
+            sm = monitors_csv[!,"S$p (kVA)"]
+            sa = monitors_csv[!,"Ang$p"]
             S = sm.*exp.(im*sa./180*pi) 
             storage_dict[storage_name]["P$p"] = real.(S)
             storage_dict[storage_name]["Q$p"] = imag.(S)
         end
 
-        # if " I1" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["cma"] = monitors_csv[!," I1"]
+        # if "I1" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["cma"] = monitors_csv[!,"I1"]
         # end
-        # if " I2" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["cmb"] = monitors_csv[!," I2"]
+        # if "I2" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["cmb"] = monitors_csv[!,"I2"]
         # end
-        # if " I3" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["cmc"] = monitors_csv[!," I3"]
+        # if "I3" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["cmc"] = monitors_csv[!,"I3"]
         # end
-        # if " I4" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["cmn"] = monitors_csv[!," I4"]
+        # if "I4" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["cmn"] = monitors_csv[!,"I4"]
         # end
-        # if " IAngle1" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["caa"] = monitors_csv[!," IAngle1"]
+        # if "IAngle1" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["caa"] = monitors_csv[!,"IAngle1"]
         # end
-        # if " IAngle2" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["cab"] = monitors_csv[!," IAngle2"]
+        # if "IAngle2" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["cab"] = monitors_csv[!,"IAngle2"]
         # end
-        # if " IAngle3" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["cac"] = monitors_csv[!," IAngle3"]
+        # if "IAngle3" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["cac"] = monitors_csv[!,"IAngle3"]
         # end
-        # if " IAngle4" in DataFrames.names(monitors_csv)
-        #     storage_dict[storage_name]["can"] = monitors_csv[!," IAngle4"]
+        # if "IAngle4" in DataFrames.names(monitors_csv)
+        #     storage_dict[storage_name]["can"] = monitors_csv[!,"IAngle4"]
         # end
 
     end

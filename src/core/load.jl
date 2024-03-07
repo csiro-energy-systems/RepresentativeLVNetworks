@@ -75,8 +75,10 @@ function load_bus_mapping()
     for bus_name in _ODSS.Circuit.AllBusNames()
         _ODSS.Circuit.SetActiveBus(bus_name)
         for load in _ODSS.Bus.LoadList()
-            load_name = split(load,".")[2]
-            load_bus_mapping_dict[load_name] = bus_name
+            if !isempty(load)
+                load_name = split(load,".")[2]
+                load_bus_mapping_dict[load_name] = bus_name
+            end
         end
     end
     return load_bus_mapping_dict
@@ -99,12 +101,14 @@ function load_line_mapping()
         _ODSS.Circuit.SetActiveBus(bus_name)
         if ~isempty(_ODSS.Bus.LoadList()) && length(_ODSS.Bus.LineList()) == 1 
             for load in _ODSS.Bus.LoadList()
-                load_name = split(load,".")[2]
-                load_line_mapping_dict[load_name] = Dict()
+                if !isempty(load)
+                    load_name = split(load,".")[2]
+                    load_line_mapping_dict[load_name] = Dict()
 
-                line_name = split(_ODSS.Bus.LineList()[1],".")[2] 
-                load_line_mapping_dict[load_name]["line"] = line_name
-                load_line_mapping_dict[load_name]["bus"] = bus_name
+                    line_name = split(_ODSS.Bus.LineList()[1],".")[2] 
+                    load_line_mapping_dict[load_name]["line"] = line_name
+                    load_line_mapping_dict[load_name]["bus"] = bus_name
+                end
             end
         end
     end
@@ -126,22 +130,22 @@ function get_solution_load()
         # load_dict[load_name]["bus"] = bus_name
         load_dict[load_name]["monitor_file"] = monitor_file
         load_dict[load_name]["hour"] = monitors_csv[!,"hour"]
-        load_dict[load_name]["time_sec"] = monitors_csv[!," t(sec)"]
-        if " S1 (kVA)" in DataFrames.names(monitors_csv)
-            load_dict[load_name]["pa"] = monitors_csv[!," S1 (kVA)"] .* cos.( pi/180*monitors_csv[!," Ang1"])
-            load_dict[load_name]["qa"] = monitors_csv[!," S1 (kVA)"] .* sin.( pi/180*monitors_csv[!," Ang1"])
+        load_dict[load_name]["time_sec"] = monitors_csv[!,"t(sec)"]
+        if "S1 (kVA)" in DataFrames.names(monitors_csv)
+            load_dict[load_name]["pa"] = monitors_csv[!,"S1 (kVA)"] .* cos.( pi/180*monitors_csv[!,"Ang1"])
+            load_dict[load_name]["qa"] = monitors_csv[!,"S1 (kVA)"] .* sin.( pi/180*monitors_csv[!,"Ang1"])
         end
-        if " S2 (kVA)" in DataFrames.names(monitors_csv)
-            load_dict[load_name]["pb"] = monitors_csv[!," S2 (kVA)"] .* cos.( pi/180*monitors_csv[!," Ang2"])
-            load_dict[load_name]["qb"] = monitors_csv[!," S2 (kVA)"] .* sin.( pi/180*monitors_csv[!," Ang2"])
+        if "S2 (kVA)" in DataFrames.names(monitors_csv)
+            load_dict[load_name]["pb"] = monitors_csv[!,"S2 (kVA)"] .* cos.( pi/180*monitors_csv[!,"Ang2"])
+            load_dict[load_name]["qb"] = monitors_csv[!,"S2 (kVA)"] .* sin.( pi/180*monitors_csv[!,"Ang2"])
         end
-        if " S3 (kVA)" in DataFrames.names(monitors_csv)
-            load_dict[load_name]["pc"] = monitors_csv[!," S3 (kVA)"] .* cos.( pi/180*monitors_csv[!," Ang3"])
-            load_dict[load_name]["qc"] = monitors_csv[!," S3 (kVA)"] .* sin.( pi/180*monitors_csv[!," Ang3"])
+        if "S3 (kVA)" in DataFrames.names(monitors_csv)
+            load_dict[load_name]["pc"] = monitors_csv[!,"S3 (kVA)"] .* cos.( pi/180*monitors_csv[!,"Ang3"])
+            load_dict[load_name]["qc"] = monitors_csv[!,"S3 (kVA)"] .* sin.( pi/180*monitors_csv[!,"Ang3"])
         end
-        if " S4 (kVA)" in DataFrames.names(monitors_csv)
-            load_dict[load_name]["pn"] = monitors_csv[!," S4 (kVA)"] .* cos.( pi/180*monitors_csv[!," Ang4"])
-            load_dict[load_name]["qn"] = monitors_csv[!," S4 (kVA)"] .* sin.( pi/180*monitors_csv[!," Ang4"])
+        if "S4 (kVA)" in DataFrames.names(monitors_csv)
+            load_dict[load_name]["pn"] = monitors_csv[!,"S4 (kVA)"] .* cos.( pi/180*monitors_csv[!,"Ang4"])
+            load_dict[load_name]["qn"] = monitors_csv[!,"S4 (kVA)"] .* sin.( pi/180*monitors_csv[!,"Ang4"])
         end
     end
     return load_dict

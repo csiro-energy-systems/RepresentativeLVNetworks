@@ -66,8 +66,8 @@ end
 #         bus_name = split(_ODSS.Lines.Bus1(), ".")[1]
         
 #         @show bus_name
-#         @show monitors_csv[!," t(sec)"]
-#         buses_df[buses_df[!,:Bus].==bus_name,:time_sec] = monitors_csv[!," t(sec)"]
+#         @show monitors_csv[!,"t(sec)"]
+#         buses_df[buses_df[!,:Bus].==bus_name,:time_sec] = monitors_csv[!,"t(sec)"]
 
 #         ### monitors_csv has two rows for the same t(sec), we should resolve this issue
 #         buses_df[buses_df[!,:Bus].==bus_name,:vma] = monitors_csv[!," V1"][1]
@@ -96,11 +96,11 @@ function get_solution_bus_voltage()
             bus_dict[bus_name]["distance"] = _ODSS.Bus.Distance()
             bus_dict[bus_name]["monitor_file"] = monitor_file
             bus_dict[bus_name]["hour"] = monitors_csv[!,"hour"]
-            bus_dict[bus_name]["time_sec"] = monitors_csv[!," t(sec)"]
+            bus_dict[bus_name]["time_sec"] = monitors_csv[!,"t(sec)"]
         end
         for (p,phase) in enumerate(bus_phases)
-            bus_dict[bus_name]["vm"*phase_mapping[phase]] = monitors_csv[!," V$p"]
-            bus_dict[bus_name]["va"*phase_mapping[phase]] = monitors_csv[!," VAngle$p"]
+            bus_dict[bus_name]["vm"*phase_mapping[phase]] = monitors_csv[!,"V$p"]
+            bus_dict[bus_name]["va"*phase_mapping[phase]] = monitors_csv[!,"VAngle$p"]
         end
 
 
@@ -119,11 +119,11 @@ function get_solution_bus_voltage()
             bus_dict[bus_name]["distance"] = _ODSS.Bus.Distance()
             bus_dict[bus_name]["monitor_file"] = monitor_file
             bus_dict[bus_name]["hour"] = monitors_csv[!,"hour"]
-            bus_dict[bus_name]["time_sec"] = monitors_csv[!," t(sec)"]
+            bus_dict[bus_name]["time_sec"] = monitors_csv[!,"t(sec)"]
         end
         for (p,phase) in enumerate(bus_phases)
-            bus_dict[bus_name]["vm"*phase_mapping[phase]] = monitors_csv[!," V$p"]
-            bus_dict[bus_name]["va"*phase_mapping[phase]] = monitors_csv[!," VAngle$p"]
+            bus_dict[bus_name]["vm"*phase_mapping[phase]] = monitors_csv[!,"V$p"]
+            bus_dict[bus_name]["va"*phase_mapping[phase]] = monitors_csv[!,"VAngle$p"]
         end
 
     end
