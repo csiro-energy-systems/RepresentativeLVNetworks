@@ -101,12 +101,14 @@ function load_line_mapping()
         _ODSS.Circuit.SetActiveBus(bus_name)
         if ~isempty(_ODSS.Bus.LoadList()) && length(_ODSS.Bus.LineList()) == 1 
             for load in _ODSS.Bus.LoadList()
-                load_name = split(load,".")[2]
-                load_line_mapping_dict[load_name] = Dict()
+                if !isempty(load)
+                    load_name = split(load,".")[2]
+                    load_line_mapping_dict[load_name] = Dict()
 
-                line_name = split(_ODSS.Bus.LineList()[1],".")[2] 
-                load_line_mapping_dict[load_name]["line"] = line_name
-                load_line_mapping_dict[load_name]["bus"] = bus_name
+                    line_name = split(_ODSS.Bus.LineList()[1],".")[2] 
+                    load_line_mapping_dict[load_name]["line"] = line_name
+                    load_line_mapping_dict[load_name]["bus"] = bus_name
+                end
             end
         end
     end
